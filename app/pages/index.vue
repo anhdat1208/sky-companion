@@ -172,6 +172,11 @@ onMounted(async () => {
           </p>
         </SkyCard>
 
+        <SkyMap2D
+          :moon="sky.snapshot.value.moon"
+          :planets="sky.snapshot.value.planets"
+        />
+
         <MoonCard :moon="sky.snapshot.value.moon" />
         <SunCard :sun="sky.snapshot.value.sun" />
         <PlanetCard :planets="sky.snapshot.value.planets" />
