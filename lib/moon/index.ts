@@ -15,9 +15,9 @@ export {
   getMoonHorizontal,
   getMoonRiseSet
 } from './position'
-export { buildPhotographyGuide } from './photography'
-export { computeObservationScore } from './score'
 export { getMoonInfo } from './snapshot'
+export { computeObservationScore } from './score'
+export { buildPhotographyGuide } from './photography'
 export {
   buildMonthCalendar,
   buildMoonDayDetail,
@@ -26,3 +26,4 @@ export {
   toDateISO
 } from './calendar'
 export { listUpcomingMoonQuarters } from './events'
+export { listUpcomingLunarEclipses } from './eclipse'
