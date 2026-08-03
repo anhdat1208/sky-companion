@@ -1,12 +1,15 @@
-import { readFileSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
-import { dirname, join } from 'node:path'
 import type { IssSnapshot } from '../../types/iss'
 
 export const ISS_TLE_URL =
   'https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle'
 
 export const TLE_CACHE_TTL_MS = 4 * 60 * 60 * 1000
+
+/** Bundled offline TLE (mirrors `fixtures/iss-tle.txt`). */
+const FALLBACK_TLE_TEXT = `ISS (ZARYA)
+1 25544U 98067A   26214.50635181  .00006342  00000+0  12183-3 0  9996
+2 25544  51.6315  70.8679 0007172   4.7554 355.3502 15.49313226578933
+`
 
 export interface ParsedTle {
   name: string
@@ -44,9 +47,7 @@ export function parseIssTleBlock(text: string): ParsedTle {
 }
 
 export function readFallbackTle(): ParsedTle {
-  const dir = dirname(fileURLToPath(import.meta.url))
-  const raw = readFileSync(join(dir, 'fixtures', 'iss-tle.txt'), 'utf8')
-  return parseIssTleBlock(raw)
+  return parseIssTleBlock(FALLBACK_TLE_TEXT)
 }
 
 export async function getIssTle(options?: {

@@ -10,7 +10,13 @@ function round(value: number, decimals: number): number {
 export function propagateIss(tle: ParsedTle, when: Date): IssPosition {
   const satrec = satellite.twoline2satrec(tle.line1, tle.line2)
   const pv = satellite.propagate(satrec, when)
-  if (typeof pv.position === 'boolean' || typeof pv.velocity === 'boolean' || !pv.position || !pv.velocity) {
+  if (
+    !pv
+    || typeof pv.position === 'boolean'
+    || typeof pv.velocity === 'boolean'
+    || !pv.position
+    || !pv.velocity
+  ) {
     throw new Error('ISS propagation failed.')
   }
 

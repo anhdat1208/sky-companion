@@ -2,14 +2,15 @@
 
 Nuxt 4 web app that shows which celestial objects are above a given location and time — moon, sun, visible planets, constellation context, Milky Way visibility, and a look direction — with a static compass view for azimuth markers.
 
-MVP focus: clean modular architecture, server-side astronomy, typed APIs, and a mobile-first dark UI. No auth, database, or real-time ISS tracking yet.
+MVP focus: clean modular architecture, server-side astronomy, typed APIs, and a mobile-first dark UI. No auth or database yet.
 
 ## Features
 
 - Home page with browser geolocation and manual lat/lng fallback
 - Sky snapshot cards: location, time, moon, sun, planets, constellation, Milky Way rating, direction to look
 - Compass page with N/S/E/W and markers for the moon and selected planet
-- Typed Nitro API routes for sky, moon, planets, and a mocked ISS payload
+- ISS Now page with TLE-backed position, ground track, next pass, and brightness
+- Typed Nitro API routes for sky, moon, planets, and ISS (`IssSnapshot`)
 - Shared TypeScript contracts between UI and server (`types/*`)
 - Mapbox token stub via env (no map UI in MVP)
 
@@ -72,7 +73,7 @@ Mapped in `nuxt.config.ts` as `runtimeConfig.public.mapboxToken`.
 | `GET` | `/api/sky` | `lat`, `lng`, `time?` | `SkySnapshot` |
 | `GET` | `/api/moon` | `lat`, `lng`, `time?` | `MoonInfo` |
 | `GET` | `/api/planets` | `lat`, `lng`, `time?` | `PlanetInfo[]` |
-| `GET` | `/api/iss` | — | mocked `ISSPass` |
+| `GET` | `/api/iss` | `lat?`, `lng?` | `IssSnapshot` (TLE-backed) |
 
 - `lat` ∈ [-90, 90], `lng` ∈ [-180, 180]
 - `time` optional ISO-8601 datetime; defaults to server “now”
@@ -107,13 +108,13 @@ Key folders:
 - `utils/` — time + Zod validation
 - `tests/` — Vitest coverage for lib, server, composables
 
-Confirmed MVP decisions: astronomy on the server only; static compass (no DeviceOrientation); Mapbox config stub only; ISS endpoint is mocked.
+Confirmed MVP decisions: astronomy on the server only; static compass (no DeviceOrientation); Mapbox config stub only; ISS via TLE + SGP4 (Celestrak with cache/fallback).
 
 ## Roadmap (short)
 
 Out of scope for MVP; intended next steps without rewriting the core:
 
-- Real ISS pass / position provider behind `/api/iss`
+- Push notifications for upcoming ISS passes
 - Weather, light pollution, or aurora adapters enriching `SkySnapshot`
 - Golden / blue hour extensions in `lib/sun.ts`
 - Optional device-orientation compass mode on the client

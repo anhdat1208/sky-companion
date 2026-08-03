@@ -131,7 +131,7 @@ export function computeCurrentBrightness(
 ): IssBrightness {
   const satrec = satellite.twoline2satrec(tle.line1, tle.line2)
   const pv = satellite.propagate(satrec, when)
-  if (typeof pv.position === 'boolean' || !pv.position) {
+  if (!pv || typeof pv.position === 'boolean' || !pv.position) {
     throw new Error('ISS propagation failed for brightness.')
   }
 

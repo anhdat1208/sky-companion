@@ -67,7 +67,7 @@ function sampleLook(
 ): LookSample | null {
   const when = new Date(timeMs)
   const pv = satellite.propagate(satrec, when)
-  if (typeof pv.position === 'boolean' || !pv.position) {
+  if (!pv || typeof pv.position === 'boolean' || !pv.position) {
     return null
   }
 
@@ -123,7 +123,7 @@ function magnitudeAtMax(
 ): number | null {
   const when = new Date(maxTimeMs)
   const pv = satellite.propagate(satrec, when)
-  if (typeof pv.position === 'boolean' || !pv.position) {
+  if (!pv || typeof pv.position === 'boolean' || !pv.position) {
     return null
   }
 
