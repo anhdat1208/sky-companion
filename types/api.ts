@@ -3,10 +3,10 @@ export interface ApiError {
   message: string
 }
 
-export interface ISSPass {
-  timestamp: string
-  latitude: number
-  longitude: number
-  altitudeKm: number
-  velocityKph: number
-}
+export type {
+  IssBrightness,
+  IssPassPrediction,
+  IssPosition,
+  IssSnapshot,
+  ISSPass
+} from './iss'
