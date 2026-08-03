@@ -28,6 +28,7 @@ export function useTelescope(
 
   const {
     pointing,
+    sensorError,
     setManualPointing,
     enableSensor
   } = useDevicePointing()
@@ -129,6 +130,7 @@ export function useTelescope(
     selectTarget,
     guidance,
     pointing,
+    sensorError,
     setManualPointing,
     enableSensor,
     starHopSteps,
