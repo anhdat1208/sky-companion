@@ -1,7 +1,7 @@
 <template>
   <SkyCard>
     <SectionTitle
-      title="Nh?y sao"
+      title="Nhảy sao"
       subtitle="Tính năng dẫn đường sao nhảy sẽ xuất hiện ở phiên bản sau."
     />
 
