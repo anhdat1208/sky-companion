@@ -184,70 +184,69 @@ watch(coordinates, (next, previous) => {
       @submit="handleManualSubmit"
     />
 
-    <template v-else-if="coordinates">
-      <CurrentLocation
-        :coordinates="coordinates"
-        :source-label="locationSourceLabel"
-      />
+    <CurrentLocation
+      v-else-if="coordinates"
+      :coordinates="coordinates"
+      :source-label="locationSourceLabel"
+    />
 
-      <div class="flex flex-wrap gap-3">
-        <button
-          type="button"
-          class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-          @click="refresh()"
-        >
-          Làm mới ISS
-        </button>
-        <button
-          v-if="!hasQueryCoordinates"
-          type="button"
-          class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-          @click="retryLocation"
-        >
-          Lấy lại vị trí
-        </button>
-      </div>
-
-      <LoadingLocation
-        v-if="isFetchingIss"
-        message="Đang tải dữ liệu ISS..."
-      />
-
-      <SkyCard
-        v-else-if="error"
-        role="alert"
+    <div class="flex flex-wrap gap-3">
+      <button
+        type="button"
+        class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+        @click="refresh()"
       >
-        <SectionTitle
-          title="Không tải được dữ liệu ISS"
-          :subtitle="error"
-        />
-        <button
-          type="button"
-          class="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
-          @click="refresh()"
-        >
-          Thử lại
-        </button>
-      </SkyCard>
+        Làm mới ISS
+      </button>
+      <button
+        v-if="!hasQueryCoordinates && hasAttemptedLocation"
+        type="button"
+        class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+        @click="retryLocation"
+      >
+        Lấy lại vị trí
+      </button>
+    </div>
 
-      <template v-else-if="showSnapshot && snapshot">
-        <p
-          v-if="snapshot.source === 'fallback-tle'"
-          class="text-sm text-slate-500"
-        >
-          Đang dùng TLE dự phòng nội bộ — dữ liệu có thể kém chính xác hơn nguồn trực tiếp.
-        </p>
+    <LoadingLocation
+      v-if="isFetchingIss"
+      message="Đang tải dữ liệu ISS..."
+    />
 
-        <IssPositionCard :position="snapshot.position" />
-        <IssStatsCard :position="snapshot.position" />
-        <IssGroundTrackMap
-          :ground-track="snapshot.groundTrack"
-          :position="snapshot.position"
-        />
-        <IssNextPassCard :next-pass="snapshot.nextPass" />
-        <IssBrightnessCard :brightness="snapshot.brightness" />
-        <IssNotificationsStub />
-      </template>
+    <SkyCard
+      v-else-if="error"
+      role="alert"
+    >
+      <SectionTitle
+        title="Không tải được dữ liệu ISS"
+        :subtitle="error"
+      />
+      <button
+        type="button"
+        class="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+        @click="refresh()"
+      >
+        Thử lại
+      </button>
+    </SkyCard>
+
+    <template v-else-if="showSnapshot && snapshot">
+      <p
+        v-if="snapshot.source === 'fallback-tle'"
+        class="text-sm text-slate-500"
+      >
+        Đang dùng TLE dự phòng nội bộ — dữ liệu có thể kém chính xác hơn nguồn trực tiếp.
+      </p>
+
+      <IssPositionCard :position="snapshot.position" />
+      <IssStatsCard :position="snapshot.position" />
+      <IssGroundTrackMap
+        :ground-track="snapshot.groundTrack"
+        :position="snapshot.position"
+      />
+      <IssNextPassCard :next-pass="snapshot.nextPass" />
+      <IssBrightnessCard :brightness="snapshot.brightness" />
+      <IssNotificationsStub />
     </template>
   </div>
 </template>
