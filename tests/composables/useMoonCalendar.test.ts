@@ -61,4 +61,16 @@ describe('useMoonCalendar', () => {
     const api = useMoonCalendar(coordinates, fixed)
     expect(api.error.value).toBe('boom moon')
   })
+
+  it('clears selectedDetail when navigating to next month', () => {
+    const coordinates = ref<Coordinates | null>({ lat: 21.0285, lng: 105.8542 })
+    const api = useMoonCalendar(coordinates, fixed)
+
+    api.selectDay('2026-08-03')
+    expect(api.selectedDetail.value).not.toBeNull()
+
+    api.goToNextMonth()
+    expect(api.selectedDateISO.value).toBeNull()
+    expect(api.selectedDetail.value).toBeNull()
+  })
 })

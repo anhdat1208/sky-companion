@@ -124,6 +124,7 @@ export function useMoonCalendar(
       viewedMonth.value -= 1
     }
     selectedDateISO.value = null
+    selectedDetail.value = null
     recompute()
   }
 
@@ -135,6 +136,7 @@ export function useMoonCalendar(
       viewedMonth.value += 1
     }
     selectedDateISO.value = null
+    selectedDetail.value = null
     recompute()
   }
 
