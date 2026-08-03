@@ -23,10 +23,10 @@ describe('rankTonightTargets', () => {
 
   it('caps below-horizon targets at score 1', () => {
     const ranked = rankTonightTargets(21.0285, 105.8542, new Date('2026-08-03T14:00:00Z'))
-    for (const item of ranked) {
-      if (item.altitude < 0) {
-        expect(item.visibilityScore).toBe(1)
-      }
+    const belowHorizon = ranked.filter(item => item.altitude < 0)
+    expect(belowHorizon.length).toBeGreaterThan(0)
+    for (const item of belowHorizon) {
+      expect(item.visibilityScore).toBe(1)
     }
   })
 })
