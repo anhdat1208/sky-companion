@@ -28,7 +28,7 @@ describe('useDevicePointing', () => {
     const api = useDevicePointing()
     await api.enableSensor()
     expect(api.pointing.value.source).toBe('manual')
-    expect(api.sensorError.value).not.toBeNull()
+    expect(api.sensorError.value).toBe('Trình duyệt này không hỗ trợ cảm biến hướng thiết bị.')
   })
 
   it('clears sensor source on permission denial while keeping az/alt', async () => {
@@ -48,6 +48,6 @@ describe('useDevicePointing', () => {
       source: 'manual'
     })
     expect(api.mode.value).toBe('manual')
-    expect(api.sensorError.value).not.toBeNull()
+    expect(api.sensorError.value).toBe('Bạn đã từ chối quyền truy cập cảm biến hướng thiết bị.')
   })
 })

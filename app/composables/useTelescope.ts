@@ -1,6 +1,6 @@
 import { computed, ref, watch, type Ref } from 'vue'
 import type { Coordinates } from '../../types/location'
-import type { HopStep, TelescopeProfile } from '../../types/telescope'
+import type { HopStep, RankedTarget, TargetDetail, TelescopeProfile } from '../../types/telescope'
 import { buildGuidanceInstruction } from '../../lib/telescope/guidance'
 import { buildTargetDetail } from '../../lib/telescope/position'
 import { getMockProfiles } from '../../lib/telescope/profiles'
@@ -8,10 +8,19 @@ import { rankTonightTargets } from '../../lib/telescope/ranking'
 import { buildStarHopPlan } from '../../lib/telescope/starHop'
 import { useDevicePointing } from './useDevicePointing'
 
+const CALC_ERROR = 'Không thể tính toán mục tiêu. Hãy thử làm mới.'
+
 function resolveWhenSource(when?: Date | (() => Date)): () => Date {
   if (typeof when === 'function') return when
   if (when instanceof Date) return () => when
   return () => new Date()
+}
+
+function toErrorMessage(caught: unknown): string {
+  if (caught instanceof Error && caught.message.trim().length > 0) {
+    return caught.message
+  }
+  return CALC_ERROR
 }
 
 export function useTelescope(
@@ -21,16 +30,20 @@ export function useTelescope(
   const whenSource = resolveWhenSource(when)
   const refreshToken = ref(0)
   const whenOverride = ref<Date | null>(null)
+  const error = ref<string | null>(null)
 
   const profiles = ref<TelescopeProfile[]>(getMockProfiles())
   const selectedProfileId = ref<string | null>(null)
   const selectedTargetId = ref<string | null>(null)
+  const rankedTargets = ref<RankedTarget[]>([])
+  const selectedDetail = ref<TargetDetail | null>(null)
 
   const {
     pointing,
     sensorError,
     setManualPointing,
-    enableSensor
+    enableSensor,
+    disableSensor
   } = useDevicePointing()
 
   function currentWhen(): Date {
@@ -44,28 +57,49 @@ export function useTelescope(
     return profiles.value.find(profile => profile.id === id) ?? null
   })
 
-  const rankedTargets = computed(() => {
+  function recompute() {
     const coords = coordinates.value
-    if (!coords) return []
+    if (!coords) {
+      rankedTargets.value = []
+      selectedDetail.value = null
+      selectedTargetId.value = null
+      return
+    }
 
-    return rankTonightTargets(
-      coords.lat,
-      coords.lng,
-      currentWhen(),
-      selectedProfile.value ?? undefined
-    )
-  })
+    try {
+      const ranked = rankTonightTargets(
+        coords.lat,
+        coords.lng,
+        currentWhen(),
+        selectedProfile.value ?? undefined
+      )
+      rankedTargets.value = ranked
 
-  const selectedDetail = computed(() => {
-    const coords = coordinates.value
-    const targetId = selectedTargetId.value
-    if (!coords || !targetId) return null
+      if (ranked.length === 0) {
+        selectedTargetId.value = null
+        selectedDetail.value = null
+      } else {
+        const stillValid = selectedTargetId.value !== null
+          && ranked.some(item => item.target.id === selectedTargetId.value)
 
-    const ranked = rankedTargets.value.find(item => item.target.id === targetId)
-    if (!ranked) return null
+        if (!stillValid) {
+          selectedTargetId.value = ranked[0]!.target.id
+        }
 
-    return buildTargetDetail(ranked, coords.lat, coords.lng, currentWhen())
-  })
+        const rankedItem = ranked.find(item => item.target.id === selectedTargetId.value)
+        selectedDetail.value = rankedItem
+          ? buildTargetDetail(rankedItem, coords.lat, coords.lng, currentWhen())
+          : null
+      }
+
+      error.value = null
+    } catch (caught) {
+      rankedTargets.value = []
+      selectedDetail.value = null
+      selectedTargetId.value = null
+      error.value = toErrorMessage(caught)
+    }
+  }
 
   const guidance = computed(() => {
     const detail = selectedDetail.value
@@ -97,20 +131,8 @@ export function useTelescope(
   )
 
   watch(
-    rankedTargets,
-    (targets) => {
-      if (targets.length === 0) {
-        selectedTargetId.value = null
-        return
-      }
-
-      const stillValid = selectedTargetId.value !== null
-        && targets.some(item => item.target.id === selectedTargetId.value)
-
-      if (!stillValid) {
-        selectedTargetId.value = targets[0]!.target.id
-      }
-    },
+    [coordinates, selectedProfileId, selectedTargetId, refreshToken, whenOverride],
+    recompute,
     { immediate: true, flush: 'sync' }
   )
 
@@ -123,8 +145,16 @@ export function useTelescope(
   }
 
   function refresh(at?: Date) {
+    error.value = null
     whenOverride.value = at ?? null
     refreshToken.value += 1
+  }
+
+  function switchToManualPointing() {
+    setManualPointing({
+      azimuth: pointing.value.azimuth,
+      altitude: pointing.value.altitude
+    })
   }
 
   return {
@@ -141,7 +171,10 @@ export function useTelescope(
     sensorError,
     setManualPointing,
     enableSensor,
+    disableSensor,
+    switchToManualPointing,
     starHopSteps,
+    error,
     refresh
   }
 }

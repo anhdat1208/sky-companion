@@ -9,8 +9,13 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'enable-sensor': []
+  'disable-sensor': []
   'update:pointing': [pointing: DevicePointing]
 }>()
+
+const canSwitchToManual = computed(() => {
+  return props.pointing.source === 'sensor' && props.sensorError === null
+})
 
 const showManualControls = computed(() => {
   return props.pointing.source === 'manual' || props.sensorError !== null
@@ -114,6 +119,14 @@ const statusLabel: Record<GuidanceInstruction['status'], string> = {
         @click="emit('enable-sensor')"
       >
         Dùng cảm biến thiết bị
+      </button>
+      <button
+        v-if="canSwitchToManual"
+        type="button"
+        class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900"
+        @click="emit('disable-sensor')"
+      >
+        Dùng chỉnh thủ công
       </button>
       <p class="text-xs text-slate-400">
         Nguồn hiện tại:

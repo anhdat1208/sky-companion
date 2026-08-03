@@ -82,7 +82,7 @@ export function useDevicePointing() {
     sensorAvailable.value = isOrientationSupported()
 
     if (!sensorAvailable.value) {
-      fallbackToManual('Device orientation is not supported by this browser.')
+      fallbackToManual('Trình duyệt này không hỗ trợ cảm biến hướng thiết bị.')
       return
     }
 
@@ -91,7 +91,7 @@ export function useDevicePointing() {
       if (typeof DOE.requestPermission === 'function') {
         const permission = await DOE.requestPermission()
         if (permission !== 'granted') {
-          fallbackToManual('Device orientation permission was denied.')
+          fallbackToManual('Bạn đã từ chối quyền truy cập cảm biến hướng thiết bị.')
           return
         }
       }
@@ -102,7 +102,7 @@ export function useDevicePointing() {
       }
       mode.value = 'sensor'
     } catch {
-      fallbackToManual('Failed to enable device orientation.')
+      fallbackToManual('Không thể bật cảm biến hướng thiết bị.')
     }
   }
 

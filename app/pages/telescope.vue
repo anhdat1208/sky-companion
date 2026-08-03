@@ -88,6 +88,8 @@ const {
   sensorError,
   setManualPointing,
   enableSensor,
+  switchToManualPointing,
+  error,
   refresh
 } = useTelescope(coordinates)
 
@@ -221,30 +223,50 @@ watch(queryCoordinates, (next, previous) => {
         </button>
       </div>
 
-      <TelescopeProfilePicker
-        v-if="selectedProfileId"
-        :profiles="profiles"
-        :model-value="selectedProfileId"
-        @update:model-value="selectProfile"
-      />
+      <SkyCard
+        v-if="error"
+        role="alert"
+      >
+        <SectionTitle
+          title="Không tính được mục tiêu"
+          :subtitle="error"
+        />
+        <button
+          type="button"
+          class="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+          @click="refresh()"
+        >
+          Làm mới mục tiêu
+        </button>
+      </SkyCard>
 
-      <TelescopeTonightTargetsList
-        :targets="rankedTargets"
-        :selected-id="selectedTargetId"
-        @select="selectTarget"
-      />
+      <template v-else>
+        <TelescopeProfilePicker
+          v-if="selectedProfileId"
+          :profiles="profiles"
+          :model-value="selectedProfileId"
+          @update:model-value="selectProfile"
+        />
 
-      <TelescopeTargetDetailCard :detail="selectedDetail" />
+        <TelescopeTonightTargetsList
+          :targets="rankedTargets"
+          :selected-id="selectedTargetId"
+          @select="selectTarget"
+        />
 
-      <TelescopeGuidancePanel
-        :guidance="guidance"
-        :pointing="pointing"
-        :sensor-error="sensorError"
-        @enable-sensor="enableSensor"
-        @update:pointing="onPointingUpdate"
-      />
+        <TelescopeTargetDetailCard :detail="selectedDetail" />
 
-      <TelescopeStarHopPlaceholder />
+        <TelescopeGuidancePanel
+          :guidance="guidance"
+          :pointing="pointing"
+          :sensor-error="sensorError"
+          @enable-sensor="enableSensor"
+          @disable-sensor="switchToManualPointing"
+          @update:pointing="onPointingUpdate"
+        />
+
+        <TelescopeStarHopPlaceholder />
+      </template>
     </template>
   </div>
 </template>
