@@ -6,7 +6,7 @@
  */
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 
-import { splitTrackAtAntimeridian } from '../../../lib/iss/groundTrack'
+import { splitTrackAtAntimeridian } from '../../../lib/iss/trackSplit'
 import type { IssGroundTrackPoint, IssPosition } from '../../../types/iss'
 
 const props = defineProps<{

@@ -119,19 +119,65 @@ describe('useIss', () => {
     iss.stopPolling()
   })
 
-  it('exposes an error and clears snapshot when refresh fails', async () => {
+  it('keeps previous snapshot and sets error when refresh fails', async () => {
+    stubDocument()
+    const previous = createSnapshot()
+    fetchMock.mockRejectedValueOnce(new Error('Network down'))
+
+    const iss = useIss(ref<Coordinates | null>(null))
+    iss.snapshot.value = previous
+
+    const result = await iss.refresh()
+
+    expect(result).toEqual(previous)
+    expect(iss.snapshot.value).toEqual(previous)
+    expect(iss.error.value).toBe('Network down')
+    expect(iss.loading.value).toBe(false)
+
+    iss.stopPolling()
+  })
+
+  it('leaves snapshot null when first refresh fails with no prior data', async () => {
     stubDocument()
     fetchMock.mockRejectedValueOnce(new Error('Network down'))
 
     const iss = useIss(ref<Coordinates | null>(null))
-    iss.snapshot.value = createSnapshot()
-
     const result = await iss.refresh()
 
     expect(result).toBeNull()
     expect(iss.snapshot.value).toBeNull()
     expect(iss.error.value).toBe('Network down')
-    expect(iss.loading.value).toBe(false)
+
+    iss.stopPolling()
+  })
+
+  it('ignores a stale failed response after a newer success', async () => {
+    stubDocument()
+    let rejectSlow: (reason?: unknown) => void = () => {}
+    const slowFailure = new Promise<IssSnapshot>((_resolve, reject) => {
+      rejectSlow = reject
+    })
+
+    const fresh = createSnapshot()
+    fresh.position = { ...fresh.position, latitude: 99 }
+
+    fetchMock
+      .mockReturnValueOnce(slowFailure)
+      .mockResolvedValueOnce(fresh)
+
+    const iss = useIss(ref<Coordinates | null>(null))
+    const first = iss.refresh()
+    const second = await iss.refresh()
+
+    expect(second).toEqual(fresh)
+    expect(iss.snapshot.value).toEqual(fresh)
+    expect(iss.error.value).toBeNull()
+
+    rejectSlow(new Error('stale failure'))
+    await first
+
+    expect(iss.snapshot.value).toEqual(fresh)
+    expect(iss.error.value).toBeNull()
 
     iss.stopPolling()
   })

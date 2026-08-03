@@ -208,6 +208,39 @@ function isVisiblePass(
   return sunAlt < MAX_SUN_ALTITUDE_AT_MAX_DEG
 }
 
+/** Max lookback when recovering true rise for a mid-pass start (~one ISS orbit). */
+const MID_PASS_RISE_LOOKBACK_MS = 100 * 60 * 1000
+
+/**
+ * Walk backward from `fromMs` (already above horizon) to the 0° upward crossing.
+ * Returns null if no below-horizon sample is found within the lookback window.
+ */
+function findRiseWalkingBack(
+  satrec: satellite.SatRec,
+  observer: ObserverCoords,
+  fromMs: number
+): number | null {
+  let later = sampleLook(satrec, observer, fromMs)
+  if (!later || later.elevationDeg < HORIZON_ELEVATION_DEG) {
+    return null
+  }
+
+  const limitMs = fromMs - MID_PASS_RISE_LOOKBACK_MS
+  for (let t = fromMs - PASS_COARSE_STEP_MS; t >= limitMs; t -= PASS_COARSE_STEP_MS) {
+    const earlier = sampleLook(satrec, observer, t)
+    if (!earlier) {
+      continue
+    }
+
+    if (earlier.elevationDeg < HORIZON_ELEVATION_DEG) {
+      return refineCrossing(satrec, observer, earlier.timeMs, later.timeMs, true)
+    }
+    later = earlier
+  }
+
+  return null
+}
+
 /**
  * Find the soonest visible ISS pass for an observer within 36 hours.
  * Visible = max elev ≥ 10°, sun altitude at max < −6°, ISS sunlit at max.
@@ -224,9 +257,16 @@ export function findNextVisiblePass(
   let prev = sampleLook(satrec, observer, startMs)
   if (!prev) return null
 
-  // If already above horizon at `now`, walk back to approximate rise within search start.
+  // If already above horizon at `now`, walk back to the true rise (do not clamp to now).
   let inPass = prev.elevationDeg >= HORIZON_ELEVATION_DEG
-  let riseMs = inPass ? startMs : null
+  let riseMs: number | null = null
+  if (inPass) {
+    riseMs = findRiseWalkingBack(satrec, observer, startMs)
+    if (riseMs === null) {
+      // Could not recover rise — abandon this in-progress pass and search forward.
+      inPass = false
+    }
+  }
 
   for (let t = startMs + PASS_COARSE_STEP_MS; t <= endMs; t += PASS_COARSE_STEP_MS) {
     const curr = sampleLook(satrec, observer, t)

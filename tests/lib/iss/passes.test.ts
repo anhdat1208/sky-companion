@@ -22,4 +22,28 @@ describe('findNextVisiblePass', () => {
     expect(pass!.direction).toContain('→')
     expect(pass!.magnitude).not.toBeNull()
   })
+
+  it('recovers true rise when now is mid-pass (does not clamp rise to now)', () => {
+    const tle = readFallbackTle()
+    const observer = { lat: 21.0285, lng: 105.8542 }
+    const fromBefore = findNextVisiblePass(
+      tle,
+      observer,
+      new Date('2026-08-02T12:00:00Z')
+    )
+    expect(fromBefore).not.toBeNull()
+
+    const riseMs = Date.parse(fromBefore!.riseTime)
+    const setMs = Date.parse(fromBefore!.setTime)
+    const midMs = Math.floor((riseMs + setMs) / 2)
+
+    const fromMid = findNextVisiblePass(tle, observer, new Date(midMs))
+    expect(fromMid).not.toBeNull()
+    // True rise is before mid; must not clamp riseTime to `now`.
+    expect(Date.parse(fromMid!.riseTime)).toBeLessThan(midMs)
+    expect(Math.abs(Date.parse(fromMid!.riseTime) - riseMs)).toBeLessThan(15_000)
+    expect(Math.abs(fromMid!.durationSeconds - fromBefore!.durationSeconds)).toBeLessThan(15)
+    expect(fromMid!.maxElevationDeg).toBe(fromBefore!.maxElevationDeg)
+    expect(fromMid!.direction).toBe(fromBefore!.direction)
+  })
 })

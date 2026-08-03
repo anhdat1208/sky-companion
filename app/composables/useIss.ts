@@ -35,8 +35,10 @@ export function useIss(coordinates: Ref<Coordinates | null>) {
   const loading = ref(false)
   const error = ref<string | null>(null)
   let pollTimer: ReturnType<typeof setInterval> | null = null
+  let requestId = 0
 
   async function refresh(): Promise<IssSnapshot | null> {
+    const thisRequest = ++requestId
     loading.value = true
     error.value = null
 
@@ -48,14 +50,24 @@ export function useIss(coordinates: Ref<Coordinates | null>) {
           : undefined
       })
 
+      if (thisRequest !== requestId) {
+        return snapshot.value
+      }
+
       snapshot.value = data
       return data
     } catch (caught) {
+      if (thisRequest !== requestId) {
+        return snapshot.value
+      }
+
       error.value = getErrorMessage(caught)
-      snapshot.value = null
-      return null
+      // Keep previous snapshot if one exists; only leave null when never loaded.
+      return snapshot.value
     } finally {
-      loading.value = false
+      if (thisRequest === requestId) {
+        loading.value = false
+      }
     }
   }
 

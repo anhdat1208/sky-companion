@@ -2,11 +2,11 @@ import { describe, expect, it } from 'vitest'
 import { readFallbackTle } from '../../../lib/iss/tle'
 import {
   buildGroundTrack,
-  splitTrackAtAntimeridian,
   TRACK_LOOKBACK_MS,
   TRACK_LOOKAHEAD_MS,
   TRACK_STEP_MS
 } from '../../../lib/iss/groundTrack'
+import { splitTrackAtAntimeridian } from '../../../lib/iss/trackSplit'
 
 describe('buildGroundTrack', () => {
   it('returns ordered samples for the configured window', () => {
