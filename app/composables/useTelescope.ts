@@ -99,11 +99,19 @@ export function useTelescope(
   watch(
     rankedTargets,
     (targets) => {
-      if (selectedTargetId.value === null && targets.length > 0) {
+      if (targets.length === 0) {
+        selectedTargetId.value = null
+        return
+      }
+
+      const stillValid = selectedTargetId.value !== null
+        && targets.some(item => item.target.id === selectedTargetId.value)
+
+      if (!stillValid) {
         selectedTargetId.value = targets[0]!.target.id
       }
     },
-    { immediate: true }
+    { immediate: true, flush: 'sync' }
   )
 
   function selectProfile(id: string) {
