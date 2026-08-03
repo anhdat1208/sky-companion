@@ -30,4 +30,24 @@ describe('useDevicePointing', () => {
     expect(api.pointing.value.source).toBe('manual')
     expect(api.sensorError.value).not.toBeNull()
   })
+
+  it('clears sensor source on permission denial while keeping az/alt', async () => {
+    vi.stubGlobal('window', {
+      DeviceOrientationEvent: class {
+        static requestPermission = vi.fn().mockResolvedValue('denied')
+      },
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn()
+    })
+    const api = useDevicePointing()
+    api.pointing.value = { azimuth: 90, altitude: 45, source: 'sensor' }
+    await api.enableSensor()
+    expect(api.pointing.value).toMatchObject({
+      azimuth: 90,
+      altitude: 45,
+      source: 'manual'
+    })
+    expect(api.mode.value).toBe('manual')
+    expect(api.sensorError.value).not.toBeNull()
+  })
 })

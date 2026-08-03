@@ -64,6 +64,13 @@ export function useDevicePointing() {
     listening = false
   }
 
+  function fallbackToManual(error: string) {
+    disableSensor()
+    mode.value = 'manual'
+    pointing.value = { ...pointing.value, source: 'manual' }
+    sensorError.value = error
+  }
+
   function setManualPointing({ azimuth, altitude }: { azimuth: number; altitude: number }) {
     disableSensor()
     mode.value = 'manual'
@@ -75,8 +82,7 @@ export function useDevicePointing() {
     sensorAvailable.value = isOrientationSupported()
 
     if (!sensorAvailable.value) {
-      sensorError.value = 'Device orientation is not supported by this browser.'
-      mode.value = 'manual'
+      fallbackToManual('Device orientation is not supported by this browser.')
       return
     }
 
@@ -85,8 +91,7 @@ export function useDevicePointing() {
       if (typeof DOE.requestPermission === 'function') {
         const permission = await DOE.requestPermission()
         if (permission !== 'granted') {
-          sensorError.value = 'Device orientation permission was denied.'
-          mode.value = 'manual'
+          fallbackToManual('Device orientation permission was denied.')
           return
         }
       }
@@ -97,9 +102,7 @@ export function useDevicePointing() {
       }
       mode.value = 'sensor'
     } catch {
-      sensorError.value = 'Failed to enable device orientation.'
-      mode.value = 'manual'
-      disableSensor()
+      fallbackToManual('Failed to enable device orientation.')
     }
   }
 
