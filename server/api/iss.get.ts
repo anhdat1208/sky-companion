@@ -1,10 +1,17 @@
 import { defineEventHandler } from 'h3'
-import type { ISSPass } from '../../types/api'
+import type { IssSnapshot } from '../../types/iss'
+import { buildIssSnapshot } from '../../lib/iss/snapshot'
+import { handleSkyApiError } from '../utils/handleSkyApiError'
+import { parseIssQuery } from '../utils/parseIssQuery'
 
-export default defineEventHandler((): ISSPass => ({
-  timestamp: new Date().toISOString(),
-  latitude: 10.7769,
-  longitude: 106.7009,
-  altitudeKm: 408.2,
-  velocityKph: 27600
-}))
+export default defineEventHandler(async (event): Promise<IssSnapshot> => {
+  try {
+    const query = parseIssQuery(event)
+    return await buildIssSnapshot({
+      lat: query.lat,
+      lng: query.lng
+    })
+  } catch (error) {
+    handleSkyApiError(error, 'Failed to compute ISS snapshot.')
+  }
+})
