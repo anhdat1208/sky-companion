@@ -15,5 +15,6 @@ export {
   getMoonHorizontal,
   getMoonRiseSet
 } from './position'
+export { buildPhotographyGuide } from './photography'
 export { computeObservationScore } from './score'
 export { getMoonInfo } from './snapshot'
