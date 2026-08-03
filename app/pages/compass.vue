@@ -38,6 +38,20 @@ const coordinates = computed<Coordinates | null>(() => {
 
 const hasValidCoordinates = computed(() => coordinates.value !== null)
 
+const telescopeLink = computed(() => {
+  if (!coordinates.value) {
+    return null
+  }
+
+  return {
+    path: '/telescope',
+    query: {
+      lat: String(coordinates.value.lat),
+      lng: String(coordinates.value.lng)
+    }
+  }
+})
+
 const { moonAzimuth, visiblePlanets } = useCompassData(sky.snapshot)
 
 const selectedPlanetName = computed(() => {
@@ -120,12 +134,21 @@ watch(coordinates, (next, previous) => {
       <p class="max-w-2xl text-base leading-7 text-slate-400">
         La bàn tĩnh với hướng N/S/E/W và marker theo phương vị Mặt Trăng cùng hành tinh đang chọn.
       </p>
-      <NuxtLink
-        to="/"
-        class="inline-flex text-sm font-medium text-sky-400 transition hover:text-sky-300"
-      >
-        ← Về trang chủ
-      </NuxtLink>
+      <div class="flex flex-wrap items-center gap-3">
+        <NuxtLink
+          to="/"
+          class="inline-flex text-sm font-medium text-sky-400 transition hover:text-sky-300"
+        >
+          ← Về trang chủ
+        </NuxtLink>
+        <NuxtLink
+          v-if="telescopeLink"
+          :to="telescopeLink"
+          class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+        >
+          Telescope Mode
+        </NuxtLink>
+      </div>
     </header>
 
     <SkyCard v-if="!hasValidCoordinates">

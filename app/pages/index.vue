@@ -42,6 +42,20 @@ const compassLink = computed(() => {
   }
 })
 
+const telescopeLink = computed(() => {
+  if (!coordinates.value) {
+    return null
+  }
+
+  return {
+    path: '/telescope',
+    query: {
+      lat: String(coordinates.value.lat),
+      lng: String(coordinates.value.lng)
+    }
+  }
+})
+
 function formatObservationTime(value: string): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) {
@@ -102,13 +116,22 @@ onMounted(async () => {
       <p class="max-w-2xl text-base leading-7 text-slate-400">
         Xem nhanh Mặt Trăng, Mặt Trời, hành tinh và hướng nhìn bầu trời dựa trên vị trí của bạn.
       </p>
-      <NuxtLink
-        v-if="compassLink"
-        :to="compassLink"
-        class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-      >
-        Mở Compass
-      </NuxtLink>
+      <div class="flex flex-wrap gap-3">
+        <NuxtLink
+          v-if="compassLink"
+          :to="compassLink"
+          class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+        >
+          Mở Compass
+        </NuxtLink>
+        <NuxtLink
+          v-if="telescopeLink"
+          :to="telescopeLink"
+          class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+        >
+          Telescope Mode
+        </NuxtLink>
+      </div>
     </header>
 
     <LoadingLocation
