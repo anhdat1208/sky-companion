@@ -56,6 +56,20 @@ const telescopeLink = computed(() => {
   }
 })
 
+const issLink = computed(() => {
+  if (!coordinates.value) {
+    return null
+  }
+
+  return {
+    path: '/iss',
+    query: {
+      lat: String(coordinates.value.lat),
+      lng: String(coordinates.value.lng)
+    }
+  }
+})
+
 function formatObservationTime(value: string): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) {
@@ -130,6 +144,13 @@ onMounted(async () => {
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
           Telescope Mode
+        </NuxtLink>
+        <NuxtLink
+          v-if="issLink"
+          :to="issLink"
+          class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+        >
+          ISS Now
         </NuxtLink>
       </div>
     </header>

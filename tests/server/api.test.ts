@@ -92,16 +92,55 @@ describe('GET /api/planets', () => {
 })
 
 describe('GET /api/iss', () => {
-  it('returns a mocked ISSPass payload', () => {
-    const result = issHandler({} as H3Event)
+  it('returns IssSnapshot without coordinates', async () => {
+    const result = await issHandler(createQueryEvent({}))
 
-    expect(result).toMatchObject({
-      latitude: 10.7769,
-      longitude: 106.7009,
-      altitudeKm: 408.2,
-      velocityKph: 27600
+    expect(result.position).toMatchObject({
+      latitude: expect.any(Number),
+      longitude: expect.any(Number),
+      altitudeKm: expect.any(Number),
+      velocityKph: expect.any(Number)
     })
-    expect(typeof result.timestamp).toBe('string')
-    expect(Number.isNaN(Date.parse(result.timestamp))).toBe(false)
+    expect(typeof result.position.timestamp).toBe('string')
+    expect(Number.isNaN(Date.parse(result.position.timestamp))).toBe(false)
+    expect(Array.isArray(result.groundTrack)).toBe(true)
+    expect(result.groundTrack.length).toBeGreaterThan(0)
+    expect(result.nextPass).toBeNull()
+    expect(result.brightness).toBeNull()
+    expect(typeof result.tleEpoch).toBe('string')
+    expect(['live-tle', 'cached-tle', 'fallback-tle']).toContain(result.source)
+  })
+
+  it('returns nextPass and brightness when coordinates are provided', async () => {
+    const result = await issHandler(createQueryEvent({
+      lat: '10.7769',
+      lng: '106.7009'
+    }))
+
+    expect(result.position.altitudeKm).toEqual(expect.any(Number))
+    expect(result.brightness).toMatchObject({
+      magnitude: expect.any(Number),
+      label: expect.any(String)
+    })
+    expect(
+      result.nextPass === null
+      || (
+        typeof result.nextPass.riseTime === 'string'
+        && typeof result.nextPass.durationSeconds === 'number'
+      )
+    ).toBe(true)
+  })
+
+  it('returns 400 when only lat is provided', async () => {
+    try {
+      await issHandler(createQueryEvent({ lat: '10.7769' }))
+      expect.unreachable('expected incomplete coordinates to throw')
+    } catch (error) {
+      expect(isError(error)).toBe(true)
+      if (isError(error)) {
+        expect(error.statusCode).toBe(400)
+        expect(error.message).toBe('Invalid coordinates.')
+      }
+    }
   })
 })

@@ -111,21 +111,67 @@ Planet list with visibility flags. Same query params as `/api/sky`.
 
 ## `GET /api/iss`
 
-Mocked ISS position payload for MVP wiring. No query params. Values are static/realistic stubs, not live tracking.
+TLE-backed ISS snapshot (SGP4). Coordinates are optional; when both `lat` and `lng` are present, the response includes the next visible pass and current brightness for that observer.
 
-**Response:** `ISSPass`
+### Query parameters
+
+| Name | Type | Required | Constraints |
+| --- | --- | --- | --- |
+| `lat` | number (or numeric string) | No* | `-90` … `90` |
+| `lng` | number (or numeric string) | No* | `-180` … `180` |
+
+\* Provide both together, or neither. One without the other returns **400**.
+
+Examples:
+
+```http
+GET /api/iss
+GET /api/iss?lat=10.7769&lng=106.7009
+```
+
+**Response:** `IssSnapshot`
 
 ```json
 {
-  "timestamp": "2026-07-30T08:00:00.000Z",
-  "latitude": 10.7769,
-  "longitude": 106.7009,
-  "altitudeKm": 408.2,
-  "velocityKph": 27600
+  "position": {
+    "timestamp": "2026-07-30T08:00:00.000Z",
+    "latitude": -12.3456,
+    "longitude": 102.1234,
+    "altitudeKm": 418.2,
+    "velocityKph": 27640.5
+  },
+  "groundTrack": [
+    {
+      "latitude": -10.1,
+      "longitude": 100.2,
+      "timestamp": "2026-07-30T07:45:00.000Z"
+    }
+  ],
+  "nextPass": {
+    "riseTime": "2026-07-30T12:10:00.000Z",
+    "maxTime": "2026-07-30T12:14:00.000Z",
+    "setTime": "2026-07-30T12:18:00.000Z",
+    "durationSeconds": 480,
+    "maxElevationDeg": 42.5,
+    "direction": "South-West → North-East",
+    "magnitude": -2.1
+  },
+  "brightness": {
+    "magnitude": 1.2,
+    "label": "Dim"
+  },
+  "tleEpoch": "25215.12345678",
+  "source": "live-tle"
 }
 ```
 
-Replace the handler in `server/api/iss.get.ts` with a real provider adapter when moving past MVP; keep the `ISSPass` contract stable if possible.
+Without coordinates: `nextPass` and `brightness` are `null`; `position` and `groundTrack` are still populated.
+
+`brightness.label`: `Bright` | `Moderate` | `Dim` | `Not Visible`
+
+`source`: `live-tle` | `cached-tle` | `fallback-tle`
+
+Legacy alias: `ISSPass` in `types/api.ts` is deprecated and equals `IssPosition` (`IssSnapshot.position`). Prefer `IssSnapshot` / `IssPosition` from `types/iss.ts`.
 
 ---
 
@@ -134,6 +180,7 @@ Replace the handler in `server/api/iss.get.ts` with a real provider adapter when
 Shared contracts live in:
 
 - `types/astronomy.ts` — `SkySnapshot`, `MoonInfo`, `SunInfo`, `PlanetInfo`, …
-- `types/api.ts` — `ApiError`, `ISSPass`
+- `types/iss.ts` — `IssSnapshot`, `IssPosition`, `IssPassPrediction`, `IssBrightness`, …
+- `types/api.ts` — `ApiError`, deprecated `ISSPass`
 - `types/location.ts` — `Coordinates`
-- `utils/validation.ts` — Zod `skyQuerySchema`
+- `utils/validation.ts` — Zod `skyQuerySchema`, `issQuerySchema`
