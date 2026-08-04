@@ -59,7 +59,7 @@ describe('useMeteor', () => {
     const api = useMeteor(coordinates, fixed)
 
     const target = api.yearEvents.value[2]!
-    api.selectShower(target.id)
+    api.selectShower(target.id, target.year)
     expect(api.selectedId.value).toBe(target.id)
     expect(api.selectedDetail.value?.id).toBe(target.id)
     expect(api.selectedGuide.value).not.toBeNull()
@@ -70,6 +70,26 @@ describe('useMeteor', () => {
     expect(api.selectedDetail.value).toBeNull()
     expect(api.selectedGuide.value).toBeNull()
     expect(api.selectedScore.value).toBeNull()
+  })
+
+  it('resolves upcoming selection by peak year, not viewed-year calendar event', () => {
+    const when = new Date(Date.UTC(2026, 8, 1, 12, 0, 0))
+    const coordinates = ref<Coordinates | null>(null)
+    const api = useMeteor(coordinates, when)
+
+    expect(api.viewedYear.value).toBe(2026)
+    const quadrantidsUpcoming = api.upcoming.value.find((c) => c.id === 'quadrantids')
+    expect(quadrantidsUpcoming).toBeDefined()
+    const upcomingPeakYear = new Date(quadrantidsUpcoming!.peakAt).getUTCFullYear()
+    expect(upcomingPeakYear).toBe(2027)
+
+    api.selectShower('quadrantids', upcomingPeakYear)
+
+    expect(api.selectedDetail.value?.peakAt).toBe(quadrantidsUpcoming!.peakAt)
+    expect(new Date(api.selectedDetail.value!.peakAt).getUTCFullYear()).toBe(2027)
+    expect(
+      api.notificationHooks.value.every((h) => h.eventId === 'quadrantids-2027')
+    ).toBe(true)
   })
 
   it('surfaces calculation errors', () => {

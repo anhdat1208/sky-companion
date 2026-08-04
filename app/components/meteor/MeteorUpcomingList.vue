@@ -10,11 +10,16 @@ import type {
 defineProps<{
   cards: MeteorUpcomingCard[]
   selectedId: MeteorShowerId | null
+  selectedYear: number | null
 }>()
 
 const emit = defineEmits<{
-  select: [id: MeteorShowerId]
+  select: [id: MeteorShowerId, year: number]
 }>()
+
+function peakYear(peakAt: string): number {
+  return new Date(peakAt).getUTCFullYear()
+}
 
 const DIFFICULTY_VI: Record<MeteorDifficulty, string> = {
   easy: 'Dễ',
@@ -60,11 +65,11 @@ function scoreDots(stars: number): string {
         <button
           type="button"
           class="w-full rounded-xl border p-4 text-left transition focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-          :class="card.id === selectedId
+          :class="card.id === selectedId && peakYear(card.peakAt) === selectedYear
             ? 'border-sky-500/60 bg-sky-500/10'
             : 'border-transparent bg-slate-950/70 hover:border-slate-700'"
-          :aria-pressed="card.id === selectedId"
-          @click="emit('select', card.id)"
+          :aria-pressed="card.id === selectedId && peakYear(card.peakAt) === selectedYear"
+          @click="emit('select', card.id, peakYear(card.peakAt))"
         >
           <div class="flex flex-wrap items-start justify-between gap-3">
             <div>

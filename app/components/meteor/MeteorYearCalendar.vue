@@ -9,12 +9,13 @@ defineProps<{
   year: number
   events: MeteorShowerEvent[]
   selectedId: MeteorShowerId | null
+  selectedYear: number | null
 }>()
 
 const emit = defineEmits<{
   prev: []
   next: []
-  select: [id: MeteorShowerId]
+  select: [id: MeteorShowerId, year: number]
 }>()
 
 const DIFFICULTY_VI: Record<MeteorDifficulty, string> = {
@@ -87,11 +88,11 @@ function formatActiveRange(start: string, end: string): string {
         <button
           type="button"
           class="w-full rounded-xl border p-3 text-left transition focus:outline-none focus:ring-2 focus:ring-sky-500/40 sm:p-4"
-          :class="event.id === selectedId
+          :class="event.id === selectedId && event.year === selectedYear
             ? 'border-sky-500/60 bg-sky-500/10'
             : 'border-transparent bg-slate-950/70 hover:border-slate-700'"
-          :aria-pressed="event.id === selectedId"
-          @click="emit('select', event.id)"
+          :aria-pressed="event.id === selectedId && event.year === selectedYear"
+          @click="emit('select', event.id, event.year)"
         >
           <div class="flex flex-wrap items-baseline justify-between gap-2">
             <p class="text-sm font-medium text-slate-100 sm:text-base">

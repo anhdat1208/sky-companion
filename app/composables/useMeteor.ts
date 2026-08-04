@@ -33,6 +33,10 @@ function toErrorMessage(caught: unknown): string {
   return CALC_ERROR
 }
 
+function peakYearFromIso(peakAt: string): number {
+  return new Date(peakAt).getUTCFullYear()
+}
+
 export function useMeteor(
   coordinates: Ref<Coordinates | null>,
   when?: Date | (() => Date)
@@ -44,6 +48,7 @@ export function useMeteor(
   const initial = whenSource()
   const viewedYear = ref(initial.getFullYear())
   const selectedId = ref<MeteorShowerId | null>(null)
+  const selectedYear = ref<number | null>(null)
   let suppressDefaultSelection = false
 
   const upcoming = ref<MeteorUpcomingCard[]>([])
@@ -60,19 +65,33 @@ export function useMeteor(
     return whenSource()
   }
 
-  function defaultSelectedId(): MeteorShowerId | null {
+  function defaultSelection(): { id: MeteorShowerId; year: number } | null {
     const nowYear = currentWhen().getFullYear()
     if (viewedYear.value === nowYear) {
-      return upcoming.value[0]?.id ?? yearEvents.value[0]?.id ?? null
+      const next = upcoming.value[0]
+      if (next) {
+        return { id: next.id, year: peakYearFromIso(next.peakAt) }
+      }
+      const first = yearEvents.value[0]
+      return first ? { id: first.id, year: first.year } : null
     }
-    return yearEvents.value[0]?.id ?? null
+    const first = yearEvents.value[0]
+    return first ? { id: first.id, year: first.year } : null
+  }
+
+  function applySelection(selection: { id: MeteorShowerId; year: number } | null) {
+    selectedId.value = selection?.id ?? null
+    selectedYear.value = selection?.year ?? null
   }
 
   function findSelectedEvent(): MeteorShowerEvent | null {
-    if (!selectedId.value) return null
+    if (!selectedId.value || selectedYear.value == null) return null
+    const id = selectedId.value
+    const year = selectedYear.value
+    const match = (e: MeteorShowerEvent) => e.id === id && e.year === year
     return (
-      yearEvents.value.find((e) => e.id === selectedId.value) ??
-      upcomingEvents.find((e) => e.id === selectedId.value) ??
+      upcomingEvents.find(match) ??
+      yearEvents.value.find(match) ??
       null
     )
   }
@@ -89,8 +108,9 @@ export function useMeteor(
     }
 
     const card =
-      upcoming.value.find((c) => c.id === event.id) ??
-      buildUpcomingCard(event, coords)
+      upcoming.value.find(
+        (c) => c.id === event.id && peakYearFromIso(c.peakAt) === event.year
+      ) ?? buildUpcomingCard(event, coords)
 
     selectedDetail.value = buildEventDetail(event)
     selectedGuide.value = buildMeteorObservationGuide({
@@ -112,10 +132,11 @@ export function useMeteor(
 
       if (selectedId.value == null) {
         if (opts?.defaultTo === 'firstOfYear') {
-          selectedId.value = yearEvents.value[0]?.id ?? null
+          const first = yearEvents.value[0]
+          applySelection(first ? { id: first.id, year: first.year } : null)
           suppressDefaultSelection = false
         } else if (!suppressDefaultSelection) {
-          selectedId.value = defaultSelectedId()
+          applySelection(defaultSelection())
         }
       }
 
@@ -128,28 +149,28 @@ export function useMeteor(
 
   function goToPrevYear() {
     viewedYear.value -= 1
-    selectedId.value = null
+    applySelection(null)
     recompute({ defaultTo: 'firstOfYear' })
   }
 
   function goToNextYear() {
     viewedYear.value += 1
-    selectedId.value = null
+    applySelection(null)
     recompute({ defaultTo: 'firstOfYear' })
   }
 
-  function selectShower(id: MeteorShowerId) {
+  function selectShower(id: MeteorShowerId, year: number) {
     const exists =
-      yearEvents.value.some((e) => e.id === id) ||
-      upcomingEvents.some((e) => e.id === id)
+      yearEvents.value.some((e) => e.id === id && e.year === year) ||
+      upcomingEvents.some((e) => e.id === id && e.year === year)
     if (!exists) return
-    selectedId.value = id
+    applySelection({ id, year })
     suppressDefaultSelection = false
     resolveSelectedDerived(coordinates.value)
   }
 
   function clearSelected() {
-    selectedId.value = null
+    applySelection(null)
     suppressDefaultSelection = true
     resolveSelectedDerived(coordinates.value)
   }
@@ -164,6 +185,7 @@ export function useMeteor(
   return {
     viewedYear,
     selectedId,
+    selectedYear,
     error,
     upcoming,
     yearEvents,

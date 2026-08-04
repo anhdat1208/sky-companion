@@ -82,6 +82,7 @@ const locationSourceLabel = computed(() => {
 const {
   viewedYear,
   selectedId,
+  selectedYear,
   error,
   upcoming,
   yearEvents,
@@ -218,6 +219,7 @@ watch(queryCoordinates, (next, previous) => {
       <MeteorUpcomingList
         :cards="upcoming"
         :selected-id="selectedId"
+        :selected-year="selectedYear"
         @select="selectShower"
       />
 
@@ -237,6 +239,7 @@ watch(queryCoordinates, (next, previous) => {
         :year="viewedYear"
         :events="yearEvents"
         :selected-id="selectedId"
+        :selected-year="selectedYear"
         @prev="goToPrevYear"
         @next="goToNextYear"
         @select="selectShower"
