@@ -23,4 +23,5 @@ export { buildMoonPhotoInfo } from './moonPhoto'
 export { listPlanetPhotoInfos } from './planets'
 export { buildPhotoTimeline } from './timeline'
 export type { BuildPhotoTimelineArgs } from './timeline'
+export { buildAstroPhotographySnapshot } from './snapshot'
 
