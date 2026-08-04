@@ -37,7 +37,6 @@ const visible = computed(() => {
       :altitude="altitude"
       :azimuth="azimuth"
       :visible="visible"
-      language="en"
     />
   </div>
 </template>

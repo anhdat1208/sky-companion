@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { SkyAIObjectType, SkyAILanguage } from '../../../types/ai'
+import type { SkyAIObjectType } from '../../../types/ai'
 import SkyAIExplainButton from './SkyAIExplainButton.vue'
 import SkyAIResponseCard from './SkyAIResponseCard.vue'
 
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   objectType: SkyAIObjectType
   name: string
   altitude?: number
@@ -11,10 +11,9 @@ const props = withDefaults(defineProps<{
   visible?: boolean
   distanceKm?: number
   context?: Record<string, string | number | boolean | null>
-  language?: SkyAILanguage
-}>(), {
-  language: 'en'
-})
+}>()
+
+const { t } = useI18n()
 
 const requestContext = computed(() => ({
   objectType: props.objectType,
@@ -26,14 +25,12 @@ const requestContext = computed(() => ({
   context: props.context
 }))
 
-const language = computed(() => props.language)
-
 const {
   loading,
   error,
   response,
   explain
-} = useSkyAI(requestContext, language)
+} = useSkyAI(requestContext)
 </script>
 
 <template>
@@ -49,8 +46,8 @@ const {
       class="space-y-3"
     >
       <SectionTitle
-        title="Sky AI đang phân tích..."
-        subtitle="Đang tạo nội dung giải thích theo ngữ cảnh quan sát hiện tại."
+        :title="t('components.skyAI.analyzingTitle')"
+        :subtitle="t('components.skyAI.analyzingSubtitle')"
       />
       <div class="h-3 w-11/12 animate-pulse rounded-full bg-slate-800" />
       <div class="h-3 w-9/12 animate-pulse rounded-full bg-slate-800" />
@@ -62,11 +59,11 @@ const {
       role="alert"
     >
       <SectionTitle
-        title="AI tạm thời không khả dụng"
+        :title="t('components.skyAI.unavailableTitle')"
         :subtitle="error"
       />
       <p class="text-sm text-slate-400">
-        Dữ liệu thiên văn vẫn hoạt động bình thường. Bạn có thể thử lại sau.
+        {{ t('components.skyAI.unavailableHint') }}
       </p>
     </SkyCard>
 
@@ -80,8 +77,8 @@ const {
       class="space-y-3"
     >
       <SectionTitle
-        title="Suggested Questions"
-        subtitle="Nhấn vào một câu hỏi để yêu cầu AI giải thích sâu hơn."
+        :title="t('components.skyAI.suggestedQuestions')"
+        :subtitle="t('components.skyAI.suggestedQuestionsSubtitle')"
       />
       <div class="flex flex-wrap gap-2">
         <button

@@ -32,7 +32,6 @@ const azimuth = computed(() => parseNum(route.query.azimuth))
       :name="name"
       :altitude="altitude"
       :azimuth="azimuth"
-      language="en"
     />
   </div>
 </template>

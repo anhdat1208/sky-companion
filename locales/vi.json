@@ -53,11 +53,14 @@
     },
     "skyAI": {
       "explain": "Giải thích với Sky AI",
+      "explainLoading": "Đang tạo giải thích...",
       "analyzingTitle": "Sky AI đang phân tích...",
       "analyzingSubtitle": "Đang tạo nội dung giải thích theo ngữ cảnh quan sát hiện tại.",
       "unavailableTitle": "AI tạm thời không khả dụng",
       "unavailableHint": "Dữ liệu thiên văn vẫn hoạt động bình thường. Bạn có thể thử lại sau.",
-      "suggestedQuestions": "Câu hỏi gợi ý"
+      "responseSubtitle": "Nội dung do AI tạo dựa trên dữ liệu thiên văn hiện tại.",
+      "suggestedQuestions": "Câu hỏi gợi ý",
+      "suggestedQuestionsSubtitle": "Nhấn vào một câu hỏi để yêu cầu AI giải thích sâu hơn."
     }
   },
   "pages": {

@@ -2,6 +2,8 @@
 defineProps<{
   loading: boolean
 }>()
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -11,6 +13,6 @@ defineProps<{
     :disabled="loading"
   >
     <span class="text-base">✨</span>
-    <span>{{ loading ? 'Đang tạo giải thích...' : 'Explain with AI' }}</span>
+    <span>{{ loading ? t('components.skyAI.explainLoading') : t('components.skyAI.explain') }}</span>
   </button>
 </template>

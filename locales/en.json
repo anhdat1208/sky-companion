@@ -53,11 +53,14 @@
     },
     "skyAI": {
       "explain": "Explain with Sky AI",
+      "explainLoading": "Generating explanation...",
       "analyzingTitle": "Sky AI is analyzing...",
       "analyzingSubtitle": "Generating an explanation from the current observation context.",
       "unavailableTitle": "AI is temporarily unavailable",
       "unavailableHint": "Astronomy data still works normally. You can try again later.",
-      "suggestedQuestions": "Suggested questions"
+      "responseSubtitle": "AI-generated content based on current astronomy data.",
+      "suggestedQuestions": "Suggested questions",
+      "suggestedQuestionsSubtitle": "Tap a question to ask the AI for a deeper explanation."
     }
   },
   "pages": {

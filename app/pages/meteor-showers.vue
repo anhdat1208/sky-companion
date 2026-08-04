@@ -254,7 +254,6 @@ watch(queryCoordinates, (next, previous) => {
         object-type="meteor-shower"
         :name="selectedDetail.name"
         :context="selectedMeteorContext ?? undefined"
-        language="en"
       />
 
       <MeteorYearCalendar

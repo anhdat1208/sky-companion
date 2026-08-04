@@ -250,7 +250,6 @@ watch(coordinates, (next, previous) => {
           velocityKph: snapshot.position.velocityKph,
           source: snapshot.source
         }"
-        language="en"
       />
       <IssStatsCard :position="snapshot.position" />
       <IssGroundTrackMap

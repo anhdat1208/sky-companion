@@ -28,7 +28,6 @@ const azimuth = computed(() => parseNum(route.query.azimuth))
       name="Sun"
       :altitude="altitude"
       :azimuth="azimuth"
-      language="en"
     />
   </div>
 </template>

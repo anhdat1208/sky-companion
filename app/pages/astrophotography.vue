@@ -243,7 +243,6 @@ watch(queryCoordinates, (next, previous) => {
           milkyWayVisibility: snapshot.milkyWay?.visibility ?? null,
           moonPhase: snapshot.moon?.phase ?? null
         }"
-        language="en"
       />
       <PhotoScoreCard :score="snapshot.score" />
       <MilkyWayPhotoCard :info="snapshot.milkyWay" />

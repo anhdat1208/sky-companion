@@ -231,7 +231,6 @@ watch(queryCoordinates, (next, previous) => {
             illuminatedPercentage: today.illuminatedPercentage,
             score: todayScore.label
           }"
-          language="en"
         />
         <MoonObservationScore :score="todayScore" />
         <MoonPhotographyGuide :guide="todayPhotography" />

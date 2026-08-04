@@ -22,7 +22,6 @@ const name = computed(() => {
     <SkyAIExplainPanel
       object-type="constellation"
       :name="name"
-      language="en"
     />
   </div>
 </template>

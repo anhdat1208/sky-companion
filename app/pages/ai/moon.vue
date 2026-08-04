@@ -30,7 +30,6 @@ const distanceKm = computed(() => parseNum(route.query.distanceKm))
       :altitude="altitude"
       :azimuth="azimuth"
       :distance-km="distanceKm"
-      language="en"
     />
   </div>
 </template>

@@ -6,6 +6,8 @@ const props = defineProps<{
   response: SkyAIExplainResponse
 }>()
 
+const { t } = useI18n()
+
 const renderedSections = computed(() =>
   props.response.sections.map((section) => ({
     ...section,
@@ -18,7 +20,7 @@ const renderedSections = computed(() =>
   <SkyCard class="space-y-5">
     <SectionTitle
       :title="response.title"
-      subtitle="Nội dung do AI tạo dựa trên dữ liệu thiên văn hiện tại."
+      :subtitle="t('components.skyAI.responseSubtitle')"
     />
 
     <article
