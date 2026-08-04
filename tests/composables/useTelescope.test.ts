@@ -1,11 +1,17 @@
-import { describe, expect, it, vi, afterEach } from 'vitest'
+import { describe, expect, it, vi, afterEach, beforeEach } from 'vitest'
 import { ref } from 'vue'
 import type { Coordinates } from '../../types/location'
 import { useTelescope } from '../../app/composables/useTelescope'
 import * as ranking from '../../lib/telescope/ranking'
+import { stubComposableI18n } from '../helpers/stubComposableI18n'
+
+beforeEach(() => {
+  stubComposableI18n()
+})
 
 afterEach(() => {
   vi.restoreAllMocks()
+  vi.unstubAllGlobals()
 })
 
 describe('useTelescope', () => {

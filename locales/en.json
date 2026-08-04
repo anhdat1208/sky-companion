@@ -44,6 +44,23 @@
     "ai": {
       "missingAstronomyData": "Missing astronomy data to explain.",
       "explainFailed": "Unable to generate the AI explanation."
+    },
+    "telescope": {
+      "calcFailed": "Unable to calculate targets. Please try refreshing."
+    },
+    "moonCalendar": {
+      "calcFailed": "Unable to calculate the Moon calendar. Please try refreshing."
+    },
+    "meteor": {
+      "calcFailed": "Unable to calculate the meteor shower schedule. Please try refreshing."
+    },
+    "astroPhotography": {
+      "calcFailed": "Unable to calculate the photography schedule. Please try refreshing."
+    },
+    "devicePointing": {
+      "unsupported": "This browser does not support device orientation sensors.",
+      "permissionDenied": "You denied access to device orientation sensors.",
+      "enableFailed": "Unable to enable device orientation sensors."
     }
   },
   "components": {

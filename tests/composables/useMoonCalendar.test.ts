@@ -1,11 +1,17 @@
-import { describe, expect, it, vi, afterEach } from 'vitest'
+import { describe, expect, it, vi, afterEach, beforeEach } from 'vitest'
 import { ref } from 'vue'
 import type { Coordinates } from '../../types/location'
 import { useMoonCalendar } from '../../app/composables/useMoonCalendar'
 import * as calendar from '../../lib/moon/calendar'
+import { stubComposableI18n } from '../helpers/stubComposableI18n'
+
+beforeEach(() => {
+  stubComposableI18n()
+})
 
 afterEach(() => {
   vi.restoreAllMocks()
+  vi.unstubAllGlobals()
 })
 
 describe('useMoonCalendar', () => {

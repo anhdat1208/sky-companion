@@ -8,25 +8,24 @@ import { rankTonightTargets } from '../../lib/telescope/ranking'
 import { buildStarHopPlan } from '../../lib/telescope/starHop'
 import { useDevicePointing } from './useDevicePointing'
 
-const CALC_ERROR = 'Không thể tính toán mục tiêu. Hãy thử làm mới.'
-
 function resolveWhenSource(when?: Date | (() => Date)): () => Date {
   if (typeof when === 'function') return when
   if (when instanceof Date) return () => when
   return () => new Date()
 }
 
-function toErrorMessage(caught: unknown): string {
+function toErrorMessage(caught: unknown, t: (key: string) => string): string {
   if (caught instanceof Error && caught.message.trim().length > 0) {
     return caught.message
   }
-  return CALC_ERROR
+  return t('errors.telescope.calcFailed')
 }
 
 export function useTelescope(
   coordinates: Ref<Coordinates | null>,
   when?: Date | (() => Date)
 ) {
+  const { t } = useI18n()
   const whenSource = resolveWhenSource(when)
   const refreshToken = ref(0)
   const whenOverride = ref<Date | null>(null)
@@ -97,7 +96,7 @@ export function useTelescope(
       rankedTargets.value = []
       selectedDetail.value = null
       selectedTargetId.value = null
-      error.value = toErrorMessage(caught)
+      error.value = toErrorMessage(caught, t)
     }
   }
 
