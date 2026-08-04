@@ -1,30 +1,23 @@
-# Task 10 Report: `useMoonCalendar` composable
+# Task 10 Report: Meteor shower UI components
 
 ## Status: ✅ Complete
 
 ## What was done
-- Created `tests/composables/useMoonCalendar.test.ts` (4 cases from brief)
-- Verified RED: missing module import failure
-- Implemented `app/composables/useMoonCalendar.ts` mirroring `useTelescope` (`resolveWhenSource`, `refreshToken`, try/catch, watch)
-- Used `flush: 'sync'` on coordinates watch so null coords clear derived state synchronously (required by test)
-- Fixed local date `new Date(2026, 7, 3, 12, 0, 0)` for month nav / selectDay; padding `2026-07-27` ignored via `inCurrentMonth`
+Created presentational Vue SFCs under `app/components/meteor/`:
+- `MeteorUpcomingList.vue` — selectable cards; VI difficulty + moon interference labels; emit `select`
+- `MeteorVisibilityScore.vue` — stars/label/reasons; null → “Cần vị trí để chấm điểm”
+- `MeteorEventDetail.vue` — detail fields + visibility map stub “Sắp có”
+- `MeteorObservationGuide.vue` — time/sky/moon/cloud + equipment advice
+- `MeteorYearCalendar.vue` — year prev/next + selectable event rows; emit `prev`/`next`/`select`
+- `MeteorNotificationsStub.vue` — static “Sắp có” (ISS pattern)
+
+Uses `SkyCard` + `SectionTitle` auto-imports; slate/sky classes from Moon/ISS; no astronomy-engine imports.
 
 ## Tests
-```
-npx vitest run tests/composables/useMoonCalendar.test.ts
-→ 4 passed
-```
+Not required for Vue components in this task.
 
 ## Commit
-`f1c2fc5` — `feat(moon): add useMoonCalendar composable`
+`19955a7` — `feat(meteor): add meteor shower UI components`
 
-## Follow-up fix: clear day detail on month navigation
-- **Issue:** `goToPrevMonth` / `goToNextMonth` cleared `selectedDateISO` but left `selectedDetail` until `recompute()` finished. If `recompute` threw early, detail from the previous month could linger.
-- **Fix:** Set `selectedDetail.value = null` alongside `selectedDateISO` in both nav functions (same pattern as `clearSelectedDay`).
-- **Test:** Added case — `selectDay` then `goToNextMonth` clears `selectedDetail`.
-
-### Re-test
-```
-npx vitest run tests/composables/useMoonCalendar.test.ts
-→ 5 passed
-```
+## Concerns
+None. Page wiring is Task 11.
