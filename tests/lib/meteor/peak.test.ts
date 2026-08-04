@@ -39,6 +39,31 @@ describe('meteor peak timing', () => {
     expect(new Date(event.activeEnd).getTime()).toBeGreaterThan(new Date(event.peakAt).getTime())
   })
 
+  it('resolves Quadrantids active window across the year boundary', () => {
+    const def = getShowerDefinition('quadrantids')
+    const event = buildShowerEvent(def, 2026)
+    const activeStart = new Date(event.activeStart)
+    const peakAt = new Date(event.peakAt)
+    const activeEnd = new Date(event.activeEnd)
+    const expectedStart = findSolarLongitudeTime(2025, def.activeSolarLongitudeDeg.start)
+
+    expect(activeStart.getUTCFullYear()).toBe(2025)
+    expect(activeStart.getUTCMonth()).toBe(11) // December
+    expect(activeStart.getTime()).toBeLessThan(peakAt.getTime())
+    expect(activeEnd.getTime()).toBeGreaterThan(peakAt.getTime())
+    expect(activeEnd.getUTCFullYear()).toBe(2026)
+
+    // Must be λ-resolved previous-year crossing, not a peak−5d calendar clamp
+    expect(Math.abs(activeStart.getTime() - expectedStart.getTime())).toBeLessThan(60_000)
+    expect(Math.abs(activeStart.getTime() - (peakAt.getTime() - 5 * 86_400_000))).toBeGreaterThan(
+      60 * 60_000
+    )
+
+    const startLon = solarLongitudeDeg(activeStart)
+    expect(startLon).toBeGreaterThanOrEqual(277)
+    expect(startLon).toBeLessThanOrEqual(279)
+  })
+
   it('lists eight events sorted by peak for a year', () => {
     const events = listShowerEventsForYear(2026)
     expect(events).toHaveLength(8)

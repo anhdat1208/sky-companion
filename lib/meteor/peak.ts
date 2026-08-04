@@ -50,24 +50,14 @@ export function buildShowerEvent(
   let activeStart = findSolarLongitudeTime(year, def.activeSolarLongitudeDeg.start)
   let activeEnd = findSolarLongitudeTime(year, def.activeSolarLongitudeDeg.end)
 
-  // Handle wrap: if start λ > end λ (e.g. spans new year), start may be previous year.
-  if (def.activeSolarLongitudeDeg.start > def.activeSolarLongitudeDeg.end) {
-    activeStart = findSolarLongitudeTime(year, def.activeSolarLongitudeDeg.start)
-    // If start landed after peak, use previous year's start crossing.
-    if (activeStart.getTime() > peak.getTime()) {
-      activeStart = findSolarLongitudeTime(year - 1, def.activeSolarLongitudeDeg.start)
-    }
-    if (activeEnd.getTime() < peak.getTime()) {
-      activeEnd = findSolarLongitudeTime(year + 1, def.activeSolarLongitudeDeg.end)
-    }
-  }
-
-  // Clamp ordering safety for non-wrapping ranges
+  // Year-boundary showers (e.g. Quadrantids): start λ may resolve to Dec of
+  // the peak's calendar year (after peak). Re-resolve relative to peak — do
+  // not use catalog start>end or hard-coded day clamps.
   if (activeStart.getTime() > peak.getTime()) {
-    activeStart = new Date(peak.getTime() - 5 * 24 * 3600 * 1000)
+    activeStart = findSolarLongitudeTime(year - 1, def.activeSolarLongitudeDeg.start)
   }
   if (activeEnd.getTime() < peak.getTime()) {
-    activeEnd = new Date(peak.getTime() + 5 * 24 * 3600 * 1000)
+    activeEnd = findSolarLongitudeTime(year + 1, def.activeSolarLongitudeDeg.end)
   }
 
   return {
