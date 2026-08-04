@@ -15,6 +15,7 @@ export {
   GC_DEC_DEG,
   getGalacticCenterHorizontal,
   buildMilkyWayPhotoInfo,
+  evaluateMilkyWayConditionsAt,
   isGalacticCoreVisible
 } from './milkyWay'
 export { computePhotographyScore } from './score'

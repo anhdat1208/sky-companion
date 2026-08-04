@@ -11,7 +11,10 @@ import {
   getGoldenHourInfo,
   getTwilightInfo
 } from './sunEvents'
-import { buildMilkyWayPhotoInfo } from './milkyWay'
+import {
+  buildMilkyWayPhotoInfo,
+  evaluateMilkyWayConditionsAt
+} from './milkyWay'
 import { buildMoonPhotoInfo } from './moonPhoto'
 import { listPlanetPhotoInfos } from './planets'
 import { computePhotographyScore } from './score'
@@ -51,6 +54,21 @@ function pickRepresentativeInstant(
   return when
 }
 
+function withinNightWindow(
+  iso: string | null,
+  night: NightWindow
+): string | null {
+  if (!iso) return null
+  const t = new Date(iso).getTime()
+  if (
+    t >= new Date(night.sunset).getTime() &&
+    t <= new Date(night.sunrise).getTime()
+  ) {
+    return iso
+  }
+  return null
+}
+
 function emptySnapshot(when: Date): AstroPhotographySnapshot {
   return {
     timestamp: when.toISOString(),
@@ -84,6 +102,7 @@ export function buildAstroPhotographySnapshot(
   const hasAstronomicalDarkness = dark !== null
   const representative = pickRepresentativeInstant(nightWindow, dark, when)
 
+  // Card: peak-oriented MW fields. Score: visibility/core at representative.
   const milkyWay = buildMilkyWayPhotoInfo(
     lat,
     lng,
@@ -91,16 +110,17 @@ export function buildAstroPhotographySnapshot(
     nightWindow,
     dark
   )
+  const mwAtRep = evaluateMilkyWayConditionsAt(lat, lng, representative)
   const moon = buildMoonPhotoInfo(lat, lng, when, nightWindow)
   const planets = listPlanetPhotoInfos(lat, lng, representative)
 
   const moonAtRep = getMoonInfo(lat, lng, representative)
   const score = computePhotographyScore({
-    milkyWayVisibility: milkyWay.visibility,
+    milkyWayVisibility: mwAtRep.visibility,
     hasAstronomicalDarkness,
     moonAltitudeDeg: moonAtRep.altitude,
     moonIlluminationPct: moonAtRep.illuminatedPercentage,
-    coreVisible: milkyWay.coreVisible
+    coreVisible: mwAtRep.coreVisible
   })
 
   const anyPlanetVisible = planets.some((p) => p.isVisible)
@@ -109,8 +129,8 @@ export function buildAstroPhotographySnapshot(
     golden: goldenHour,
     blue: blueHour,
     twilight,
-    moonrise: moon.moonrise,
-    moonset: moon.moonset,
+    moonrise: withinNightWindow(moon.moonrise, nightWindow),
+    moonset: withinNightWindow(moon.moonset, nightWindow),
     milkyWayPeak: milkyWay.bestTime,
     planetMarkerAt: anyPlanetVisible ? representative.toISOString() : null,
     planetMarkerEnd: null

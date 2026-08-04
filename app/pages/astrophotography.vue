@@ -87,8 +87,19 @@ const {
   snapshot,
   needsLocation,
   error,
+  loading,
   refresh
 } = useAstroPhotography(coordinates)
+
+/** Polar day/night or no sunset→sunrise: coords exist but events unavailable. */
+const showNoNightWindowBanner = computed(() => {
+  return (
+    coordinates.value !== null
+    && !loading.value
+    && !error.value
+    && snapshot.value.nightWindow === null
+  )
+})
 
 function handleManualSubmit(lat: number, lng: number): void {
   geo.setManualCoordinates(lat, lng)
@@ -210,6 +221,16 @@ watch(queryCoordinates, (next, previous) => {
       >
         Thử lại
       </button>
+    </SkyCard>
+
+    <SkyCard
+      v-else-if="showNoNightWindowBanner"
+      role="status"
+    >
+      <SectionTitle
+        title="Không có đêm thiên văn"
+        subtitle="Tại vị trí này không có khoảng hoàng hôn → bình minh (ví dụ ngày/đêm cực). Các sự kiện chụp đêm tạm thời không khả dụng."
+      />
     </SkyCard>
 
     <template v-else>

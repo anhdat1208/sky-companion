@@ -91,6 +91,38 @@ function findBestTime(
   return bestWhen
 }
 
+/** MW visibility + core at a specific instant (e.g. representative dark sky). */
+export function evaluateMilkyWayConditionsAt(
+  lat: number,
+  lng: number,
+  when: Date
+): {
+  visibility: ReturnType<typeof getMilkyWayVisibility>
+  coreVisible: boolean
+  altitudeDeg: number
+  azimuthDeg: number
+} {
+  const sun = getSunInfo(lat, lng, when)
+  const moon = getMoonInfo(lat, lng, when)
+  const gc = getGalacticCenterHorizontal(lat, lng, when)
+
+  return {
+    visibility: getMilkyWayVisibility({
+      sunAltitude: sun.altitude,
+      moonAltitude: moon.altitude,
+      moonIlluminatedPercentage: moon.illuminatedPercentage
+    }),
+    coreVisible: isGalacticCoreVisible(
+      sun.altitude,
+      gc.altitude,
+      moon.altitude,
+      moon.illuminatedPercentage
+    ),
+    altitudeDeg: gc.altitude,
+    azimuthDeg: gc.azimuth
+  }
+}
+
 export function buildMilkyWayPhotoInfo(
   lat: number,
   lng: number,
@@ -103,30 +135,14 @@ export function buildMilkyWayPhotoInfo(
 
   const bestWhen = findBestTime(lat, lng, night, astronomicalDark)
   const evalWhen = bestWhen ?? when
-
-  const sun = getSunInfo(lat, lng, evalWhen)
-  const moon = getMoonInfo(lat, lng, evalWhen)
-  const gc = getGalacticCenterHorizontal(lat, lng, evalWhen)
-
-  const visibility = getMilkyWayVisibility({
-    sunAltitude: sun.altitude,
-    moonAltitude: moon.altitude,
-    moonIlluminatedPercentage: moon.illuminatedPercentage
-  })
-
-  const coreVisible = isGalacticCoreVisible(
-    sun.altitude,
-    gc.altitude,
-    moon.altitude,
-    moon.illuminatedPercentage
-  )
+  const atPeak = evaluateMilkyWayConditionsAt(lat, lng, evalWhen)
 
   return {
-    visibility,
-    direction: azimuthToDirection(gc.azimuth),
-    altitudeDeg: gc.altitude,
+    visibility: atPeak.visibility,
+    direction: azimuthToDirection(atPeak.azimuthDeg),
+    altitudeDeg: atPeak.altitudeDeg,
     bestTime: bestWhen?.toISOString() ?? null,
-    coreVisible,
+    coreVisible: atPeak.coreVisible,
     recommendedLensLabel,
     settings
   }
