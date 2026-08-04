@@ -10,6 +10,7 @@
   "nav": {
     "home": "Home",
     "compass": "Compass",
+    "openCompass": "Open Compass",
     "telescope": "Telescope",
     "iss": "ISS Now",
     "moonCalendar": "Moon Calendar",
@@ -79,12 +80,59 @@
       "responseSubtitle": "AI-generated content based on current astronomy data.",
       "suggestedQuestions": "Suggested questions",
       "suggestedQuestionsSubtitle": "Tap a question to ask the AI for a deeper explanation."
+    },
+    "skyLabels": {
+      "altitude": "Altitude",
+      "azimuth": "Azimuth"
+    },
+    "moonCard": {
+      "title": "Moon",
+      "subtitle": "Moon position and phase at the observation time.",
+      "illumination": "Illumination",
+      "phase": "Phase",
+      "rise": "Rise",
+      "set": "Set"
+    },
+    "sunCard": {
+      "title": "Sun",
+      "subtitle": "Altitude, azimuth, and rise/set times.",
+      "sunrise": "Sunrise",
+      "sunset": "Sunset"
+    },
+    "planetCard": {
+      "title": "Visible planets",
+      "subtitle": "Planets currently above the horizon at your location.",
+      "visible": "Visible",
+      "empty": "No planets are visible in the sky right now."
     }
   },
   "pages": {
     "home": {
       "title": "What's Above Me?",
-      "subtitle": "See the Sun, Moon, and planets above your location right now."
+      "subtitle": "See the Sun, Moon, and planets above your location right now.",
+      "brand": "Sky Companion",
+      "locationFromGps": "Using browser GPS.",
+      "locationManual": "Entered manually after GPS was unavailable.",
+      "loadingSky": "Loading sky data...",
+      "skyLoadError": "Could not load sky data",
+      "retryLocation": "Retry location",
+      "observationTime": {
+        "title": "Observation time",
+        "subtitle": "Server time used for sky calculations."
+      },
+      "constellation": {
+        "title": "Current constellation",
+        "subtitle": "Constellation context near the zenith."
+      },
+      "milkyWay": {
+        "title": "Milky Way visibility",
+        "subtitle": "Quick assessment based on Sun and Moon context."
+      },
+      "direction": {
+        "title": "Direction to look",
+        "subtitle": "Suggested direction for sky observation.",
+        "viewOnCompass": "View on Compass"
+      }
     }
   }
 }

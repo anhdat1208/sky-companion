@@ -5,6 +5,8 @@ const props = defineProps<{
   planets: PlanetInfo[]
 }>()
 
+const { t } = useI18n()
+
 const visiblePlanets = computed(() => props.planets.filter(planet => planet.isVisible))
 
 function formatAngle(value: number): string {
@@ -15,8 +17,8 @@ function formatAngle(value: number): string {
 <template>
   <SkyCard>
     <SectionTitle
-      title="Các hành tinh nhìn thấy"
-      subtitle="Những hành tinh đang trên bầu trời tại vị trí của bạn."
+      :title="t('components.planetCard.title')"
+      :subtitle="t('components.planetCard.subtitle')"
     />
 
     <ul
@@ -33,13 +35,13 @@ function formatAngle(value: number): string {
             {{ planet.name }}
           </p>
           <span class="shrink-0 rounded-lg bg-emerald-500/15 px-2.5 py-1 text-xs font-medium text-emerald-300">
-            Visible
+            {{ t('components.planetCard.visible') }}
           </span>
         </div>
         <dl class="mt-3 grid grid-cols-2 gap-3">
           <div>
             <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-              Cao độ
+              {{ t('components.skyLabels.altitude') }}
             </dt>
             <dd class="mt-1 font-mono text-sm text-slate-200">
               {{ formatAngle(planet.altitude) }}
@@ -47,7 +49,7 @@ function formatAngle(value: number): string {
           </div>
           <div>
             <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-              Phương vị
+              {{ t('components.skyLabels.azimuth') }}
             </dt>
             <dd class="mt-1 font-mono text-sm text-slate-200">
               {{ formatAngle(planet.azimuth) }}
@@ -61,7 +63,7 @@ function formatAngle(value: number): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Không có hành tinh nào đang nhìn thấy trên bầu trời lúc này.
+      {{ t('components.planetCard.empty') }}
     </p>
   </SkyCard>
 </template>

@@ -10,6 +10,7 @@
   "nav": {
     "home": "Trang chủ",
     "compass": "La bàn",
+    "openCompass": "Mở La bàn",
     "telescope": "Kính thiên văn",
     "iss": "ISS ngay",
     "moonCalendar": "Lịch Mặt Trăng",
@@ -79,12 +80,59 @@
       "responseSubtitle": "Nội dung do AI tạo dựa trên dữ liệu thiên văn hiện tại.",
       "suggestedQuestions": "Câu hỏi gợi ý",
       "suggestedQuestionsSubtitle": "Nhấn vào một câu hỏi để yêu cầu AI giải thích sâu hơn."
+    },
+    "skyLabels": {
+      "altitude": "Cao độ",
+      "azimuth": "Phương vị"
+    },
+    "moonCard": {
+      "title": "Mặt Trăng",
+      "subtitle": "Vị trí và pha Mặt Trăng tại thời điểm quan sát.",
+      "illumination": "Độ sáng",
+      "phase": "Pha",
+      "rise": "Mọc",
+      "set": "Lặn"
+    },
+    "sunCard": {
+      "title": "Mặt Trời",
+      "subtitle": "Cao độ, phương vị và thời điểm mọc/lặn.",
+      "sunrise": "Bình minh",
+      "sunset": "Hoàng hôn"
+    },
+    "planetCard": {
+      "title": "Các hành tinh nhìn thấy",
+      "subtitle": "Những hành tinh đang trên bầu trời tại vị trí của bạn.",
+      "visible": "Nhìn thấy",
+      "empty": "Không có hành tinh nào đang nhìn thấy trên bầu trời lúc này."
     }
   },
   "pages": {
     "home": {
       "title": "Bầu trời trên bạn?",
-      "subtitle": "Xem Mặt Trời, Mặt Trăng và các hành tinh trên vị trí của bạn ngay bây giờ."
+      "subtitle": "Xem Mặt Trời, Mặt Trăng và các hành tinh trên vị trí của bạn ngay bây giờ.",
+      "brand": "Sky Companion",
+      "locationFromGps": "Lấy từ GPS trình duyệt.",
+      "locationManual": "Nhập thủ công sau khi không dùng được GPS.",
+      "loadingSky": "Đang tải dữ liệu bầu trời...",
+      "skyLoadError": "Không tải được dữ liệu bầu trời",
+      "retryLocation": "Lấy lại vị trí",
+      "observationTime": {
+        "title": "Thời gian quan sát",
+        "subtitle": "Thời điểm máy chủ dùng để tính toán bầu trời."
+      },
+      "constellation": {
+        "title": "Chòm sao hiện tại",
+        "subtitle": "Ngữ cảnh chòm sao gần thiên đỉnh."
+      },
+      "milkyWay": {
+        "title": "Khả năng thấy Ngân Hà",
+        "subtitle": "Đánh giá nhanh dựa trên ngữ cảnh Mặt Trời/Mặt Trăng."
+      },
+      "direction": {
+        "title": "Hướng nên nhìn",
+        "subtitle": "Hướng gợi ý để quan sát bầu trời.",
+        "viewOnCompass": "Xem trên La bàn"
+      }
     }
   }
 }
