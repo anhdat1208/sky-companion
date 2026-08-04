@@ -338,6 +338,114 @@
         "Good": "Good",
         "Excellent": "Excellent"
       }
+    },
+    "photo": {
+      "locationRequired": "Location required",
+      "locationRequiredForScore": "Location required to score",
+      "morning": "Morning",
+      "evening": "Evening",
+      "scoreLabels": {
+        "Poor": "Poor",
+        "Fair": "Fair",
+        "Good": "Good",
+        "Excellent": "Excellent"
+      },
+      "milkyWayVisibility": {
+        "Excellent": "Excellent",
+        "Good": "Good",
+        "Poor": "Poor",
+        "Not Visible": "Not visible"
+      },
+      "brightness": {
+        "faint": "Faint",
+        "moderate": "Moderate",
+        "bright": "Bright",
+        "very-bright": "Very bright"
+      },
+      "timelineMarkers": {
+        "golden-hour": "Golden hour",
+        "blue-hour": "Blue hour",
+        "dark-sky": "Dark sky",
+        "moonrise": "Moonrise",
+        "moonset": "Moonset",
+        "milky-way-peak": "Milky Way peak",
+        "planet-visibility": "Planets up"
+      },
+      "moonPhotoCard": {
+        "title": "Moon",
+        "subtitle": "Rise/set, phase, brightness, and suggested lens.",
+        "moonrise": "Rise",
+        "moonset": "Set",
+        "phase": "Phase",
+        "illumination": "Illumination",
+        "bestTime": "Best time",
+        "lens": "Lens"
+      },
+      "blueHourCard": {
+        "title": "Blue hour",
+        "subtitle": "Soft blue light before sunrise and after sunset."
+      },
+      "goldenHourCard": {
+        "title": "Golden hour",
+        "subtitle": "Warm light around sunrise and sunset.",
+        "totalDuration": "Total duration",
+        "durationMinutes": "{minutes} min"
+      },
+      "twilightCard": {
+        "title": "Twilight",
+        "subtitle": "Civil, nautical, and astronomical — morning and evening.",
+        "civil": "Civil",
+        "nautical": "Nautical",
+        "astronomical": "Astronomical"
+      },
+      "milkyWayPhotoCard": {
+        "title": "Milky Way",
+        "subtitle": "Visibility, direction, best time, and suggested lens.",
+        "visibility": "Visibility",
+        "direction": "Direction",
+        "altitude": "Altitude",
+        "bestTime": "Best time",
+        "core": "Core",
+        "lens": "Lens",
+        "suggestedSettings": "Suggested settings"
+      },
+      "planetPhotoCard": {
+        "title": "Planets",
+        "subtitle": "Altitude, brightness, and suggested magnification.",
+        "altitude": "Altitude",
+        "brightness": "Brightness",
+        "magnification": "Magnification",
+        "visible": "Visible",
+        "notVisible": "Not visible",
+        "empty": "No planets in the list."
+      },
+      "photoTimeline": {
+        "title": "Timeline",
+        "subtitle": "Markers from sunset to sunrise.",
+        "sunset": "Sunset",
+        "sunrise": "Sunrise",
+        "noMarkers": "No markers in this night window."
+      },
+      "photoScoreCard": {
+        "title": "Tonight's shoot score",
+        "subtitle": "Quick assessment of night photography conditions at your location.",
+        "starsAriaLabel": "{stars} out of 5 stars"
+      },
+      "cameraSettingsCard": {
+        "title": "Camera settings",
+        "titleWithSubject": "Settings · {subject}",
+        "subtitle": "ISO, aperture, exposure, focal length, tripod, and remote.",
+        "aperture": "Aperture",
+        "exposure": "Exposure",
+        "focalLength": "Focal length",
+        "tripod": "Tripod",
+        "remote": "Remote"
+      },
+      "photoLocationPrompt": {
+        "title": "Location required",
+        "subtitle": "Enable geolocation or enter coordinates to calculate shoot scores and event schedule.",
+        "body": "Tonight's shoot score, Milky Way, golden/blue hour, and twilight depend on your observation location. Choose a location to view tonight's astrophotography schedule."
+      }
     }
   },
   "pages": {
@@ -390,6 +498,16 @@
       "subtitle": "Upcoming meteor shower calendar, location-based observation scores, and naked-eye viewing guide.",
       "loadError": "Could not calculate meteor shower calendar",
       "permissionFallbackHint": "Enter latitude and longitude manually to view observation scores and best direction. List and calendar still work without location."
+    },
+    "astrophotography": {
+      "title": "Astrophotography · What's Above Me?",
+      "heading": "Astrophotography",
+      "subtitle": "Tonight's shoot score, Milky Way, golden/blue hour, twilight, Moon, planets, and a timeline from sunset to sunrise.",
+      "loadError": "Could not calculate photography schedule",
+      "permissionFallbackHint": "Enter latitude and longitude manually to view shoot scores and event schedule. Non-location sections remain available.",
+      "noNightWindowTitle": "No astronomical night",
+      "noNightWindowSubtitle": "At this location there is no sunset-to-sunrise window (e.g. polar day/night). Night photography events are temporarily unavailable.",
+      "aiName": "Astrophotography Tonight"
     }
   }
 }

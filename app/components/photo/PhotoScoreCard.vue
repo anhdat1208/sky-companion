@@ -8,19 +8,22 @@ defineProps<{
   score: PhotographyScore | null
 }>()
 
-const LABEL_VI: Record<PhotographyScoreLabel, string> = {
-  Poor: 'Kém',
-  Fair: 'Trung bình',
-  Good: 'Tốt',
-  Excellent: 'Xuất sắc'
+const { t } = useI18n()
+
+function formatLabel(value: PhotographyScoreLabel): string {
+  return t(`components.photo.scoreLabels.${value}`)
+}
+
+function starsAriaLabel(stars: number): string {
+  return t('components.photo.photoScoreCard.starsAriaLabel', { stars })
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Điểm chụp đêm nay"
-      subtitle="Đánh giá nhanh điều kiện chụp ảnh đêm dựa trên vị trí quan sát."
+      :title="t('components.photo.photoScoreCard.title')"
+      :subtitle="t('components.photo.photoScoreCard.subtitle')"
     />
 
     <div
@@ -30,7 +33,7 @@ const LABEL_VI: Record<PhotographyScoreLabel, string> = {
       <div class="flex flex-wrap items-baseline gap-3">
         <p
           class="font-mono text-2xl tracking-widest text-amber-200"
-          :aria-label="`${score.stars} trên 5 sao`"
+          :aria-label="starsAriaLabel(score.stars)"
         >
           <span
             v-for="n in 5"
@@ -39,7 +42,7 @@ const LABEL_VI: Record<PhotographyScoreLabel, string> = {
           >★</span>
         </p>
         <p class="text-base text-slate-100">
-          {{ LABEL_VI[score.label] }}
+          {{ formatLabel(score.label) }}
         </p>
       </div>
 
@@ -60,7 +63,7 @@ const LABEL_VI: Record<PhotographyScoreLabel, string> = {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí để chấm điểm
+      {{ t('components.photo.locationRequiredForScore') }}
     </p>
   </SkyCard>
 </template>

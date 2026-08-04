@@ -5,11 +5,14 @@ defineProps<{
   info: TwilightInfo | null
 }>()
 
+const { t } = useI18n()
+const { formatTime: formatTimeValue } = useFormatters()
+
 function formatTime(value: string | null): string {
   if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return '—'
-  return new Intl.DateTimeFormat(undefined, { timeStyle: 'short' }).format(date)
+  return formatTimeValue(date)
 }
 
 function formatRange(range: TimeRange | null): string {
@@ -21,8 +24,8 @@ function formatRange(range: TimeRange | null): string {
 <template>
   <SkyCard>
     <SectionTitle
-      title="Chạng vạng"
-      subtitle="Civil, nautical và astronomical — sáng và chiều."
+      :title="t('components.photo.twilightCard.title')"
+      :subtitle="t('components.photo.twilightCard.subtitle')"
     />
 
     <div
@@ -31,12 +34,12 @@ function formatRange(range: TimeRange | null): string {
     >
       <div class="rounded-xl bg-slate-950/70 p-4">
         <p class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Civil
+          {{ t('components.photo.twilightCard.civil') }}
         </p>
         <dl class="mt-2 grid grid-cols-2 gap-3">
           <div>
             <dt class="text-xs text-slate-500">
-              Sáng
+              {{ t('components.photo.morning') }}
             </dt>
             <dd class="mt-0.5 text-sm text-slate-100">
               {{ formatRange(info.civil.morning) }}
@@ -44,7 +47,7 @@ function formatRange(range: TimeRange | null): string {
           </div>
           <div>
             <dt class="text-xs text-slate-500">
-              Chiều
+              {{ t('components.photo.evening') }}
             </dt>
             <dd class="mt-0.5 text-sm text-slate-100">
               {{ formatRange(info.civil.evening) }}
@@ -55,12 +58,12 @@ function formatRange(range: TimeRange | null): string {
 
       <div class="rounded-xl bg-slate-950/70 p-4">
         <p class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Nautical
+          {{ t('components.photo.twilightCard.nautical') }}
         </p>
         <dl class="mt-2 grid grid-cols-2 gap-3">
           <div>
             <dt class="text-xs text-slate-500">
-              Sáng
+              {{ t('components.photo.morning') }}
             </dt>
             <dd class="mt-0.5 text-sm text-slate-100">
               {{ formatRange(info.nautical.morning) }}
@@ -68,7 +71,7 @@ function formatRange(range: TimeRange | null): string {
           </div>
           <div>
             <dt class="text-xs text-slate-500">
-              Chiều
+              {{ t('components.photo.evening') }}
             </dt>
             <dd class="mt-0.5 text-sm text-slate-100">
               {{ formatRange(info.nautical.evening) }}
@@ -79,12 +82,12 @@ function formatRange(range: TimeRange | null): string {
 
       <div class="rounded-xl bg-slate-950/70 p-4">
         <p class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Astronomical
+          {{ t('components.photo.twilightCard.astronomical') }}
         </p>
         <dl class="mt-2 grid grid-cols-2 gap-3">
           <div>
             <dt class="text-xs text-slate-500">
-              Sáng
+              {{ t('components.photo.morning') }}
             </dt>
             <dd class="mt-0.5 text-sm text-slate-100">
               {{ formatRange(info.astronomical.morning) }}
@@ -92,7 +95,7 @@ function formatRange(range: TimeRange | null): string {
           </div>
           <div>
             <dt class="text-xs text-slate-500">
-              Chiều
+              {{ t('components.photo.evening') }}
             </dt>
             <dd class="mt-0.5 text-sm text-slate-100">
               {{ formatRange(info.astronomical.evening) }}
@@ -106,7 +109,7 @@ function formatRange(range: TimeRange | null): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí
+      {{ t('components.photo.locationRequired') }}
     </p>
   </SkyCard>
 </template>

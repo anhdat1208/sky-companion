@@ -5,11 +5,14 @@ defineProps<{
   info: MoonPhotoInfo | null
 }>()
 
+const { t } = useI18n()
+const { formatTime: formatTimeValue } = useFormatters()
+
 function formatTime(value: string | null): string {
   if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return '—'
-  return new Intl.DateTimeFormat(undefined, { timeStyle: 'short' }).format(date)
+  return formatTimeValue(date)
 }
 
 function formatIllumination(pct: number): string {
@@ -20,8 +23,8 @@ function formatIllumination(pct: number): string {
 <template>
   <SkyCard>
     <SectionTitle
-      title="Mặt Trăng"
-      subtitle="Mọc/lặn, pha, độ sáng và gợi ý ống kính."
+      :title="t('components.photo.moonPhotoCard.title')"
+      :subtitle="t('components.photo.moonPhotoCard.subtitle')"
     />
 
     <dl
@@ -30,7 +33,7 @@ function formatIllumination(pct: number): string {
     >
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Mọc
+          {{ t('components.photo.moonPhotoCard.moonrise') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(info.moonrise) }}
@@ -38,7 +41,7 @@ function formatIllumination(pct: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Lặn
+          {{ t('components.photo.moonPhotoCard.moonset') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(info.moonset) }}
@@ -46,7 +49,7 @@ function formatIllumination(pct: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Pha
+          {{ t('components.photo.moonPhotoCard.phase') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ info.phase }}
@@ -54,7 +57,7 @@ function formatIllumination(pct: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Độ sáng
+          {{ t('components.photo.moonPhotoCard.illumination') }}
         </dt>
         <dd class="mt-1 font-mono text-sm text-slate-100">
           {{ formatIllumination(info.illuminationPct) }}
@@ -62,7 +65,7 @@ function formatIllumination(pct: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Thời điểm tốt
+          {{ t('components.photo.moonPhotoCard.bestTime') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(info.bestPhotographyTime) }}
@@ -70,7 +73,7 @@ function formatIllumination(pct: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Ống kính
+          {{ t('components.photo.moonPhotoCard.lens') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ info.recommendedLensLabel }}
@@ -82,7 +85,7 @@ function formatIllumination(pct: number): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí
+      {{ t('components.photo.locationRequired') }}
     </p>
   </SkyCard>
 </template>

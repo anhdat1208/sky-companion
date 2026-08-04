@@ -338,6 +338,114 @@
         "Good": "Tốt",
         "Excellent": "Xuất sắc"
       }
+    },
+    "photo": {
+      "locationRequired": "Cần vị trí",
+      "locationRequiredForScore": "Cần vị trí để chấm điểm",
+      "morning": "Sáng",
+      "evening": "Chiều",
+      "scoreLabels": {
+        "Poor": "Kém",
+        "Fair": "Trung bình",
+        "Good": "Tốt",
+        "Excellent": "Xuất sắc"
+      },
+      "milkyWayVisibility": {
+        "Excellent": "Xuất sắc",
+        "Good": "Tốt",
+        "Poor": "Kém",
+        "Not Visible": "Không thấy"
+      },
+      "brightness": {
+        "faint": "Mờ",
+        "moderate": "Vừa",
+        "bright": "Sáng",
+        "very-bright": "Rất sáng"
+      },
+      "timelineMarkers": {
+        "golden-hour": "Giờ vàng",
+        "blue-hour": "Giờ xanh",
+        "dark-sky": "Trời tối",
+        "moonrise": "Mặt Trăng mọc",
+        "moonset": "Mặt Trăng lặn",
+        "milky-way-peak": "Đỉnh Ngân Hà",
+        "planet-visibility": "Hành tinh nổi"
+      },
+      "moonPhotoCard": {
+        "title": "Mặt Trăng",
+        "subtitle": "Mọc/lặn, pha, độ sáng và gợi ý ống kính.",
+        "moonrise": "Mọc",
+        "moonset": "Lặn",
+        "phase": "Pha",
+        "illumination": "Độ sáng",
+        "bestTime": "Thời điểm tốt",
+        "lens": "Ống kính"
+      },
+      "blueHourCard": {
+        "title": "Giờ xanh",
+        "subtitle": "Ánh sáng xanh dịu trước bình minh và sau hoàng hôn."
+      },
+      "goldenHourCard": {
+        "title": "Giờ vàng",
+        "subtitle": "Khoảng sáng ấm quanh bình minh và hoàng hôn.",
+        "totalDuration": "Tổng thời lượng",
+        "durationMinutes": "{minutes} phút"
+      },
+      "twilightCard": {
+        "title": "Chạng vạng",
+        "subtitle": "Civil, nautical và astronomical — sáng và chiều.",
+        "civil": "Civil",
+        "nautical": "Nautical",
+        "astronomical": "Astronomical"
+      },
+      "milkyWayPhotoCard": {
+        "title": "Ngân Hà",
+        "subtitle": "Khả năng thấy, hướng, thời điểm tốt và gợi ý ống kính.",
+        "visibility": "Khả năng thấy",
+        "direction": "Hướng",
+        "altitude": "Cao độ",
+        "bestTime": "Thời điểm tốt",
+        "core": "Lõi (core)",
+        "lens": "Ống kính",
+        "suggestedSettings": "Cài đặt gợi ý"
+      },
+      "planetPhotoCard": {
+        "title": "Hành tinh",
+        "subtitle": "Cao độ, độ sáng và độ phóng đại gợi ý.",
+        "altitude": "Cao độ",
+        "brightness": "Độ sáng",
+        "magnification": "Phóng đại",
+        "visible": "Thấy được",
+        "notVisible": "Không thấy",
+        "empty": "Không có hành tinh trong danh sách."
+      },
+      "photoTimeline": {
+        "title": "Dòng thời gian",
+        "subtitle": "Các mốc từ hoàng hôn đến bình minh.",
+        "sunset": "Hoàng hôn",
+        "sunrise": "Bình minh",
+        "noMarkers": "Chưa có mốc trong cửa sổ đêm này."
+      },
+      "photoScoreCard": {
+        "title": "Điểm chụp đêm nay",
+        "subtitle": "Đánh giá nhanh điều kiện chụp ảnh đêm dựa trên vị trí quan sát.",
+        "starsAriaLabel": "{stars} trên 5 sao"
+      },
+      "cameraSettingsCard": {
+        "title": "Cài đặt máy ảnh",
+        "titleWithSubject": "Cài đặt · {subject}",
+        "subtitle": "ISO, khẩu độ, phơi sáng, tiêu cự, chân máy và remote.",
+        "aperture": "Khẩu độ",
+        "exposure": "Phơi sáng",
+        "focalLength": "Tiêu cự",
+        "tripod": "Chân máy",
+        "remote": "Remote"
+      },
+      "photoLocationPrompt": {
+        "title": "Cần vị trí",
+        "subtitle": "Bật định vị hoặc nhập tọa độ để tính điểm chụp và lịch sự kiện.",
+        "body": "Điểm chụp đêm, Ngân Hà, giờ vàng/xanh và chạng vạng phụ thuộc vị trí quan sát. Chọn vị trí để xem lịch chụp ảnh thiên văn cho đêm nay."
+      }
     }
   },
   "pages": {
@@ -390,6 +498,16 @@
       "subtitle": "Lịch mưa sao băng sắp tới, điểm quan sát theo vị trí và hướng dẫn xem bằng mắt thường.",
       "loadError": "Không tính được lịch mưa sao băng",
       "permissionFallbackHint": "Hãy nhập vĩ độ và kinh độ thủ công để xem điểm quan sát và hướng tốt nhất. Danh sách và lịch vẫn dùng được không cần vị trí."
+    },
+    "astrophotography": {
+      "title": "Chụp ảnh bầu trời · Bầu trời trên bạn?",
+      "heading": "Chụp ảnh bầu trời",
+      "subtitle": "Điểm chụp đêm nay, Ngân Hà, giờ vàng/xanh, chạng vạng, Mặt Trăng, hành tinh và dòng thời gian từ hoàng hôn đến bình minh.",
+      "loadError": "Không tính được lịch chụp ảnh",
+      "permissionFallbackHint": "Hãy nhập vĩ độ và kinh độ thủ công để tính điểm chụp và lịch sự kiện. Các mục không phụ thuộc vị trí vẫn xem được.",
+      "noNightWindowTitle": "Không có đêm thiên văn",
+      "noNightWindowSubtitle": "Tại vị trí này không có khoảng hoàng hôn → bình minh (ví dụ ngày/đêm cực). Các sự kiện chụp đêm tạm thời không khả dụng.",
+      "aiName": "Chụp ảnh đêm nay"
     }
   }
 }

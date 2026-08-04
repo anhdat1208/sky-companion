@@ -5,11 +5,14 @@ defineProps<{
   info: BlueHourInfo | null
 }>()
 
+const { t } = useI18n()
+const { formatTime: formatTimeValue } = useFormatters()
+
 function formatTime(value: string | null): string {
   if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return '—'
-  return new Intl.DateTimeFormat(undefined, { timeStyle: 'short' }).format(date)
+  return formatTimeValue(date)
 }
 
 function formatRange(range: TimeRange | null): string {
@@ -21,8 +24,8 @@ function formatRange(range: TimeRange | null): string {
 <template>
   <SkyCard>
     <SectionTitle
-      title="Giờ xanh"
-      subtitle="Ánh sáng xanh dịu trước bình minh và sau hoàng hôn."
+      :title="t('components.photo.blueHourCard.title')"
+      :subtitle="t('components.photo.blueHourCard.subtitle')"
     />
 
     <dl
@@ -31,7 +34,7 @@ function formatRange(range: TimeRange | null): string {
     >
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Sáng
+          {{ t('components.photo.morning') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatRange(info.morning) }}
@@ -39,7 +42,7 @@ function formatRange(range: TimeRange | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Chiều
+          {{ t('components.photo.evening') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatRange(info.evening) }}
@@ -51,7 +54,7 @@ function formatRange(range: TimeRange | null): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí
+      {{ t('components.photo.locationRequired') }}
     </p>
   </SkyCard>
 </template>

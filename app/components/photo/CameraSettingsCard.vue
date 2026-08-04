@@ -1,21 +1,32 @@
 <script setup lang="ts">
 import type { CameraSettings } from '../../../types/photo'
 
-defineProps<{
+const props = defineProps<{
   settings: CameraSettings | null
   subjectLabel?: string
 }>()
 
+const { t } = useI18n()
+
+const cardTitle = computed(() => {
+  if (props.subjectLabel) {
+    return t('components.photo.cameraSettingsCard.titleWithSubject', {
+      subject: props.subjectLabel
+    })
+  }
+  return t('components.photo.cameraSettingsCard.title')
+})
+
 function formatYesNo(value: boolean): string {
-  return value ? 'Có' : 'Không'
+  return value ? t('components.moon.yes') : t('components.moon.no')
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      :title="subjectLabel ? `Cài đặt · ${subjectLabel}` : 'Cài đặt máy ảnh'"
-      subtitle="ISO, khẩu độ, phơi sáng, tiêu cự, chân máy và remote."
+      :title="cardTitle"
+      :subtitle="t('components.photo.cameraSettingsCard.subtitle')"
     />
 
     <dl
@@ -32,7 +43,7 @@ function formatYesNo(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Khẩu độ
+          {{ t('components.photo.cameraSettingsCard.aperture') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ settings.aperture }}
@@ -40,7 +51,7 @@ function formatYesNo(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Phơi sáng
+          {{ t('components.photo.cameraSettingsCard.exposure') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ settings.exposureTime }}
@@ -48,7 +59,7 @@ function formatYesNo(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Tiêu cự
+          {{ t('components.photo.cameraSettingsCard.focalLength') }}
         </dt>
         <dd class="mt-1 font-mono text-sm text-slate-100">
           {{ settings.focalLengthMm.min }}–{{ settings.focalLengthMm.max }}mm
@@ -56,7 +67,7 @@ function formatYesNo(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Chân máy
+          {{ t('components.photo.cameraSettingsCard.tripod') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatYesNo(settings.tripodRequired) }}
@@ -64,7 +75,7 @@ function formatYesNo(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Remote
+          {{ t('components.photo.cameraSettingsCard.remote') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatYesNo(settings.remoteShutter) }}
@@ -76,7 +87,7 @@ function formatYesNo(value: boolean): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí
+      {{ t('components.photo.locationRequired') }}
     </p>
   </SkyCard>
 </template>
