@@ -8,8 +8,10 @@ import MoonDayDetailPanel from '../components/moon/MoonDayDetailPanel.vue'
 import MoonUpcomingEvents from '../components/moon/MoonUpcomingEvents.vue'
 import SkyAIExplainPanel from '../components/ai/SkyAIExplainPanel.vue'
 
+const { t } = useI18n()
+
 useHead({
-  title: 'Moon Calendar · What\'s Above Me?'
+  title: () => t('pages.moonCalendar.title')
 })
 
 const route = useRoute()
@@ -71,14 +73,24 @@ const isBootstrapping = computed(() => {
 
 const locationSourceLabel = computed(() => {
   if (locationSource.value === 'manual') {
-    return 'Nhập thủ công sau khi không dùng được GPS.'
+    return t('pages.home.locationManual')
   }
 
   if (locationSource.value === 'query') {
-    return 'Lấy từ tham số URL.'
+    return t('pages.moonCalendar.locationFromQuery')
   }
 
-  return 'Lấy từ GPS trình duyệt.'
+  return t('pages.home.locationFromGps')
+})
+
+const permissionFallbackTitle = computed(() => {
+  return geo.permissionDenied.value
+    ? t('errors.location.permissionDenied')
+    : t('errors.location.unavailable')
+})
+
+const permissionFallbackSubtitle = computed(() => {
+  return geo.error.value ?? t('components.permissionDenied.body')
 })
 
 const {
@@ -147,33 +159,33 @@ watch(queryCoordinates, (next, previous) => {
   <div class="space-y-6">
     <header class="space-y-3">
       <p class="text-sm font-medium uppercase tracking-[0.2em] text-sky-400/80">
-        Sky Companion
+        {{ t('pages.home.brand') }}
       </p>
       <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-        Lịch Mặt Trăng
+        {{ t('pages.moonCalendar.heading') }}
       </h1>
       <p class="max-w-2xl text-base leading-7 text-slate-400">
-        Pha hôm nay, lịch tháng, điểm quan sát và gợi ý chụp ảnh theo vị trí của bạn.
+        {{ t('pages.moonCalendar.subtitle') }}
       </p>
       <div class="flex flex-wrap gap-3">
         <NuxtLink
           to="/"
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
-          ← Về trang chủ
+          ← {{ t('common.backHome') }}
         </NuxtLink>
       </div>
     </header>
 
     <LoadingLocation
       v-if="isBootstrapping"
-      message="Đang xác định vị trí của bạn..."
+      :message="t('components.loadingLocation.default')"
     />
 
     <PermissionDenied
       v-else-if="showManualFallback"
-      :title="geo.permissionDenied.value ? 'Không thể truy cập vị trí' : 'Không lấy được vị trí'"
-      :subtitle="geo.error.value ?? 'Hãy nhập vĩ độ và kinh độ thủ công để tiếp tục.'"
+      :title="permissionFallbackTitle"
+      :subtitle="permissionFallbackSubtitle"
       @submit="handleManualSubmit"
     />
 
@@ -189,7 +201,7 @@ watch(queryCoordinates, (next, previous) => {
           class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
           @click="refresh()"
         >
-          Làm mới
+          {{ t('common.refresh') }}
         </button>
         <button
           v-if="!hasQueryCoordinates && hasAttemptedLocation"
@@ -197,7 +209,7 @@ watch(queryCoordinates, (next, previous) => {
           class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
           @click="retryLocation"
         >
-          Lấy lại vị trí
+          {{ t('pages.home.retryLocation') }}
         </button>
       </div>
 
@@ -206,7 +218,7 @@ watch(queryCoordinates, (next, previous) => {
         role="alert"
       >
         <SectionTitle
-          title="Không tính được lịch Mặt Trăng"
+          :title="t('pages.moonCalendar.loadError')"
           :subtitle="error"
         />
         <button
@@ -214,7 +226,7 @@ watch(queryCoordinates, (next, previous) => {
           class="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
           @click="refresh()"
         >
-          Thử lại
+          {{ t('common.retry') }}
         </button>
       </SkyCard>
 
@@ -222,7 +234,7 @@ watch(queryCoordinates, (next, previous) => {
         <MoonTodayCard :today="today" />
         <SkyAIExplainPanel
           object-type="moon-calendar"
-          name="Moon Calendar"
+          :name="t('pages.moonCalendar.aiName')"
           :altitude="today.altitude"
           :azimuth="today.azimuth"
           :distance-km="today.distanceKm"

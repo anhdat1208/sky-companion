@@ -14,7 +14,14 @@ const emit = defineEmits<{
   select: [dateISO: string]
 }>()
 
-const WEEKDAYS = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'] as const
+const { t, locale } = useI18n()
+const { formatMonth, formatTime } = useFormatters()
+
+function resolveIntlLocale(code: string): string {
+  if (code === 'vi') return 'vi-VN'
+  if (code === 'en') return 'en-US'
+  return code
+}
 
 const PHASE_GLYPH: Record<MoonPhaseIconKey, string> = {
   new: '🌑',
@@ -27,12 +34,17 @@ const PHASE_GLYPH: Record<MoonPhaseIconKey, string> = {
   'waning-crescent': '🌘'
 }
 
+const weekdayLabels = computed(() => {
+  const intlLocale = resolveIntlLocale(locale.value)
+  return Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(2024, 0, 1 + index)
+    return new Intl.DateTimeFormat(intlLocale, { weekday: 'short' }).format(date)
+  })
+})
+
 const monthLabel = computed(() => {
   const date = new Date(props.year, props.month - 1, 1)
-  return new Intl.DateTimeFormat('vi-VN', {
-    month: 'long',
-    year: 'numeric'
-  }).format(date)
+  return `${formatMonth(date)} ${props.year}`
 })
 
 function dayNumber(dateISO: string): string {
@@ -43,10 +55,11 @@ function shortTime(value: string | null): string {
   if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return '—'
-  return new Intl.DateTimeFormat(undefined, {
-    hour: '2-digit',
-    minute: '2-digit'
-  }).format(date)
+  return formatTime(date)
+}
+
+function dayAriaLabel(dateISO: string): string {
+  return t('components.moon.monthCalendar.dayAriaLabel', { date: dateISO })
 }
 
 function onSelect(day: MoonCalendarDay): void {
@@ -58,15 +71,15 @@ function onSelect(day: MoonCalendarDay): void {
 <template>
   <SkyCard>
     <SectionTitle
-      title="Lịch tháng"
-      subtitle="Chọn một ngày trong tháng để xem chi tiết."
+      :title="t('components.moon.monthCalendar.title')"
+      :subtitle="t('components.moon.monthCalendar.subtitle')"
     />
 
     <div class="mb-4 flex items-center justify-between gap-3">
       <button
         type="button"
         class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-        aria-label="Tháng trước"
+        :aria-label="t('components.moon.monthCalendar.prevMonth')"
         @click="emit('prev')"
       >
         ←
@@ -77,7 +90,7 @@ function onSelect(day: MoonCalendarDay): void {
       <button
         type="button"
         class="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-        aria-label="Tháng sau"
+        :aria-label="t('components.moon.monthCalendar.nextMonth')"
         @click="emit('next')"
       >
         →
@@ -86,8 +99,8 @@ function onSelect(day: MoonCalendarDay): void {
 
     <div class="grid grid-cols-7 gap-1.5 sm:gap-2">
       <div
-        v-for="label in WEEKDAYS"
-        :key="label"
+        v-for="(label, index) in weekdayLabels"
+        :key="`${label}-${index}`"
         class="pb-1 text-center text-[11px] font-medium uppercase tracking-wider text-slate-500 sm:text-xs"
       >
         {{ label }}
@@ -109,7 +122,7 @@ function onSelect(day: MoonCalendarDay): void {
         ]"
         :disabled="!day.inCurrentMonth"
         :aria-pressed="selectedDateISO === day.dateISO"
-        :aria-label="`Ngày ${day.dateISO}`"
+        :aria-label="dayAriaLabel(day.dateISO)"
         @click="onSelect(day)"
       >
         <div class="flex items-center justify-between gap-1">

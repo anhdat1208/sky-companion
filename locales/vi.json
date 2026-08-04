@@ -104,6 +104,66 @@
       "subtitle": "Những hành tinh đang trên bầu trời tại vị trí của bạn.",
       "visible": "Nhìn thấy",
       "empty": "Không có hành tinh nào đang nhìn thấy trên bầu trời lúc này."
+    },
+    "moon": {
+      "todayCard": {
+        "title": "Mặt Trăng hôm nay",
+        "subtitle": "Pha, vị trí và thời điểm mọc/lặn tại vị trí quan sát."
+      },
+      "monthCalendar": {
+        "title": "Lịch tháng",
+        "subtitle": "Chọn một ngày trong tháng để xem chi tiết.",
+        "prevMonth": "Tháng trước",
+        "nextMonth": "Tháng sau",
+        "dayAriaLabel": "Ngày {date}"
+      },
+      "dayDetail": {
+        "title": "Chi tiết ngày"
+      },
+      "upcomingEvents": {
+        "title": "Pha sắp tới",
+        "subtitle": "Bốn mốc quý tiếp theo của chu kỳ Mặt Trăng.",
+        "empty": "Chưa có sự kiện quý sắp tới.",
+        "daysRemainingToday": "hôm nay",
+        "daysRemainingOne": "còn 1 ngày",
+        "daysRemainingMany": "còn {count} ngày"
+      },
+      "observationScore": {
+        "title": "Điểm quan sát",
+        "subtitle": "Đánh giá nhanh điều kiện xem Mặt Trăng lúc này.",
+        "starsAriaLabel": "{stars} trên 5 sao"
+      },
+      "photographyGuide": {
+        "title": "Gợi ý chụp ảnh",
+        "subtitle": "Phù hợp phong cảnh, hố va chạm hay Mặt Trăng mọc — kèm tiêu cự gợi ý.",
+        "landscape": "Phong cảnh",
+        "craters": "Hố va chạm",
+        "moonrise": "Mặt Trăng mọc",
+        "recommendedFocalLength": "Tiêu cự gợi ý"
+      },
+      "phaseIllustration": {
+        "illuminatedPercent": "{percent}% độ sáng"
+      },
+      "fields": {
+        "age": "Tuổi",
+        "distance": "Khoảng cách",
+        "angularDiameter": "Đường kính góc",
+        "ageDays": "{days} ngày"
+      },
+      "scoreLabels": {
+        "Poor": "Kém",
+        "Fair": "Trung bình",
+        "Good": "Tốt",
+        "Excellent": "Xuất sắc"
+      },
+      "quarterTypes": {
+        "new": "Trăng mới",
+        "first-quarter": "Bán nguyệt đầu",
+        "full": "Trăng tròn",
+        "last-quarter": "Bán nguyệt cuối"
+      },
+      "yes": "Có",
+      "no": "Không"
     }
   },
   "pages": {
@@ -133,6 +193,14 @@
         "subtitle": "Hướng gợi ý để quan sát bầu trời.",
         "viewOnCompass": "Xem trên La bàn"
       }
+    },
+    "moonCalendar": {
+      "title": "Lịch Mặt Trăng · Bầu trời trên bạn?",
+      "heading": "Lịch Mặt Trăng",
+      "subtitle": "Pha hôm nay, lịch tháng, điểm quan sát và gợi ý chụp ảnh theo vị trí của bạn.",
+      "locationFromQuery": "Lấy từ tham số URL.",
+      "loadError": "Không tính được lịch Mặt Trăng",
+      "aiName": "Lịch Mặt Trăng"
     }
   }
 }

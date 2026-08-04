@@ -6,10 +6,18 @@ const props = defineProps<{
   iconKey?: string
 }>()
 
+const { t } = useI18n()
+
 const shadeOffset = computed(() => {
   const n = ((props.phaseAngleDeg % 360) + 360) % 360
   return ((n / 180) - 1) * 50
 })
+
+const illuminatedLabel = computed(() =>
+  t('components.moon.phaseIllustration.illuminatedPercent', {
+    percent: props.illuminatedPercentage.toFixed(0)
+  })
+)
 </script>
 
 <template>
@@ -24,6 +32,6 @@ const shadeOffset = computed(() => {
       class="absolute inset-0 rounded-full bg-slate-950/90"
       :style="{ transform: `translateX(${shadeOffset}%)` }"
     />
-    <span class="sr-only">{{ illuminatedPercentage.toFixed(0) }}% illuminated</span>
+    <span class="sr-only">{{ illuminatedLabel }}</span>
   </div>
 </template>

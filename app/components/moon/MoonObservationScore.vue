@@ -5,26 +5,29 @@ defineProps<{
   score: ObservationScore
 }>()
 
-const LABEL_VI: Record<ObservationScoreLabel, string> = {
-  Poor: 'Kém',
-  Fair: 'Trung bình',
-  Good: 'Tốt',
-  Excellent: 'Xuất sắc'
+const { t } = useI18n()
+
+function scoreLabel(label: ObservationScoreLabel): string {
+  return t(`components.moon.scoreLabels.${label}`)
+}
+
+function starsAriaLabel(stars: number): string {
+  return t('components.moon.observationScore.starsAriaLabel', { stars })
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Điểm quan sát"
-      subtitle="Đánh giá nhanh điều kiện xem Mặt Trăng lúc này."
+      :title="t('components.moon.observationScore.title')"
+      :subtitle="t('components.moon.observationScore.subtitle')"
     />
 
     <div class="rounded-xl bg-slate-950/70 p-4">
       <div class="flex flex-wrap items-baseline gap-3">
         <p
           class="font-mono text-2xl tracking-widest text-amber-200"
-          :aria-label="`${score.stars} trên 5 sao`"
+          :aria-label="starsAriaLabel(score.stars)"
         >
           <span
             v-for="n in 5"
@@ -33,7 +36,7 @@ const LABEL_VI: Record<ObservationScoreLabel, string> = {
           >★</span>
         </p>
         <p class="text-base text-slate-100">
-          {{ LABEL_VI[score.label] }}
+          {{ scoreLabel(score.label) }}
         </p>
       </div>
 

@@ -104,6 +104,66 @@
       "subtitle": "Planets currently above the horizon at your location.",
       "visible": "Visible",
       "empty": "No planets are visible in the sky right now."
+    },
+    "moon": {
+      "todayCard": {
+        "title": "Moon today",
+        "subtitle": "Phase, position, and rise/set times at your observation location."
+      },
+      "monthCalendar": {
+        "title": "Monthly calendar",
+        "subtitle": "Select a day in the month to view details.",
+        "prevMonth": "Previous month",
+        "nextMonth": "Next month",
+        "dayAriaLabel": "Day {date}"
+      },
+      "dayDetail": {
+        "title": "Day detail"
+      },
+      "upcomingEvents": {
+        "title": "Upcoming phases",
+        "subtitle": "The next four quarter milestones of the lunar cycle.",
+        "empty": "No upcoming quarter events.",
+        "daysRemainingToday": "today",
+        "daysRemainingOne": "1 day left",
+        "daysRemainingMany": "{count} days left"
+      },
+      "observationScore": {
+        "title": "Observation score",
+        "subtitle": "Quick assessment of current moon-viewing conditions.",
+        "starsAriaLabel": "{stars} out of 5 stars"
+      },
+      "photographyGuide": {
+        "title": "Photography tips",
+        "subtitle": "Landscape, craters, or moonrise — with suggested focal lengths.",
+        "landscape": "Landscape",
+        "craters": "Craters",
+        "moonrise": "Moonrise",
+        "recommendedFocalLength": "Suggested focal length"
+      },
+      "phaseIllustration": {
+        "illuminatedPercent": "{percent}% illuminated"
+      },
+      "fields": {
+        "age": "Age",
+        "distance": "Distance",
+        "angularDiameter": "Angular diameter",
+        "ageDays": "{days} days"
+      },
+      "scoreLabels": {
+        "Poor": "Poor",
+        "Fair": "Fair",
+        "Good": "Good",
+        "Excellent": "Excellent"
+      },
+      "quarterTypes": {
+        "new": "New Moon",
+        "first-quarter": "First Quarter",
+        "full": "Full Moon",
+        "last-quarter": "Last Quarter"
+      },
+      "yes": "Yes",
+      "no": "No"
     }
   },
   "pages": {
@@ -133,6 +193,14 @@
         "subtitle": "Suggested direction for sky observation.",
         "viewOnCompass": "View on Compass"
       }
+    },
+    "moonCalendar": {
+      "title": "Moon Calendar · What's Above Me?",
+      "heading": "Moon Calendar",
+      "subtitle": "Today's phase, monthly calendar, observation score, and photography tips for your location.",
+      "locationFromQuery": "Taken from URL parameters.",
+      "loadError": "Could not calculate moon calendar",
+      "aiName": "Moon Calendar"
     }
   }
 }
