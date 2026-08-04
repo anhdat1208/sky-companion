@@ -164,6 +164,95 @@
       },
       "yes": "Yes",
       "no": "No"
+    },
+    "telescope": {
+      "profilePicker": {
+        "title": "Telescope setup",
+        "subtitle": "Choose binoculars or a telescope to adjust target lock thresholds.",
+        "magnification": "Magnification",
+        "trueFov": "True FOV",
+        "empty": "No telescope profiles available.",
+        "listboxAriaLabel": "Telescope profile list"
+      },
+      "tonightTargetsList": {
+        "title": "Best targets tonight",
+        "subtitle": "Ranked by altitude, brightness, and your telescope setup.",
+        "empty": "No targets for this location and time.",
+        "visibilityScoreAriaLabel": "Visibility score {score} out of 5",
+        "bestTime": "Best time",
+        "difficulty": "Difficulty",
+        "instrument": "Instrument"
+      },
+      "targetDetailCard": {
+        "title": "Target detail",
+        "subtitleWithTarget": "Observation info for {name}.",
+        "subtitleEmpty": "Select a target from the list to view details.",
+        "empty": "No target selected.",
+        "constellation": "Constellation",
+        "magnitude": "Magnitude",
+        "distance": "Distance",
+        "direction": "Direction",
+        "rise": "Rise",
+        "set": "Set",
+        "distanceLy": "{value} ly"
+      },
+      "guidancePanel": {
+        "title": "Alignment guidance",
+        "subtitle": "Rotate your device following the instructions to lock the target in view.",
+        "targetLocked": "Target Locked",
+        "deltaAzimuth": "Δ azimuth",
+        "deltaAltitude": "Δ altitude",
+        "useSensor": "Use device sensors",
+        "useManual": "Use manual adjustment",
+        "currentSource": "Current source:",
+        "sourceSensor": "Sensor",
+        "sourceManual": "Manual",
+        "manualHint": "Adjust azimuth and altitude manually when sensors are unavailable.",
+        "azimuthLabel": "Azimuth (az)",
+        "altitudeLabel": "Altitude (alt)"
+      },
+      "starHop": {
+        "title": "Star hop",
+        "subtitle": "Star-hop navigation will arrive in a future release.",
+        "comingSoon": "Coming soon",
+        "body1": "The architecture is ready with {hopStep}, {referenceStar}, and {targetObject} contracts to build hops from bright reference stars to deep-sky targets.",
+        "body2": "The full pathfinding algorithm is not implemented in this release — only a stub and UI shell."
+      },
+      "objectTypes": {
+        "moon": "Moon",
+        "planet": "Planet",
+        "galaxy": "Galaxy",
+        "nebula": "Nebula",
+        "starCluster": "Star cluster",
+        "star": "Star",
+        "other": "Other"
+      },
+      "difficulty": {
+        "easy": "Easy",
+        "moderate": "Moderate",
+        "hard": "Hard"
+      },
+      "instrument": {
+        "eye": "Naked eye",
+        "binocular": "Binoculars",
+        "telescope": "Telescope"
+      },
+      "status": {
+        "need-target": "Select a target",
+        "below-horizon": "Below horizon",
+        "aligning": "Aligning",
+        "locked": "Locked"
+      },
+      "directions": {
+        "North": "North",
+        "North-East": "North-East",
+        "East": "East",
+        "South-East": "South-East",
+        "South": "South",
+        "South-West": "South-West",
+        "West": "West",
+        "North-West": "North-West"
+      }
     }
   },
   "pages": {
@@ -201,6 +290,14 @@
       "locationFromQuery": "Taken from URL parameters.",
       "loadError": "Could not calculate moon calendar",
       "aiName": "Moon Calendar"
+    },
+    "telescope": {
+      "title": "Telescope Mode · What's Above Me?",
+      "heading": "Telescope Mode",
+      "subtitle": "Rank tonight's targets, pick your telescope setup, and align with live guidance.",
+      "refreshTargets": "Refresh targets",
+      "loadError": "Could not calculate targets",
+      "explainWithAi": "Explain with AI"
     }
   }
 }

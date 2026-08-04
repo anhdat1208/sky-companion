@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import type { Direction } from '../../../types/astronomy'
 import type { TargetDetail } from '../../../types/telescope'
 
 defineProps<{
   detail: TargetDetail | null
 }>()
+
+const { t } = useI18n()
+const { formatDateTime, formatNumber } = useFormatters()
 
 function formatAngle(value: number): string {
   return `${value.toFixed(1)}°`
@@ -19,10 +23,7 @@ function formatTime(value: string | null): string {
     return '—'
   }
 
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  }).format(date)
+  return formatDateTime(date)
 }
 
 function formatMagnitude(value: number | null): string {
@@ -36,17 +37,23 @@ function formatDistance(value: number | null): string {
   if (value === null) {
     return '—'
   }
-  return `${value.toLocaleString(undefined, { maximumFractionDigits: 1 })} ly`
+  return t('components.telescope.targetDetailCard.distanceLy', {
+    value: formatNumber(value, { maximumFractionDigits: 1 })
+  })
+}
+
+function formatDirection(direction: Direction): string {
+  return t(`components.telescope.directions.${direction}`)
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Chi tiết mục tiêu"
+      :title="t('components.telescope.targetDetailCard.title')"
       :subtitle="detail
-        ? `Thông tin quan sát cho ${detail.target.name}.`
-        : 'Chọn một mục tiêu từ danh sách để xem chi tiết.'"
+        ? t('components.telescope.targetDetailCard.subtitleWithTarget', { name: detail.target.name })
+        : t('components.telescope.targetDetailCard.subtitleEmpty')"
     />
 
     <dl
@@ -55,7 +62,7 @@ function formatDistance(value: number | null): string {
     >
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cao độ
+          {{ t('components.skyLabels.altitude') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatAngle(detail.altitude) }}
@@ -63,7 +70,7 @@ function formatDistance(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Phương vị
+          {{ t('components.skyLabels.azimuth') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatAngle(detail.azimuth) }}
@@ -71,7 +78,7 @@ function formatDistance(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Chòm sao
+          {{ t('components.telescope.targetDetailCard.constellation') }}
         </dt>
         <dd class="mt-1 text-base text-slate-100">
           {{ detail.target.constellation || '—' }}
@@ -79,7 +86,7 @@ function formatDistance(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cấp sao
+          {{ t('components.telescope.targetDetailCard.magnitude') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatMagnitude(detail.target.apparentMagnitude) }}
@@ -87,7 +94,7 @@ function formatDistance(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Khoảng cách
+          {{ t('components.telescope.targetDetailCard.distance') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatDistance(detail.target.distanceLy) }}
@@ -95,15 +102,15 @@ function formatDistance(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Hướng
+          {{ t('components.telescope.targetDetailCard.direction') }}
         </dt>
         <dd class="mt-1 text-base text-slate-100">
-          {{ detail.direction }}
+          {{ formatDirection(detail.direction) }}
         </dd>
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Mọc
+          {{ t('components.telescope.targetDetailCard.rise') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(detail.riseTime) }}
@@ -111,7 +118,7 @@ function formatDistance(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Lặn
+          {{ t('components.telescope.targetDetailCard.set') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(detail.setTime) }}
@@ -123,7 +130,7 @@ function formatDistance(value: number | null): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Chưa chọn mục tiêu.
+      {{ t('components.telescope.targetDetailCard.empty') }}
     </p>
   </SkyCard>
 </template>

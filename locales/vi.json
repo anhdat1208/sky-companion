@@ -164,6 +164,95 @@
       },
       "yes": "Có",
       "no": "Không"
+    },
+    "telescope": {
+      "profilePicker": {
+        "title": "Cấu hình kính",
+        "subtitle": "Chọn ống nhòm hoặc kính thiên văn để điều chỉnh ngưỡng khóa mục tiêu.",
+        "magnification": "Độ phóng đại",
+        "trueFov": "FOV thật",
+        "empty": "Chưa có cấu hình kính nào.",
+        "listboxAriaLabel": "Danh sách cấu hình kính"
+      },
+      "tonightTargetsList": {
+        "title": "Mục tiêu tốt nhất đêm nay",
+        "subtitle": "Danh sách xếp hạng theo độ cao, độ sáng và cấu hình kính.",
+        "empty": "Chưa có mục tiêu nào cho vị trí và thời điểm hiện tại.",
+        "visibilityScoreAriaLabel": "Điểm nhìn thấy {score} trên 5",
+        "bestTime": "Thời điểm tốt",
+        "difficulty": "Độ khó",
+        "instrument": "Dụng cụ"
+      },
+      "targetDetailCard": {
+        "title": "Chi tiết mục tiêu",
+        "subtitleWithTarget": "Thông tin quan sát cho {name}.",
+        "subtitleEmpty": "Chọn một mục tiêu từ danh sách để xem chi tiết.",
+        "empty": "Chưa chọn mục tiêu.",
+        "constellation": "Chòm sao",
+        "magnitude": "Cấp sao",
+        "distance": "Khoảng cách",
+        "direction": "Hướng",
+        "rise": "Mọc",
+        "set": "Lặn",
+        "distanceLy": "{value} ly"
+      },
+      "guidancePanel": {
+        "title": "Hướng dẫn căn chỉnh",
+        "subtitle": "Xoay thiết bị theo hướng dẫn để khóa mục tiêu trong trường nhìn.",
+        "targetLocked": "Đã khóa mục tiêu",
+        "deltaAzimuth": "Δ phương vị",
+        "deltaAltitude": "Δ cao độ",
+        "useSensor": "Dùng cảm biến thiết bị",
+        "useManual": "Dùng chỉnh thủ công",
+        "currentSource": "Nguồn hiện tại:",
+        "sourceSensor": "Cảm biến",
+        "sourceManual": "Thủ công",
+        "manualHint": "Điều chỉnh phương vị và cao độ thủ công khi cảm biến không khả dụng.",
+        "azimuthLabel": "Phương vị (az)",
+        "altitudeLabel": "Cao độ (alt)"
+      },
+      "starHop": {
+        "title": "Nhảy sao",
+        "subtitle": "Tính năng dẫn đường sao nhảy sẽ xuất hiện ở phiên bản sau.",
+        "comingSoon": "Sắp có",
+        "body1": "Kiến trúc đã sẵn sàng với các hợp đồng {hopStep}, {referenceStar} và {targetObject} để xây chuỗi nhảy từ sao tham chiếu sáng tới mục tiêu sâu.",
+        "body2": "Thuật toán tìm đường đầy đủ chưa được triển khai trong phiên bản này — chỉ có stub và giao diện."
+      },
+      "objectTypes": {
+        "moon": "Mặt Trăng",
+        "planet": "Hành tinh",
+        "galaxy": "Thiên hà",
+        "nebula": "Tinh vân",
+        "starCluster": "Cụm sao",
+        "star": "Sao",
+        "other": "Khác"
+      },
+      "difficulty": {
+        "easy": "Dễ",
+        "moderate": "Trung bình",
+        "hard": "Khó"
+      },
+      "instrument": {
+        "eye": "Mắt thường",
+        "binocular": "Ống nhòm",
+        "telescope": "Kính thiên văn"
+      },
+      "status": {
+        "need-target": "Cần chọn mục tiêu",
+        "below-horizon": "Dưới chân trời",
+        "aligning": "Đang căn chỉnh",
+        "locked": "Đã khóa"
+      },
+      "directions": {
+        "North": "Bắc",
+        "North-East": "Đông Bắc",
+        "East": "Đông",
+        "South-East": "Đông Nam",
+        "South": "Nam",
+        "South-West": "Tây Nam",
+        "West": "Tây",
+        "North-West": "Tây Bắc"
+      }
     }
   },
   "pages": {
@@ -201,6 +290,14 @@
       "locationFromQuery": "Lấy từ tham số URL.",
       "loadError": "Không tính được lịch Mặt Trăng",
       "aiName": "Lịch Mặt Trăng"
+    },
+    "telescope": {
+      "title": "Chế độ kính thiên văn · Bầu trời trên bạn?",
+      "heading": "Chế độ kính thiên văn",
+      "subtitle": "Xếp hạng mục tiêu đêm nay, chọn cấu hình kính và căn chỉnh theo hướng dẫn trực tiếp.",
+      "refreshTargets": "Làm mới mục tiêu",
+      "loadError": "Không tính được mục tiêu",
+      "explainWithAi": "Giải thích bằng AI"
     }
   }
 }
