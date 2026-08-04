@@ -1,30 +1,36 @@
-# Task 10 Report: `useMoonCalendar` composable
+# Task 10 Report: Snapshot assembler
 
-## Status: ✅ Complete
+## Status
+**Complete** — TDD green, committed.
 
-## What was done
-- Created `tests/composables/useMoonCalendar.test.ts` (4 cases from brief)
-- Verified RED: missing module import failure
-- Implemented `app/composables/useMoonCalendar.ts` mirroring `useTelescope` (`resolveWhenSource`, `refreshToken`, try/catch, watch)
-- Used `flush: 'sync'` on coordinates watch so null coords clear derived state synchronously (required by test)
-- Fixed local date `new Date(2026, 7, 3, 12, 0, 0)` for month nav / selectDay; padding `2026-07-27` ignored via `inCurrentMonth`
+## Deliverables
+| File | Action |
+|------|--------|
+| `lib/photo/snapshot.ts` | Created — `buildAstroPhotographySnapshot` |
+| `lib/photo/index.ts` | Export `buildAstroPhotographySnapshot` |
+| `tests/lib/photo/snapshot.test.ts` | Created — Hanoi smoke assertions |
+
+## Implementation
+1. `getNightWindow` → if null, return null sections + `suggestedSettings: getCameraSettings('milky-way')` + timestamp.
+2. Else: golden / blue / twilight, MW (`astronomicalDark` = evening.end→morning.start), moon, planets, score, timeline.
+3. **Representative instant** for score moon + planets: midpoint of astronomical dark if length > 0; else midpoint sunset→sunrise; else `when`.
+4. Score: MW visibility/core + moon at representative + `hasAstronomicalDarkness`.
+5. Timeline: moonrise/set, MW peak, planet marker at representative if any planet visible.
 
 ## Tests
-```
-npx vitest run tests/composables/useMoonCalendar.test.ts
-→ 4 passed
-```
+- RED: missing `lib/photo/snapshot` module
+- GREEN: `tests/lib/photo/snapshot.test.ts` — 1 passed
+- `tests/lib/photo`: **17/17** passed
 
 ## Commit
-`f1c2fc5` — `feat(moon): add useMoonCalendar composable`
-
-## Follow-up fix: clear day detail on month navigation
-- **Issue:** `goToPrevMonth` / `goToNextMonth` cleared `selectedDateISO` but left `selectedDetail` until `recompute()` finished. If `recompute` threw early, detail from the previous month could linger.
-- **Fix:** Set `selectedDetail.value = null` alongside `selectedDateISO` in both nav functions (same pattern as `clearSelectedDay`).
-- **Test:** Added case — `selectDay` then `goToNextMonth` clears `selectedDetail`.
-
-### Re-test
 ```
-npx vitest run tests/composables/useMoonCalendar.test.ts
-→ 5 passed
+2f479d9 feat(photo): assemble astrophotography snapshot
 ```
+
+## Concerns / Notes
+- Spec text prefers “local midnight” first; brief/plan prefer astronomical-dark midpoint — followed brief.
+- `getSunInfo` not needed for current `PhotographyScoreInput` (moon fields only).
+- Planet timeline marker uses representative ISO when any planet `isVisible`; end left null.
+
+## Next
+Task 11: `useAstroPhotography` composable.
