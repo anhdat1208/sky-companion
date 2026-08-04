@@ -112,6 +112,53 @@ const astrophotographyLink = computed(() => {
   }
 })
 
+const moonAiLink = computed(() => {
+  if (!sky.snapshot.value) return null
+  return {
+    path: '/ai/moon',
+    query: {
+      altitude: String(sky.snapshot.value.moon.altitude),
+      azimuth: String(sky.snapshot.value.moon.azimuth)
+    }
+  }
+})
+
+const sunAiLink = computed(() => {
+  if (!sky.snapshot.value) return null
+  return {
+    path: '/ai/sun',
+    query: {
+      altitude: String(sky.snapshot.value.sun.altitude),
+      azimuth: String(sky.snapshot.value.sun.azimuth)
+    }
+  }
+})
+
+const topPlanetAiLink = computed(() => {
+  if (!sky.snapshot.value) return null
+  const first = sky.snapshot.value.planets.find((planet) => planet.isVisible)
+  if (!first) return null
+  return {
+    path: '/ai/planet',
+    query: {
+      name: first.name,
+      altitude: String(first.altitude),
+      azimuth: String(first.azimuth),
+      visible: String(first.isVisible)
+    }
+  }
+})
+
+const constellationAiLink = computed(() => {
+  if (!sky.snapshot.value) return null
+  return {
+    path: '/ai/constellation',
+    query: {
+      name: sky.snapshot.value.constellation.name
+    }
+  }
+})
+
 function formatObservationTime(value: string): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) {
@@ -285,8 +332,29 @@ onMounted(async () => {
         />
 
         <MoonCard :moon="sky.snapshot.value.moon" />
+        <NuxtLink
+          v-if="moonAiLink"
+          :to="moonAiLink"
+          class="inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
+        >
+          ✨ Explain with AI
+        </NuxtLink>
         <SunCard :sun="sky.snapshot.value.sun" />
+        <NuxtLink
+          v-if="sunAiLink"
+          :to="sunAiLink"
+          class="inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
+        >
+          ✨ Explain with AI
+        </NuxtLink>
         <PlanetCard :planets="sky.snapshot.value.planets" />
+        <NuxtLink
+          v-if="topPlanetAiLink"
+          :to="topPlanetAiLink"
+          class="inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
+        >
+          ✨ Explain with AI
+        </NuxtLink>
 
         <SkyCard>
           <SectionTitle
@@ -296,6 +364,13 @@ onMounted(async () => {
           <p class="rounded-xl bg-slate-950/70 p-4 text-lg font-medium text-slate-100">
             {{ sky.snapshot.value.constellation.name }}
           </p>
+          <NuxtLink
+            v-if="constellationAiLink"
+            :to="constellationAiLink"
+            class="mt-4 inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
+          >
+            ✨ Explain with AI
+          </NuxtLink>
         </SkyCard>
 
         <SkyCard>

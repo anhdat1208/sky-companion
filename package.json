@@ -17,6 +17,7 @@
     "@vueuse/core": "^14.4.0",
     "astronomy-engine": "^2.1.19",
     "mapbox-gl": "^3.27.0",
+    "marked": "^18.0.9",
     "nuxt": "^4.5.1",
     "pinia": "^4.0.2",
     "satellite.js": "^7.1.0",

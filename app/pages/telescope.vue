@@ -107,6 +107,21 @@ const compassLink = computed(() => {
   }
 })
 
+const deepSkyAiLink = computed(() => {
+  const detail = selectedDetail.value
+  if (!detail) return null
+  const isDeepSky = ['galaxy', 'nebula', 'starCluster'].includes(detail.target.objectType)
+  if (!isDeepSky) return null
+  return {
+    path: '/ai/deep-sky-object',
+    query: {
+      name: detail.target.name,
+      altitude: String(detail.altitude),
+      azimuth: String(detail.azimuth)
+    }
+  }
+})
+
 function handleManualSubmit(lat: number, lng: number): void {
   geo.setManualCoordinates(lat, lng)
   locationSource.value = 'manual'
@@ -255,6 +270,13 @@ watch(queryCoordinates, (next, previous) => {
         />
 
         <TelescopeTargetDetailCard :detail="selectedDetail" />
+        <NuxtLink
+          v-if="deepSkyAiLink"
+          :to="deepSkyAiLink"
+          class="inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
+        >
+          ✨ Explain with AI
+        </NuxtLink>
 
         <TelescopeGuidancePanel
           :guidance="guidance"

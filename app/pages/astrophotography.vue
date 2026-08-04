@@ -10,6 +10,7 @@ import MoonPhotoCard from '../components/photo/MoonPhotoCard.vue'
 import PlanetPhotoCard from '../components/photo/PlanetPhotoCard.vue'
 import CameraSettingsCard from '../components/photo/CameraSettingsCard.vue'
 import PhotoTimeline from '../components/photo/PhotoTimeline.vue'
+import SkyAIExplainPanel from '../components/ai/SkyAIExplainPanel.vue'
 
 useHead({
   title: 'Astrophotography · What\'s Above Me?'
@@ -234,6 +235,16 @@ watch(queryCoordinates, (next, previous) => {
     </SkyCard>
 
     <template v-else>
+      <SkyAIExplainPanel
+        object-type="astrophotography"
+        name="Astrophotography Tonight"
+        :context="{
+          score: snapshot.score?.label ?? null,
+          milkyWayVisibility: snapshot.milkyWay?.visibility ?? null,
+          moonPhase: snapshot.moon?.phase ?? null
+        }"
+        language="en"
+      />
       <PhotoScoreCard :score="snapshot.score" />
       <MilkyWayPhotoCard :info="snapshot.milkyWay" />
       <GoldenHourCard :info="snapshot.goldenHour" />

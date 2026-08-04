@@ -6,6 +6,7 @@ import MoonPhotographyGuide from '../components/moon/MoonPhotographyGuide.vue'
 import MoonMonthCalendar from '../components/moon/MoonMonthCalendar.vue'
 import MoonDayDetailPanel from '../components/moon/MoonDayDetailPanel.vue'
 import MoonUpcomingEvents from '../components/moon/MoonUpcomingEvents.vue'
+import SkyAIExplainPanel from '../components/ai/SkyAIExplainPanel.vue'
 
 useHead({
   title: 'Moon Calendar · What\'s Above Me?'
@@ -219,6 +220,19 @@ watch(queryCoordinates, (next, previous) => {
 
       <template v-else-if="today && todayScore && todayPhotography">
         <MoonTodayCard :today="today" />
+        <SkyAIExplainPanel
+          object-type="moon-calendar"
+          name="Moon Calendar"
+          :altitude="today.altitude"
+          :azimuth="today.azimuth"
+          :distance-km="today.distanceKm"
+          :context="{
+            phase: today.phase,
+            illuminatedPercentage: today.illuminatedPercentage,
+            score: todayScore.label
+          }"
+          language="en"
+        />
         <MoonObservationScore :score="todayScore" />
         <MoonPhotographyGuide :guide="todayPhotography" />
 

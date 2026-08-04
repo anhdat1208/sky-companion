@@ -8,6 +8,11 @@ export default defineNuxtConfig({
     typeCheck: true
   },
   runtimeConfig: {
+    skyAIProvider: 'gemini',
+    openaiApiKey: '',
+    openaiModel: 'gpt-4.1-mini',
+    geminiApiKey: '',
+    geminiModel: 'gemini-1.5-flash',
     public: {
       mapboxToken: ''
     }
