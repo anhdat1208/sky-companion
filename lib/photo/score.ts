@@ -48,7 +48,7 @@ export function computePhotographyScore(
   if (input.moonAltitudeDeg <= 0) {
     reasons.push('Trăng dưới chân trời.')
   } else if (input.moonIlluminationPct >= 70) {
-    stars = Math.max(1, stars - 1)
+    stars = clampStars(stars - 1)
     reasons.push('Trăng sáng trên chân trời — nhiễu sáng.')
   }
 
