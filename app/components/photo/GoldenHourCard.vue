@@ -5,11 +5,14 @@ defineProps<{
   info: GoldenHourInfo | null
 }>()
 
+const { t } = useI18n()
+const { formatTime: formatTimeValue } = useFormatters()
+
 function formatTime(value: string | null): string {
   if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return '—'
-  return new Intl.DateTimeFormat(undefined, { timeStyle: 'short' }).format(date)
+  return formatTimeValue(date)
 }
 
 function formatRange(range: TimeRange | null): string {
@@ -19,15 +22,15 @@ function formatRange(range: TimeRange | null): string {
 
 function formatDuration(minutes: number | null): string {
   if (minutes === null) return '—'
-  return `${minutes} phút`
+  return t('components.photo.goldenHourCard.durationMinutes', { minutes })
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Giờ vàng"
-      subtitle="Khoảng sáng ấm quanh bình minh và hoàng hôn."
+      :title="t('components.photo.goldenHourCard.title')"
+      :subtitle="t('components.photo.goldenHourCard.subtitle')"
     />
 
     <dl
@@ -36,7 +39,7 @@ function formatDuration(minutes: number | null): string {
     >
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Sáng
+          {{ t('components.photo.morning') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatRange(info.morning) }}
@@ -44,7 +47,7 @@ function formatDuration(minutes: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Chiều
+          {{ t('components.photo.evening') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatRange(info.evening) }}
@@ -52,7 +55,7 @@ function formatDuration(minutes: number | null): string {
       </div>
       <div class="col-span-2 rounded-xl bg-slate-950/70 p-4 sm:col-span-1">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Tổng thời lượng
+          {{ t('components.photo.goldenHourCard.totalDuration') }}
         </dt>
         <dd class="mt-1 font-mono text-sm text-slate-100">
           {{ formatDuration(info.durationMinutes) }}
@@ -64,7 +67,7 @@ function formatDuration(minutes: number | null): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí
+      {{ t('components.photo.locationRequired') }}
     </p>
   </SkyCard>
 </template>

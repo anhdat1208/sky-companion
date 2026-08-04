@@ -8,28 +8,30 @@ defineProps<{
   guide: MeteorObservationGuide
 }>()
 
-const EQUIPMENT_VI: Record<MeteorEquipmentKind, string> = {
-  'naked-eye': 'Mắt thường',
-  binoculars: 'Ống nhòm',
-  telescope: 'Kính thiên văn'
+const { t } = useI18n()
+
+function equipmentLabel(kind: MeteorEquipmentKind): string {
+  return t(`components.meteor.equipment.${kind}`)
 }
 
 function recommendedLabel(value: boolean): string {
-  return value ? 'Khuyên dùng' : 'Không cần'
+  return value
+    ? t('components.meteor.observationGuide.recommended')
+    : t('components.meteor.observationGuide.notRequired')
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Hướng dẫn quan sát"
-      subtitle="Thời điểm, bầu trời tối, ánh trăng và dụng cụ gợi ý."
+      :title="t('components.meteor.observationGuide.title')"
+      :subtitle="t('components.meteor.observationGuide.subtitle')"
     />
 
     <dl class="grid grid-cols-1 gap-3 sm:grid-cols-2">
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Thời điểm khuyên
+          {{ t('components.meteor.observationGuide.recommendedTime') }}
         </dt>
         <dd class="mt-1 text-sm leading-6 text-slate-100">
           {{ guide.recommendedTime }}
@@ -37,7 +39,7 @@ function recommendedLabel(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Bầu trời tối
+          {{ t('components.meteor.observationGuide.darkSky') }}
         </dt>
         <dd class="mt-1 text-sm leading-6 text-slate-100">
           {{ guide.darkSkyRequirement }}
@@ -45,7 +47,7 @@ function recommendedLabel(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Ảnh hưởng ánh trăng
+          {{ t('components.meteor.observationGuide.moonlightImpact') }}
         </dt>
         <dd class="mt-1 text-sm leading-6 text-slate-100">
           {{ guide.moonlightImpact }}
@@ -53,7 +55,7 @@ function recommendedLabel(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Mây
+          {{ t('components.meteor.observationGuide.clouds') }}
         </dt>
         <dd class="mt-1 text-sm leading-6 text-slate-100">
           {{ guide.cloudReminder }}
@@ -72,7 +74,7 @@ function recommendedLabel(value: boolean): string {
       >
         <div class="flex flex-wrap items-baseline justify-between gap-2">
           <p class="text-sm font-medium text-slate-100">
-            {{ EQUIPMENT_VI[item.kind] }}
+            {{ equipmentLabel(item.kind) }}
           </p>
           <p
             class="text-xs font-medium uppercase tracking-wider"

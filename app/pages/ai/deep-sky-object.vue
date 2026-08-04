@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import SkyAIExplainPanel from '../../components/ai/SkyAIExplainPanel.vue'
 
-useHead({ title: 'Sky AI · Deep Sky Object' })
+const { t } = useI18n()
+
+useHead({ title: () => t('pages.ai.deepSkyObject.title') })
 const route = useRoute()
 
 function parseNum(value: unknown): number | undefined {
@@ -12,8 +14,13 @@ function parseNum(value: unknown): number | undefined {
 
 const name = computed(() => {
   const raw = Array.isArray(route.query.name) ? route.query.name[0] : route.query.name
-  return typeof raw === 'string' && raw.trim() ? raw.trim() : 'Deep Sky Object'
+  return typeof raw === 'string' && raw.trim()
+    ? raw.trim()
+    : t('pages.ai.deepSkyObject.defaultName')
 })
+
+const heading = computed(() => t('pages.ai.deepSkyObject.heading', { name: name.value }))
+
 const altitude = computed(() => parseNum(route.query.altitude))
 const azimuth = computed(() => parseNum(route.query.azimuth))
 </script>
@@ -21,10 +28,14 @@ const azimuth = computed(() => parseNum(route.query.azimuth))
 <template>
   <div class="space-y-6">
     <header class="space-y-3">
-      <p class="text-sm font-medium uppercase tracking-[0.2em] text-violet-300/80">Sky AI</p>
-      <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">{{ name }} Explanation</h1>
+      <p class="text-sm font-medium uppercase tracking-[0.2em] text-violet-300/80">
+        {{ t('pages.ai.brand') }}
+      </p>
+      <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+        {{ heading }}
+      </h1>
       <p class="max-w-2xl text-base leading-7 text-slate-400">
-        Giải thích các đối tượng deep sky phục vụ quan sát bằng mắt, ống nhòm hoặc kính thiên văn.
+        {{ t('pages.ai.deepSkyObject.subtitle') }}
       </p>
     </header>
     <SkyAIExplainPanel
@@ -32,7 +43,6 @@ const azimuth = computed(() => parseNum(route.query.azimuth))
       :name="name"
       :altitude="altitude"
       :azimuth="azimuth"
-      language="en"
     />
   </div>
 </template>

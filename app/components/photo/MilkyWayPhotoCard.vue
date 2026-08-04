@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import type { CameraSettings, MilkyWayPhotoInfo } from '../../../types/photo'
+import type { Direction } from '../../../types/astronomy'
 
 defineProps<{
   info: MilkyWayPhotoInfo | null
 }>()
 
+const { t } = useI18n()
+const { formatTime: formatTimeValue } = useFormatters()
+
 function formatTime(value: string | null): string {
   if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return '—'
-  return new Intl.DateTimeFormat(undefined, { timeStyle: 'short' }).format(date)
+  return formatTimeValue(date)
 }
 
 function formatAngle(value: number | null): string {
@@ -19,7 +23,16 @@ function formatAngle(value: number | null): string {
 
 function formatCore(value: boolean | null): string {
   if (value === null) return '—'
-  return value ? 'Có' : 'Không'
+  return value ? t('components.moon.yes') : t('components.moon.no')
+}
+
+function formatDirection(direction: Direction | null): string {
+  if (!direction) return '—'
+  return t(`components.telescope.directions.${direction}`)
+}
+
+function formatVisibility(value: MilkyWayPhotoInfo['visibility']): string {
+  return t(`components.photo.milkyWayVisibility.${value}`)
 }
 
 function formatSettings(settings: CameraSettings): string {
@@ -35,8 +48,8 @@ function formatSettings(settings: CameraSettings): string {
 <template>
   <SkyCard>
     <SectionTitle
-      title="Ngân Hà"
-      subtitle="Khả năng thấy, hướng, thời điểm tốt và gợi ý ống kính."
+      :title="t('components.photo.milkyWayPhotoCard.title')"
+      :subtitle="t('components.photo.milkyWayPhotoCard.subtitle')"
     />
 
     <dl
@@ -45,23 +58,23 @@ function formatSettings(settings: CameraSettings): string {
     >
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Visibility
+          {{ t('components.photo.milkyWayPhotoCard.visibility') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
-          {{ info.visibility }}
+          {{ formatVisibility(info.visibility) }}
         </dd>
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Hướng
+          {{ t('components.photo.milkyWayPhotoCard.direction') }}
         </dt>
         <dd class="mt-1 text-sm text-sky-300">
-          {{ info.direction ?? '—' }}
+          {{ formatDirection(info.direction) }}
         </dd>
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cao độ
+          {{ t('components.photo.milkyWayPhotoCard.altitude') }}
         </dt>
         <dd class="mt-1 font-mono text-sm text-slate-100">
           {{ formatAngle(info.altitudeDeg) }}
@@ -69,7 +82,7 @@ function formatSettings(settings: CameraSettings): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Thời điểm tốt
+          {{ t('components.photo.milkyWayPhotoCard.bestTime') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(info.bestTime) }}
@@ -77,7 +90,7 @@ function formatSettings(settings: CameraSettings): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Lõi (core)
+          {{ t('components.photo.milkyWayPhotoCard.core') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatCore(info.coreVisible) }}
@@ -85,7 +98,7 @@ function formatSettings(settings: CameraSettings): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Ống kính
+          {{ t('components.photo.milkyWayPhotoCard.lens') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ info.recommendedLensLabel }}
@@ -93,7 +106,7 @@ function formatSettings(settings: CameraSettings): string {
       </div>
       <div class="col-span-2 rounded-xl bg-slate-950/70 p-4 sm:col-span-3">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cài đặt gợi ý
+          {{ t('components.photo.milkyWayPhotoCard.suggestedSettings') }}
         </dt>
         <dd class="mt-1 text-sm leading-6 text-slate-100">
           {{ formatSettings(info.settings) }}
@@ -105,7 +118,7 @@ function formatSettings(settings: CameraSettings): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí
+      {{ t('components.photo.locationRequired') }}
     </p>
   </SkyCard>
 </template>

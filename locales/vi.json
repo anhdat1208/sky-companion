@@ -1,0 +1,651 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "retry": "Thử lại",
+    "close": "Đóng",
+    "backHome": "Về trang chủ",
+    "unknownError": "Đã xảy ra lỗi.",
+    "refresh": "Làm mới"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "compass": "La bàn",
+    "openCompass": "Mở La bàn",
+    "telescope": "Kính thiên văn",
+    "iss": "ISS ngay",
+    "moonCalendar": "Lịch Mặt Trăng",
+    "meteorShowers": "Mưa sao băng",
+    "astrophotography": "Chụp ảnh bầu trời"
+  },
+  "settings": {
+    "language": "Ngôn ngữ",
+    "units": "Đơn vị",
+    "english": "English",
+    "vietnamese": "Tiếng Việt"
+  },
+  "units": {
+    "metric": "Mét",
+    "imperial": "Anh",
+    "km": "km",
+    "mi": "mi",
+    "kmh": "km/h",
+    "mph": "mph",
+    "celsius": "°C",
+    "fahrenheit": "°F"
+  },
+  "errors": {
+    "location": {
+      "permissionDenied": "Quyền vị trí đã bị từ chối.",
+      "unavailable": "Không xác định được vị trí của bạn.",
+      "timeout": "Yêu cầu vị trí đã hết thời gian.",
+      "unsupported": "Trình duyệt này không hỗ trợ định vị.",
+      "unknown": "Không lấy được vị trí của bạn."
+    },
+    "ai": {
+      "missingAstronomyData": "Thiếu dữ liệu thiên văn để giải thích.",
+      "explainFailed": "Không thể tạo phần giải thích AI."
+    },
+    "telescope": {
+      "calcFailed": "Không thể tính toán mục tiêu. Hãy thử làm mới."
+    },
+    "moonCalendar": {
+      "calcFailed": "Không thể tính lịch Mặt Trăng. Hãy thử làm mới."
+    },
+    "meteor": {
+      "calcFailed": "Không thể tính lịch mưa sao băng. Hãy thử làm mới."
+    },
+    "astroPhotography": {
+      "calcFailed": "Không thể tính lịch chụp ảnh. Hãy thử làm mới."
+    },
+    "devicePointing": {
+      "unsupported": "Trình duyệt này không hỗ trợ cảm biến hướng thiết bị.",
+      "permissionDenied": "Bạn đã từ chối quyền truy cập cảm biến hướng thiết bị.",
+      "enableFailed": "Không thể bật cảm biến hướng thiết bị."
+    }
+  },
+  "components": {
+    "loadingLocation": {
+      "default": "Đang xác định vị trí của bạn..."
+    },
+    "permissionDenied": {
+      "title": "Cần quyền vị trí",
+      "body": "Cho phép truy cập vị trí hoặc nhập tọa độ thủ công.",
+      "latitude": "Vĩ độ",
+      "longitude": "Kinh độ",
+      "latitudePlaceholder": "Ví dụ: 10.7769",
+      "longitudePlaceholder": "Ví dụ: 106.7009",
+      "latitudeRequired": "Vui lòng nhập vĩ độ.",
+      "latitudeRange": "Vĩ độ phải nằm trong khoảng -90 đến 90.",
+      "longitudeRequired": "Vui lòng nhập kinh độ.",
+      "longitudeRange": "Kinh độ phải nằm trong khoảng -180 đến 180.",
+      "submit": "Dùng tọa độ này",
+      "submitting": "Đang tải dữ liệu bầu trời..."
+    },
+    "currentLocation": {
+      "label": "Vị trí hiện tại",
+      "sourceLabel": "Tọa độ được dùng để quan sát bầu trời.",
+      "latitude": "Vĩ độ",
+      "longitude": "Kinh độ"
+    },
+    "skyAI": {
+      "explain": "Giải thích với Sky AI",
+      "explainLoading": "Đang tạo giải thích...",
+      "analyzingTitle": "Sky AI đang phân tích...",
+      "analyzingSubtitle": "Đang tạo nội dung giải thích theo ngữ cảnh quan sát hiện tại.",
+      "unavailableTitle": "AI tạm thời không khả dụng",
+      "unavailableHint": "Dữ liệu thiên văn vẫn hoạt động bình thường. Bạn có thể thử lại sau.",
+      "responseSubtitle": "Nội dung do AI tạo dựa trên dữ liệu thiên văn hiện tại.",
+      "suggestedQuestions": "Câu hỏi gợi ý",
+      "suggestedQuestionsSubtitle": "Nhấn vào một câu hỏi để yêu cầu AI giải thích sâu hơn."
+    },
+    "skyLabels": {
+      "altitude": "Cao độ",
+      "azimuth": "Phương vị"
+    },
+    "moonCard": {
+      "title": "Mặt Trăng",
+      "subtitle": "Vị trí và pha Mặt Trăng tại thời điểm quan sát.",
+      "illumination": "Độ sáng",
+      "phase": "Pha",
+      "rise": "Mọc",
+      "set": "Lặn"
+    },
+    "sunCard": {
+      "title": "Mặt Trời",
+      "subtitle": "Cao độ, phương vị và thời điểm mọc/lặn.",
+      "sunrise": "Bình minh",
+      "sunset": "Hoàng hôn"
+    },
+    "planetCard": {
+      "title": "Các hành tinh nhìn thấy",
+      "subtitle": "Những hành tinh đang trên bầu trời tại vị trí của bạn.",
+      "visible": "Nhìn thấy",
+      "empty": "Không có hành tinh nào đang nhìn thấy trên bầu trời lúc này."
+    },
+    "moon": {
+      "todayCard": {
+        "title": "Mặt Trăng hôm nay",
+        "subtitle": "Pha, vị trí và thời điểm mọc/lặn tại vị trí quan sát."
+      },
+      "monthCalendar": {
+        "title": "Lịch tháng",
+        "subtitle": "Chọn một ngày trong tháng để xem chi tiết.",
+        "prevMonth": "Tháng trước",
+        "nextMonth": "Tháng sau",
+        "dayAriaLabel": "Ngày {date}"
+      },
+      "dayDetail": {
+        "title": "Chi tiết ngày"
+      },
+      "upcomingEvents": {
+        "title": "Pha sắp tới",
+        "subtitle": "Bốn mốc quý tiếp theo của chu kỳ Mặt Trăng.",
+        "empty": "Chưa có sự kiện quý sắp tới.",
+        "daysRemainingToday": "hôm nay",
+        "daysRemainingOne": "còn 1 ngày",
+        "daysRemainingMany": "còn {count} ngày"
+      },
+      "observationScore": {
+        "title": "Điểm quan sát",
+        "subtitle": "Đánh giá nhanh điều kiện xem Mặt Trăng lúc này.",
+        "starsAriaLabel": "{stars} trên 5 sao"
+      },
+      "photographyGuide": {
+        "title": "Gợi ý chụp ảnh",
+        "subtitle": "Phù hợp phong cảnh, hố va chạm hay Mặt Trăng mọc — kèm tiêu cự gợi ý.",
+        "landscape": "Phong cảnh",
+        "craters": "Hố va chạm",
+        "moonrise": "Mặt Trăng mọc",
+        "recommendedFocalLength": "Tiêu cự gợi ý"
+      },
+      "phaseIllustration": {
+        "illuminatedPercent": "{percent}% độ sáng"
+      },
+      "fields": {
+        "age": "Tuổi",
+        "distance": "Khoảng cách",
+        "angularDiameter": "Đường kính góc",
+        "ageDays": "{days} ngày"
+      },
+      "scoreLabels": {
+        "Poor": "Kém",
+        "Fair": "Trung bình",
+        "Good": "Tốt",
+        "Excellent": "Xuất sắc"
+      },
+      "quarterTypes": {
+        "new": "Trăng mới",
+        "first-quarter": "Bán nguyệt đầu",
+        "full": "Trăng tròn",
+        "last-quarter": "Bán nguyệt cuối"
+      },
+      "yes": "Có",
+      "no": "Không"
+    },
+    "telescope": {
+      "profilePicker": {
+        "title": "Cấu hình kính",
+        "subtitle": "Chọn ống nhòm hoặc kính thiên văn để điều chỉnh ngưỡng khóa mục tiêu.",
+        "magnification": "Độ phóng đại",
+        "trueFov": "FOV thật",
+        "empty": "Chưa có cấu hình kính nào.",
+        "listboxAriaLabel": "Danh sách cấu hình kính"
+      },
+      "tonightTargetsList": {
+        "title": "Mục tiêu tốt nhất đêm nay",
+        "subtitle": "Danh sách xếp hạng theo độ cao, độ sáng và cấu hình kính.",
+        "empty": "Chưa có mục tiêu nào cho vị trí và thời điểm hiện tại.",
+        "visibilityScoreAriaLabel": "Điểm nhìn thấy {score} trên 5",
+        "bestTime": "Thời điểm tốt",
+        "difficulty": "Độ khó",
+        "instrument": "Dụng cụ"
+      },
+      "targetDetailCard": {
+        "title": "Chi tiết mục tiêu",
+        "subtitleWithTarget": "Thông tin quan sát cho {name}.",
+        "subtitleEmpty": "Chọn một mục tiêu từ danh sách để xem chi tiết.",
+        "empty": "Chưa chọn mục tiêu.",
+        "constellation": "Chòm sao",
+        "magnitude": "Cấp sao",
+        "distance": "Khoảng cách",
+        "direction": "Hướng",
+        "rise": "Mọc",
+        "set": "Lặn",
+        "distanceLy": "{value} ly"
+      },
+      "guidancePanel": {
+        "title": "Hướng dẫn căn chỉnh",
+        "subtitle": "Xoay thiết bị theo hướng dẫn để khóa mục tiêu trong trường nhìn.",
+        "targetLocked": "Đã khóa mục tiêu",
+        "deltaAzimuth": "Δ phương vị",
+        "deltaAltitude": "Δ cao độ",
+        "useSensor": "Dùng cảm biến thiết bị",
+        "useManual": "Dùng chỉnh thủ công",
+        "currentSource": "Nguồn hiện tại:",
+        "sourceSensor": "Cảm biến",
+        "sourceManual": "Thủ công",
+        "manualHint": "Điều chỉnh phương vị và cao độ thủ công khi cảm biến không khả dụng.",
+        "azimuthLabel": "Phương vị (az)",
+        "altitudeLabel": "Cao độ (alt)"
+      },
+      "starHop": {
+        "title": "Nhảy sao",
+        "subtitle": "Tính năng dẫn đường sao nhảy sẽ xuất hiện ở phiên bản sau.",
+        "comingSoon": "Sắp có",
+        "body1": "Kiến trúc đã sẵn sàng với các hợp đồng {hopStep}, {referenceStar} và {targetObject} để xây chuỗi nhảy từ sao tham chiếu sáng tới mục tiêu sâu.",
+        "body2": "Thuật toán tìm đường đầy đủ chưa được triển khai trong phiên bản này — chỉ có stub và giao diện."
+      },
+      "objectTypes": {
+        "moon": "Mặt Trăng",
+        "planet": "Hành tinh",
+        "galaxy": "Thiên hà",
+        "nebula": "Tinh vân",
+        "starCluster": "Cụm sao",
+        "star": "Sao",
+        "other": "Khác"
+      },
+      "difficulty": {
+        "easy": "Dễ",
+        "moderate": "Trung bình",
+        "hard": "Khó"
+      },
+      "instrument": {
+        "eye": "Mắt thường",
+        "binocular": "Ống nhòm",
+        "telescope": "Kính thiên văn"
+      },
+      "status": {
+        "need-target": "Cần chọn mục tiêu",
+        "below-horizon": "Dưới chân trời",
+        "aligning": "Đang căn chỉnh",
+        "locked": "Đã khóa"
+      },
+      "directions": {
+        "North": "Bắc",
+        "North-East": "Đông Bắc",
+        "East": "Đông",
+        "South-East": "Đông Nam",
+        "South": "Nam",
+        "South-West": "Tây Nam",
+        "West": "Tây",
+        "North-West": "Tây Bắc"
+      }
+    },
+    "meteor": {
+      "upcomingList": {
+        "title": "Mưa sao băng sắp tới",
+        "subtitle": "Chọn một trận mưa để xem điểm quan sát và chi tiết.",
+        "empty": "Chưa có mưa sao băng sắp tới trong danh sách.",
+        "notScored": "Chưa chấm điểm",
+        "peak": "Đỉnh",
+        "estimatedZhr": "ZHR ước tính",
+        "perHour": "/giờ",
+        "moonInterference": "Nhiễu trăng",
+        "difficulty": "Độ khó",
+        "bestTime": "Thời điểm tốt",
+        "bestDirection": "Hướng tốt",
+        "locationRequired": "Cần vị trí",
+        "scoreAriaLabel": "{label}, {stars} trên 5"
+      },
+      "visibilityScore": {
+        "title": "Điểm quan sát",
+        "subtitle": "Đánh giá nhanh điều kiện xem mưa sao băng đã chọn.",
+        "locationRequired": "Cần vị trí để chấm điểm",
+        "starsAriaLabel": "{stars} trên 5 sao"
+      },
+      "eventDetail": {
+        "title": "Chi tiết",
+        "originConstellation": "Chòm sao gốc",
+        "radiantRa": "Radiant RA",
+        "radiantDec": "Radiant Dec",
+        "speed": "Tốc độ",
+        "parentComet": "Sao chổi mẹ",
+        "peakDuration": "Thời lượng đỉnh",
+        "peak": "Đỉnh",
+        "activeStart": "Bắt đầu hoạt động",
+        "activeEnd": "Kết thúc hoạt động",
+        "visibilityMap": "Bản đồ tầm nhìn",
+        "comingSoon": "Sắp có",
+        "hours": "{value} giờ",
+        "speedKms": "{value} km/s"
+      },
+      "observationGuide": {
+        "title": "Hướng dẫn quan sát",
+        "subtitle": "Thời điểm, bầu trời tối, ánh trăng và dụng cụ gợi ý.",
+        "recommendedTime": "Thời điểm khuyên",
+        "darkSky": "Bầu trời tối",
+        "moonlightImpact": "Ảnh hưởng ánh trăng",
+        "clouds": "Mây",
+        "recommended": "Khuyên dùng",
+        "notRequired": "Không cần"
+      },
+      "yearCalendar": {
+        "title": "Lịch trong năm",
+        "subtitle": "Tám trận mưa sao băng chính theo năm đang xem.",
+        "prevYear": "Năm trước",
+        "nextYear": "Năm sau",
+        "empty": "Chưa có sự kiện mưa sao băng cho năm này."
+      },
+      "notificationsStub": {
+        "title": "Thông báo",
+        "subtitle": "Nhắc lịch mưa sao băng sẽ xuất hiện ở phiên bản sau.",
+        "comingSoon": "Sắp có",
+        "body": "Chưa hỗ trợ push notification hay service worker trong phiên bản này — chỉ có stub giao diện."
+      },
+      "difficulty": {
+        "easy": "Dễ",
+        "moderate": "Trung bình",
+        "challenging": "Khó"
+      },
+      "moonInterference": {
+        "none": "Không",
+        "low": "Thấp",
+        "moderate": "Trung bình",
+        "high": "Cao",
+        "severe": "Rất cao"
+      },
+      "equipment": {
+        "naked-eye": "Mắt thường",
+        "binoculars": "Ống nhòm",
+        "telescope": "Kính thiên văn"
+      },
+      "scoreLabels": {
+        "Poor": "Kém",
+        "Fair": "Trung bình",
+        "Good": "Tốt",
+        "Excellent": "Xuất sắc"
+      }
+    },
+    "photo": {
+      "locationRequired": "Cần vị trí",
+      "locationRequiredForScore": "Cần vị trí để chấm điểm",
+      "morning": "Sáng",
+      "evening": "Chiều",
+      "scoreLabels": {
+        "Poor": "Kém",
+        "Fair": "Trung bình",
+        "Good": "Tốt",
+        "Excellent": "Xuất sắc"
+      },
+      "milkyWayVisibility": {
+        "Excellent": "Xuất sắc",
+        "Good": "Tốt",
+        "Poor": "Kém",
+        "Not Visible": "Không thấy"
+      },
+      "brightness": {
+        "faint": "Mờ",
+        "moderate": "Vừa",
+        "bright": "Sáng",
+        "very-bright": "Rất sáng"
+      },
+      "timelineMarkers": {
+        "golden-hour": "Giờ vàng",
+        "blue-hour": "Giờ xanh",
+        "dark-sky": "Trời tối",
+        "moonrise": "Mặt Trăng mọc",
+        "moonset": "Mặt Trăng lặn",
+        "milky-way-peak": "Đỉnh Ngân Hà",
+        "planet-visibility": "Hành tinh nổi"
+      },
+      "moonPhotoCard": {
+        "title": "Mặt Trăng",
+        "subtitle": "Mọc/lặn, pha, độ sáng và gợi ý ống kính.",
+        "moonrise": "Mọc",
+        "moonset": "Lặn",
+        "phase": "Pha",
+        "illumination": "Độ sáng",
+        "bestTime": "Thời điểm tốt",
+        "lens": "Ống kính"
+      },
+      "blueHourCard": {
+        "title": "Giờ xanh",
+        "subtitle": "Ánh sáng xanh dịu trước bình minh và sau hoàng hôn."
+      },
+      "goldenHourCard": {
+        "title": "Giờ vàng",
+        "subtitle": "Khoảng sáng ấm quanh bình minh và hoàng hôn.",
+        "totalDuration": "Tổng thời lượng",
+        "durationMinutes": "{minutes} phút"
+      },
+      "twilightCard": {
+        "title": "Chạng vạng",
+        "subtitle": "Civil, nautical và astronomical — sáng và chiều.",
+        "civil": "Civil",
+        "nautical": "Nautical",
+        "astronomical": "Astronomical"
+      },
+      "milkyWayPhotoCard": {
+        "title": "Ngân Hà",
+        "subtitle": "Khả năng thấy, hướng, thời điểm tốt và gợi ý ống kính.",
+        "visibility": "Khả năng thấy",
+        "direction": "Hướng",
+        "altitude": "Cao độ",
+        "bestTime": "Thời điểm tốt",
+        "core": "Lõi (core)",
+        "lens": "Ống kính",
+        "suggestedSettings": "Cài đặt gợi ý"
+      },
+      "planetPhotoCard": {
+        "title": "Hành tinh",
+        "subtitle": "Cao độ, độ sáng và độ phóng đại gợi ý.",
+        "altitude": "Cao độ",
+        "brightness": "Độ sáng",
+        "magnification": "Phóng đại",
+        "visible": "Thấy được",
+        "notVisible": "Không thấy",
+        "empty": "Không có hành tinh trong danh sách."
+      },
+      "photoTimeline": {
+        "title": "Dòng thời gian",
+        "subtitle": "Các mốc từ hoàng hôn đến bình minh.",
+        "sunset": "Hoàng hôn",
+        "sunrise": "Bình minh",
+        "noMarkers": "Chưa có mốc trong cửa sổ đêm này."
+      },
+      "photoScoreCard": {
+        "title": "Điểm chụp đêm nay",
+        "subtitle": "Đánh giá nhanh điều kiện chụp ảnh đêm dựa trên vị trí quan sát.",
+        "starsAriaLabel": "{stars} trên 5 sao"
+      },
+      "cameraSettingsCard": {
+        "title": "Cài đặt máy ảnh",
+        "titleWithSubject": "Cài đặt · {subject}",
+        "subtitle": "ISO, khẩu độ, phơi sáng, tiêu cự, chân máy và remote.",
+        "aperture": "Khẩu độ",
+        "exposure": "Phơi sáng",
+        "focalLength": "Tiêu cự",
+        "tripod": "Chân máy",
+        "remote": "Remote"
+      },
+      "photoLocationPrompt": {
+        "title": "Cần vị trí",
+        "subtitle": "Bật định vị hoặc nhập tọa độ để tính điểm chụp và lịch sự kiện.",
+        "body": "Điểm chụp đêm, Ngân Hà, giờ vàng/xanh và chạng vạng phụ thuộc vị trí quan sát. Chọn vị trí để xem lịch chụp ảnh thiên văn cho đêm nay."
+      }
+    },
+    "iss": {
+      "positionCard": {
+        "title": "Vị trí ISS",
+        "subtitle": "Tọa độ địa lý hiện tại của Trạm Vũ trụ Quốc tế.",
+        "latitude": "Vĩ độ",
+        "longitude": "Kinh độ",
+        "timestamp": "Thời điểm",
+        "north": "B",
+        "south": "N",
+        "east": "Đ",
+        "west": "T"
+      },
+      "statsCard": {
+        "title": "Độ cao & tốc độ",
+        "subtitle": "Độ cao quỹ đạo và vận tốc mặt đất ước tính.",
+        "altitude": "Độ cao",
+        "speed": "Tốc độ"
+      },
+      "groundTrackMap": {
+        "title": "Quỹ đạo mặt đất",
+        "subtitle": "Sơ đồ equirectangular — đường quỹ đạo gần đây và sắp tới.",
+        "ariaLabel": "Bản đồ quỹ đạo mặt đất của ISS"
+      },
+      "nextPassCard": {
+        "title": "Lượt qua kế tiếp",
+        "subtitle": "Thời gian, hướng và thời lượng khi ISS có thể nhìn thấy.",
+        "rise": "Mọc",
+        "max": "Cao nhất",
+        "set": "Lặn",
+        "duration": "Thời lượng",
+        "maxElevation": "Cao độ tối đa",
+        "direction": "Hướng",
+        "magnitude": "Cấp sao (ước tính)",
+        "empty": "Chưa có lượt qua nhìn thấy trong 36 giờ tới, hoặc cần vị trí quan sát (GPS / nhập tay) để dự đoán.",
+        "durationSecondsOnly": "{seconds} giây",
+        "durationMinutesSeconds": "{minutes} phút {seconds} giây"
+      },
+      "brightnessCard": {
+        "title": "Độ sáng",
+        "subtitle": "Ước tính độ sáng ISS từ vị trí quan sát hiện tại.",
+        "magnitude": "Cấp sao",
+        "label": "Nhãn",
+        "empty": "Cần vị trí quan sát để ước tính độ sáng.",
+        "labels": {
+          "Bright": "Sáng",
+          "Moderate": "Trung bình",
+          "Dim": "Mờ",
+          "Not Visible": "Không nhìn thấy"
+        }
+      },
+      "notificationsStub": {
+        "title": "Thông báo",
+        "subtitle": "Nhắc lịch lượt qua ISS sẽ xuất hiện ở phiên bản sau.",
+        "comingSoon": "Sắp có",
+        "body": "Chưa hỗ trợ push notification hay service worker trong phiên bản này — chỉ có stub giao diện."
+      }
+    },
+    "compass": {
+      "moon": "Mặt Trăng",
+      "planet": "Hành tinh",
+      "ariaLabel": "La bàn tĩnh. {moonLabel}{planetPart}",
+      "planetPart": ". {planetLabel}",
+      "noVisiblePlanet": "Không có hành tinh nhìn thấy để đánh dấu trên la bàn.",
+      "azimuthLabel": "{name} {degrees}°"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Bầu trời trên bạn?",
+      "subtitle": "Xem Mặt Trời, Mặt Trăng và các hành tinh trên vị trí của bạn ngay bây giờ.",
+      "brand": "Sky Companion",
+      "locationFromGps": "Lấy từ GPS trình duyệt.",
+      "locationManual": "Nhập thủ công sau khi không dùng được GPS.",
+      "loadingSky": "Đang tải dữ liệu bầu trời...",
+      "skyLoadError": "Không tải được dữ liệu bầu trời",
+      "retryLocation": "Lấy lại vị trí",
+      "observationTime": {
+        "title": "Thời gian quan sát",
+        "subtitle": "Thời điểm máy chủ dùng để tính toán bầu trời."
+      },
+      "constellation": {
+        "title": "Chòm sao hiện tại",
+        "subtitle": "Ngữ cảnh chòm sao gần thiên đỉnh."
+      },
+      "milkyWay": {
+        "title": "Khả năng thấy Ngân Hà",
+        "subtitle": "Đánh giá nhanh dựa trên ngữ cảnh Mặt Trời/Mặt Trăng."
+      },
+      "direction": {
+        "title": "Hướng nên nhìn",
+        "subtitle": "Hướng gợi ý để quan sát bầu trời.",
+        "viewOnCompass": "Xem trên La bàn"
+      }
+    },
+    "moonCalendar": {
+      "title": "Lịch Mặt Trăng · Bầu trời trên bạn?",
+      "heading": "Lịch Mặt Trăng",
+      "subtitle": "Pha hôm nay, lịch tháng, điểm quan sát và gợi ý chụp ảnh theo vị trí của bạn.",
+      "locationFromQuery": "Lấy từ tham số URL.",
+      "loadError": "Không tính được lịch Mặt Trăng",
+      "aiName": "Lịch Mặt Trăng"
+    },
+    "telescope": {
+      "title": "Chế độ kính thiên văn · Bầu trời trên bạn?",
+      "heading": "Chế độ kính thiên văn",
+      "subtitle": "Xếp hạng mục tiêu đêm nay, chọn cấu hình kính và căn chỉnh theo hướng dẫn trực tiếp.",
+      "refreshTargets": "Làm mới mục tiêu",
+      "loadError": "Không tính được mục tiêu",
+      "explainWithAi": "Giải thích bằng AI"
+    },
+    "meteorShowers": {
+      "title": "Mưa sao băng · Bầu trời trên bạn?",
+      "heading": "Mưa sao băng",
+      "subtitle": "Lịch mưa sao băng sắp tới, điểm quan sát theo vị trí và hướng dẫn xem bằng mắt thường.",
+      "loadError": "Không tính được lịch mưa sao băng",
+      "permissionFallbackHint": "Hãy nhập vĩ độ và kinh độ thủ công để xem điểm quan sát và hướng tốt nhất. Danh sách và lịch vẫn dùng được không cần vị trí."
+    },
+    "astrophotography": {
+      "title": "Chụp ảnh bầu trời · Bầu trời trên bạn?",
+      "heading": "Chụp ảnh bầu trời",
+      "subtitle": "Điểm chụp đêm nay, Ngân Hà, giờ vàng/xanh, chạng vạng, Mặt Trăng, hành tinh và dòng thời gian từ hoàng hôn đến bình minh.",
+      "loadError": "Không tính được lịch chụp ảnh",
+      "permissionFallbackHint": "Hãy nhập vĩ độ và kinh độ thủ công để tính điểm chụp và lịch sự kiện. Các mục không phụ thuộc vị trí vẫn xem được.",
+      "noNightWindowTitle": "Không có đêm thiên văn",
+      "noNightWindowSubtitle": "Tại vị trí này không có khoảng hoàng hôn → bình minh (ví dụ ngày/đêm cực). Các sự kiện chụp đêm tạm thời không khả dụng.",
+      "aiName": "Chụp ảnh đêm nay"
+    },
+    "iss": {
+      "title": "ISS ngay · Bầu trời trên bạn?",
+      "heading": "ISS ngay",
+      "subtitle": "Vị trí Trạm Vũ trụ Quốc tế, quỹ đạo mặt đất, lượt qua tiếp theo và độ sáng ước tính.",
+      "loadingIss": "Đang tải dữ liệu ISS...",
+      "refreshIss": "Làm mới ISS",
+      "loadError": "Không tải được dữ liệu ISS",
+      "fallbackTleNotice": "Đang dùng TLE dự phòng nội bộ — dữ liệu có thể kém chính xác hơn nguồn trực tiếp.",
+      "permissionFallbackHint": "Hãy nhập vĩ độ và kinh độ thủ công để tiếp tục."
+    },
+    "compass": {
+      "title": "La bàn · Bầu trời trên bạn?",
+      "heading": "La bàn",
+      "subtitle": "La bàn tĩnh với hướng N/S/E/W và marker theo phương vị Mặt Trăng cùng hành tinh đang chọn.",
+      "noCoordinatesTitle": "Chưa có tọa độ",
+      "noCoordinatesSubtitle": "Trang Compass cần vĩ độ và kinh độ hợp lệ từ query hoặc từ trang chủ.",
+      "noCoordinatesBody": "Hãy quay lại Home để lấy vị trí GPS hoặc nhập tọa độ thủ công, rồi mở lại Compass.",
+      "loadingDirections": "Đang tải hướng bầu trời...",
+      "loadError": "Không tải được dữ liệu la bàn",
+      "observationHeading": "Hướng quan sát",
+      "observationSubtitle": "Marker xoay theo azimuth; không dùng cảm biến DeviceOrientation.",
+      "planet": "Hành tinh",
+      "coordinatesInUse": "Tọa độ đang dùng",
+      "dataSourceNote": "Dữ liệu lấy từ {api} tại thời điểm quan sát hiện tại."
+    },
+    "ai": {
+      "brand": "Sky AI",
+      "moon": {
+        "title": "Sky AI · Mặt Trăng",
+        "heading": "Giải thích Mặt Trăng",
+        "subtitle": "Giải thích theo ngữ cảnh quan sát Mặt Trăng từ dữ liệu thiên văn hiện tại."
+      },
+      "sun": {
+        "title": "Sky AI · Mặt Trời",
+        "heading": "Giải thích Mặt Trời",
+        "subtitle": "Giải thích bối cảnh quan sát Mặt Trời từ vị trí hiện tại."
+      },
+      "constellation": {
+        "title": "Sky AI · Chòm sao",
+        "heading": "Giải thích {name}",
+        "subtitle": "Giải thích chòm sao theo ngữ cảnh bầu trời hiện tại.",
+        "defaultName": "Chòm sao"
+      },
+      "planet": {
+        "title": "Sky AI · Hành tinh",
+        "heading": "Giải thích {name}",
+        "subtitle": "Giải thích dành riêng cho hành tinh bạn đang quan sát.",
+        "defaultName": "Hành tinh"
+      },
+      "deepSkyObject": {
+        "title": "Sky AI · Deep sky",
+        "heading": "Giải thích {name}",
+        "subtitle": "Giải thích các đối tượng deep sky phục vụ quan sát bằng mắt, ống nhòm hoặc kính thiên văn.",
+        "defaultName": "Deep sky"
+      }
+    }
+  }
+}

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 interface PermissionDeniedProps {
   title?: string
   subtitle?: string
@@ -9,13 +11,14 @@ interface PermissionDeniedEmits {
   submit: [lat: number, lng: number]
 }
 
-withDefaults(defineProps<PermissionDeniedProps>(), {
-  title: 'Không thể truy cập vị trí',
-  subtitle: 'Hãy cho phép truy cập vị trí trong trình duyệt hoặc nhập tọa độ thủ công.',
+const props = withDefaults(defineProps<PermissionDeniedProps>(), {
   submitting: false
 })
 
 const emit = defineEmits<PermissionDeniedEmits>()
+
+const displayTitle = computed(() => props.title ?? t('components.permissionDenied.title'))
+const displaySubtitle = computed(() => props.subtitle ?? t('components.permissionDenied.body'))
 
 const lat = ref('')
 const lng = ref('')
@@ -39,17 +42,17 @@ const parsedLat = computed(() => parseCoordinate(lat.value, -90, 90))
 const parsedLng = computed(() => parseCoordinate(lng.value, -180, 180))
 const latError = computed(() => {
   if (lat.value.trim() === '') {
-    return 'Vui lòng nhập vĩ độ.'
+    return t('components.permissionDenied.latitudeRequired')
   }
 
-  return parsedLat.value === null ? 'Vĩ độ phải nằm trong khoảng -90 đến 90.' : ''
+  return parsedLat.value === null ? t('components.permissionDenied.latitudeRange') : ''
 })
 const lngError = computed(() => {
   if (lng.value.trim() === '') {
-    return 'Vui lòng nhập kinh độ.'
+    return t('components.permissionDenied.longitudeRequired')
   }
 
-  return parsedLng.value === null ? 'Kinh độ phải nằm trong khoảng -180 đến 180.' : ''
+  return parsedLng.value === null ? t('components.permissionDenied.longitudeRange') : ''
 })
 const isValid = computed(() => parsedLat.value !== null && parsedLng.value !== null)
 
@@ -68,8 +71,8 @@ function submit(): void {
 <template>
   <SkyCard>
     <SectionTitle
-      :title="title"
-      :subtitle="subtitle"
+      :title="displayTitle"
+      :subtitle="displaySubtitle"
     />
 
     <form
@@ -83,7 +86,7 @@ function submit(): void {
             for="manual-latitude"
             class="mb-2 block text-sm font-medium text-slate-300"
           >
-            Vĩ độ
+            {{ t('components.permissionDenied.latitude') }}
           </label>
           <input
             id="manual-latitude"
@@ -91,7 +94,7 @@ function submit(): void {
             type="text"
             inputmode="decimal"
             autocomplete="off"
-            placeholder="Ví dụ: 10.7769"
+            :placeholder="t('components.permissionDenied.latitudePlaceholder')"
             class="w-full rounded-xl border bg-slate-950 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:ring-2 focus:ring-sky-500/40 disabled:cursor-not-allowed disabled:opacity-60"
             :class="touched.lat && latError ? 'border-rose-500/80' : 'border-slate-700 focus:border-sky-500'"
             :disabled="submitting"
@@ -113,7 +116,7 @@ function submit(): void {
             for="manual-longitude"
             class="mb-2 block text-sm font-medium text-slate-300"
           >
-            Kinh độ
+            {{ t('components.permissionDenied.longitude') }}
           </label>
           <input
             id="manual-longitude"
@@ -121,7 +124,7 @@ function submit(): void {
             type="text"
             inputmode="decimal"
             autocomplete="off"
-            placeholder="Ví dụ: 106.7009"
+            :placeholder="t('components.permissionDenied.longitudePlaceholder')"
             class="w-full rounded-xl border bg-slate-950 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:ring-2 focus:ring-sky-500/40 disabled:cursor-not-allowed disabled:opacity-60"
             :class="touched.lng && lngError ? 'border-rose-500/80' : 'border-slate-700 focus:border-sky-500'"
             :disabled="submitting"
@@ -144,7 +147,7 @@ function submit(): void {
         class="w-full rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
         :disabled="!isValid || submitting"
       >
-        {{ submitting ? 'Đang tải dữ liệu bầu trời...' : 'Dùng tọa độ này' }}
+        {{ submitting ? t('components.permissionDenied.submitting') : t('components.permissionDenied.submit') }}
       </button>
     </form>
   </SkyCard>

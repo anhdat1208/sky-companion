@@ -5,23 +5,22 @@ defineProps<{
   planets: PlanetPhotoInfo[] | null
 }>()
 
-const BRIGHTNESS_VI: Record<PlanetPhotoInfo['brightness'], string> = {
-  faint: 'Mờ',
-  moderate: 'Vừa',
-  bright: 'Sáng',
-  'very-bright': 'Rất sáng'
-}
+const { t } = useI18n()
 
 function formatAngle(value: number): string {
   return `${value.toFixed(1)}°`
+}
+
+function formatBrightness(value: PlanetPhotoInfo['brightness']): string {
+  return t(`components.photo.brightness.${value}`)
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Hành tinh"
-      subtitle="Cao độ, độ sáng và độ phóng đại gợi ý."
+      :title="t('components.photo.planetPhotoCard.title')"
+      :subtitle="t('components.photo.planetPhotoCard.subtitle')"
     />
 
     <ul
@@ -41,14 +40,14 @@ function formatAngle(value: number): string {
             class="text-xs font-medium uppercase tracking-wider"
             :class="planet.isVisible ? 'text-sky-300' : 'text-slate-500'"
           >
-            {{ planet.isVisible ? 'Thấy được' : 'Không thấy' }}
+            {{ planet.isVisible ? t('components.photo.planetPhotoCard.visible') : t('components.photo.planetPhotoCard.notVisible') }}
           </span>
         </div>
 
         <dl class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
           <div>
             <dt class="text-xs text-slate-500">
-              Cao độ
+              {{ t('components.photo.planetPhotoCard.altitude') }}
             </dt>
             <dd class="mt-0.5 font-mono text-sm text-slate-100">
               {{ formatAngle(planet.altitudeDeg) }}
@@ -56,15 +55,15 @@ function formatAngle(value: number): string {
           </div>
           <div>
             <dt class="text-xs text-slate-500">
-              Độ sáng
+              {{ t('components.photo.planetPhotoCard.brightness') }}
             </dt>
             <dd class="mt-0.5 text-sm text-slate-100">
-              {{ BRIGHTNESS_VI[planet.brightness] }}
+              {{ formatBrightness(planet.brightness) }}
             </dd>
           </div>
           <div class="col-span-2 sm:col-span-1">
             <dt class="text-xs text-slate-500">
-              Phóng đại
+              {{ t('components.photo.planetPhotoCard.magnification') }}
             </dt>
             <dd class="mt-0.5 text-sm text-slate-100">
               {{ planet.recommendedMagnification }}
@@ -78,14 +77,14 @@ function formatAngle(value: number): string {
       v-else-if="planets"
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Không có hành tinh trong danh sách.
+      {{ t('components.photo.planetPhotoCard.empty') }}
     </p>
 
     <p
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí
+      {{ t('components.photo.locationRequired') }}
     </p>
   </SkyCard>
 </template>

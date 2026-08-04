@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import SkyAIExplainPanel from '../../components/ai/SkyAIExplainPanel.vue'
 
-useHead({ title: 'Sky AI · Moon' })
+const { t } = useI18n()
+
+useHead({ title: () => t('pages.ai.moon.title') })
 const route = useRoute()
 
 function parseNum(value: unknown): number | undefined {
@@ -18,10 +20,14 @@ const distanceKm = computed(() => parseNum(route.query.distanceKm))
 <template>
   <div class="space-y-6">
     <header class="space-y-3">
-      <p class="text-sm font-medium uppercase tracking-[0.2em] text-violet-300/80">Sky AI</p>
-      <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Moon Explanation</h1>
+      <p class="text-sm font-medium uppercase tracking-[0.2em] text-violet-300/80">
+        {{ t('pages.ai.brand') }}
+      </p>
+      <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+        {{ t('pages.ai.moon.heading') }}
+      </h1>
       <p class="max-w-2xl text-base leading-7 text-slate-400">
-        Giải thích theo ngữ cảnh quan sát Mặt Trăng từ dữ liệu thiên văn hiện tại.
+        {{ t('pages.ai.moon.subtitle') }}
       </p>
     </header>
     <SkyAIExplainPanel
@@ -30,7 +36,6 @@ const distanceKm = computed(() => parseNum(route.query.distanceKm))
       :altitude="altitude"
       :azimuth="azimuth"
       :distance-km="distanceKm"
-      language="en"
     />
   </div>
 </template>

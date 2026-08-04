@@ -42,6 +42,7 @@ function clampAltitude(beta: number | null): number {
 }
 
 export function useDevicePointing() {
+  const { t } = useI18n()
   const pointing = ref<DevicePointing>({ ...DEFAULT_POINTING })
   const mode = ref<PointingMode>('manual')
   const sensorAvailable = ref(isOrientationSupported())
@@ -82,7 +83,7 @@ export function useDevicePointing() {
     sensorAvailable.value = isOrientationSupported()
 
     if (!sensorAvailable.value) {
-      fallbackToManual('Trình duyệt này không hỗ trợ cảm biến hướng thiết bị.')
+      fallbackToManual(t('errors.devicePointing.unsupported'))
       return
     }
 
@@ -91,7 +92,7 @@ export function useDevicePointing() {
       if (typeof DOE.requestPermission === 'function') {
         const permission = await DOE.requestPermission()
         if (permission !== 'granted') {
-          fallbackToManual('Bạn đã từ chối quyền truy cập cảm biến hướng thiết bị.')
+          fallbackToManual(t('errors.devicePointing.permissionDenied'))
           return
         }
       }
@@ -102,7 +103,7 @@ export function useDevicePointing() {
       }
       mode.value = 'sensor'
     } catch {
-      fallbackToManual('Không thể bật cảm biến hướng thiết bị.')
+      fallbackToManual(t('errors.devicePointing.enableFailed'))
     }
   }
 

@@ -6,6 +6,10 @@ defineProps<{
   today: MoonTodaySnapshot
 }>()
 
+const { t } = useI18n()
+const { formatDateTime } = useFormatters()
+const { formatDistanceFromKm } = useUnits()
+
 function formatAngle(value: number): string {
   return `${value.toFixed(1)}°`
 }
@@ -15,11 +19,7 @@ function formatPercent(value: number): string {
 }
 
 function formatAge(days: number): string {
-  return `${days.toFixed(1)} ngày`
-}
-
-function formatDistance(km: number): string {
-  return `${Math.round(km).toLocaleString('vi-VN')} km`
+  return t('components.moon.fields.ageDays', { days: days.toFixed(1) })
 }
 
 function formatDiameter(deg: number): string {
@@ -36,18 +36,15 @@ function formatTime(value: string | null): string {
     return '—'
   }
 
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  }).format(date)
+  return formatDateTime(date)
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Mặt Trăng hôm nay"
-      subtitle="Pha, vị trí và thời điểm mọc/lặn tại vị trí quan sát."
+      :title="t('components.moon.todayCard.title')"
+      :subtitle="t('components.moon.todayCard.subtitle')"
     />
 
     <MoonPhaseIllustration
@@ -61,7 +58,7 @@ function formatTime(value: string | null): string {
     <dl class="grid grid-cols-2 gap-3 sm:grid-cols-3">
       <div class="col-span-2 rounded-xl bg-slate-950/70 p-4 sm:col-span-3">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Pha
+          {{ t('components.moonCard.phase') }}
         </dt>
         <dd class="mt-1 text-base text-slate-100">
           {{ today.phase }}
@@ -69,7 +66,7 @@ function formatTime(value: string | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Độ sáng
+          {{ t('components.moonCard.illumination') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatPercent(today.illuminatedPercentage) }}
@@ -77,7 +74,7 @@ function formatTime(value: string | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Tuổi
+          {{ t('components.moon.fields.age') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatAge(today.ageDays) }}
@@ -85,7 +82,7 @@ function formatTime(value: string | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Mọc
+          {{ t('components.moonCard.rise') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(today.riseTime) }}
@@ -93,7 +90,7 @@ function formatTime(value: string | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Lặn
+          {{ t('components.moonCard.set') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(today.setTime) }}
@@ -101,7 +98,7 @@ function formatTime(value: string | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cao độ
+          {{ t('components.skyLabels.altitude') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatAngle(today.altitude) }}
@@ -109,7 +106,7 @@ function formatTime(value: string | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Phương vị
+          {{ t('components.skyLabels.azimuth') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatAngle(today.azimuth) }}
@@ -117,15 +114,15 @@ function formatTime(value: string | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Khoảng cách
+          {{ t('components.moon.fields.distance') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
-          {{ formatDistance(today.distanceKm) }}
+          {{ formatDistanceFromKm(today.distanceKm) }}
         </dd>
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Đường kính góc
+          {{ t('components.moon.fields.angularDiameter') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatDiameter(today.angularDiameterDeg) }}

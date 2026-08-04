@@ -1,5 +1,10 @@
-import { describe, expect, it, vi, afterEach } from 'vitest'
+import { describe, expect, it, vi, afterEach, beforeEach } from 'vitest'
 import { useDevicePointing } from '../../app/composables/useDevicePointing'
+import { composableErrorMessages, stubComposableI18n } from '../helpers/stubComposableI18n'
+
+beforeEach(() => {
+  stubComposableI18n()
+})
 
 afterEach(() => {
   vi.unstubAllGlobals()
@@ -28,7 +33,7 @@ describe('useDevicePointing', () => {
     const api = useDevicePointing()
     await api.enableSensor()
     expect(api.pointing.value.source).toBe('manual')
-    expect(api.sensorError.value).toBe('Trình duyệt này không hỗ trợ cảm biến hướng thiết bị.')
+    expect(api.sensorError.value).toBe(composableErrorMessages['errors.devicePointing.unsupported'])
   })
 
   it('clears sensor source on permission denial while keeping az/alt', async () => {
@@ -48,6 +53,6 @@ describe('useDevicePointing', () => {
       source: 'manual'
     })
     expect(api.mode.value).toBe('manual')
-    expect(api.sensorError.value).toBe('Bạn đã từ chối quyền truy cập cảm biến hướng thiết bị.')
+    expect(api.sensorError.value).toBe(composableErrorMessages['errors.devicePointing.permissionDenied'])
   })
 })

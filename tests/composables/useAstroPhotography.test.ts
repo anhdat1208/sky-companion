@@ -2,9 +2,11 @@ import { describe, expect, it } from 'vitest'
 import { ref } from 'vue'
 import type { Coordinates } from '../../types/location'
 import { useAstroPhotography } from '../../app/composables/useAstroPhotography'
+import { stubComposableI18n } from '../helpers/stubComposableI18n'
 
 describe('useAstroPhotography', () => {
   const fixed = new Date(Date.UTC(2026, 7, 3, 8, 0, 0))
+  stubComposableI18n()
 
   it('needs location and null score without coordinates', () => {
     const coordinates = ref<Coordinates | null>(null)

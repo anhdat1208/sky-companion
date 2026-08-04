@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { Coordinates } from '../../types/location'
 
+const { t } = useI18n()
+const { formatDateTime } = useFormatters()
+
 useHead({
-  title: "What's Above Me?"
+  title: () => t('pages.home.title')
 })
 
 const geo = useGeolocationInput()
@@ -24,8 +27,16 @@ const isFetchingSky = computed(() => sky.loading.value && hasCoordinates.value)
 const showSnapshot = computed(() => sky.snapshot.value !== null && !sky.loading.value)
 const locationSourceLabel = computed(() => {
   return locationSource.value === 'manual'
-    ? 'Nhập thủ công sau khi không dùng được GPS.'
-    : 'Lấy từ GPS trình duyệt.'
+    ? t('pages.home.locationManual')
+    : t('pages.home.locationFromGps')
+})
+const permissionFallbackTitle = computed(() => {
+  return geo.permissionDenied.value
+    ? t('errors.location.permissionDenied')
+    : t('errors.location.unavailable')
+})
+const permissionFallbackSubtitle = computed(() => {
+  return geo.error.value ?? t('components.permissionDenied.body')
 })
 
 const compassLink = computed(() => {
@@ -165,10 +176,7 @@ function formatObservationTime(value: string): string {
     return value
   }
 
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'full',
-    timeStyle: 'medium'
-  }).format(date)
+  return formatDateTime(date)
 }
 
 async function loadSky(coords: Coordinates): Promise<void> {
@@ -211,13 +219,13 @@ onMounted(async () => {
   <div class="space-y-6">
     <header class="space-y-3">
       <p class="text-sm font-medium uppercase tracking-[0.2em] text-sky-400/80">
-        Sky Companion
+        {{ t('pages.home.brand') }}
       </p>
       <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-        What's Above Me?
+        {{ t('pages.home.title') }}
       </h1>
       <p class="max-w-2xl text-base leading-7 text-slate-400">
-        Xem nhanh Mặt Trăng, Mặt Trời, hành tinh và hướng nhìn bầu trời dựa trên vị trí của bạn.
+        {{ t('pages.home.subtitle') }}
       </p>
       <div class="flex flex-wrap gap-3">
         <NuxtLink
@@ -225,55 +233,52 @@ onMounted(async () => {
           :to="compassLink"
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
-          Mở Compass
+          {{ t('nav.openCompass') }}
         </NuxtLink>
         <NuxtLink
           v-if="telescopeLink"
           :to="telescopeLink"
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
-          Telescope Mode
+          {{ t('nav.telescope') }}
         </NuxtLink>
         <NuxtLink
           v-if="issLink"
           :to="issLink"
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
-          ISS Now
+          {{ t('nav.iss') }}
         </NuxtLink>
         <NuxtLink
           v-if="moonCalendarLink"
           :to="moonCalendarLink"
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
-          Lịch Mặt Trăng
+          {{ t('nav.moonCalendar') }}
         </NuxtLink>
         <NuxtLink
           v-if="meteorShowersLink"
           :to="meteorShowersLink"
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
-          Mưa sao băng
+          {{ t('nav.meteorShowers') }}
         </NuxtLink>
         <NuxtLink
           v-if="astrophotographyLink"
           :to="astrophotographyLink"
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
-          Astrophotography
+          {{ t('nav.astrophotography') }}
         </NuxtLink>
       </div>
     </header>
 
-    <LoadingLocation
-      v-if="isBootstrapping"
-      message="Đang xác định vị trí của bạn..."
-    />
+    <LoadingLocation v-if="isBootstrapping" />
 
     <PermissionDenied
       v-else-if="showManualFallback"
-      :title="geo.permissionDenied.value ? 'Không thể truy cập vị trí' : 'Không lấy được vị trí'"
-      :subtitle="geo.error.value ?? 'Hãy nhập vĩ độ và kinh độ thủ công để tiếp tục.'"
+      :title="permissionFallbackTitle"
+      :subtitle="permissionFallbackSubtitle"
       :submitting="sky.loading.value"
       @submit="handleManualSubmit"
     />
@@ -286,7 +291,7 @@ onMounted(async () => {
 
       <LoadingLocation
         v-if="isFetchingSky"
-        message="Đang tải dữ liệu bầu trời..."
+        :message="t('pages.home.loadingSky')"
       />
 
       <SkyCard
@@ -294,7 +299,7 @@ onMounted(async () => {
         role="alert"
       >
         <SectionTitle
-          title="Không tải được dữ liệu bầu trời"
+          :title="t('pages.home.skyLoadError')"
           :subtitle="sky.error.value"
         />
         <div class="flex flex-col gap-3 sm:flex-row">
@@ -303,14 +308,14 @@ onMounted(async () => {
             class="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
             @click="retrySky"
           >
-            Thử lại
+            {{ t('common.retry') }}
           </button>
           <button
             type="button"
             class="rounded-xl border border-slate-700 bg-slate-950 px-5 py-3 font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
             @click="retryLocation"
           >
-            Lấy lại vị trí
+            {{ t('pages.home.retryLocation') }}
           </button>
         </div>
       </SkyCard>
@@ -318,8 +323,8 @@ onMounted(async () => {
       <template v-else-if="showSnapshot && sky.snapshot.value">
         <SkyCard>
           <SectionTitle
-            title="Thời gian quan sát"
-            subtitle="Thời điểm máy chủ dùng để tính toán bầu trời."
+            :title="t('pages.home.observationTime.title')"
+            :subtitle="t('pages.home.observationTime.subtitle')"
           />
           <p class="rounded-xl bg-slate-950/70 p-4 text-base text-slate-100">
             {{ formatObservationTime(sky.snapshot.value.timestamp) }}
@@ -337,7 +342,7 @@ onMounted(async () => {
           :to="moonAiLink"
           class="inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
         >
-          ✨ Explain with AI
+          ✨ {{ t('components.skyAI.explain') }}
         </NuxtLink>
         <SunCard :sun="sky.snapshot.value.sun" />
         <NuxtLink
@@ -345,7 +350,7 @@ onMounted(async () => {
           :to="sunAiLink"
           class="inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
         >
-          ✨ Explain with AI
+          ✨ {{ t('components.skyAI.explain') }}
         </NuxtLink>
         <PlanetCard :planets="sky.snapshot.value.planets" />
         <NuxtLink
@@ -353,13 +358,13 @@ onMounted(async () => {
           :to="topPlanetAiLink"
           class="inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
         >
-          ✨ Explain with AI
+          ✨ {{ t('components.skyAI.explain') }}
         </NuxtLink>
 
         <SkyCard>
           <SectionTitle
-            title="Chòm sao hiện tại"
-            subtitle="Ngữ cảnh chòm sao gần thiên đỉnh."
+            :title="t('pages.home.constellation.title')"
+            :subtitle="t('pages.home.constellation.subtitle')"
           />
           <p class="rounded-xl bg-slate-950/70 p-4 text-lg font-medium text-slate-100">
             {{ sky.snapshot.value.constellation.name }}
@@ -369,14 +374,14 @@ onMounted(async () => {
             :to="constellationAiLink"
             class="mt-4 inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
           >
-            ✨ Explain with AI
+            ✨ {{ t('components.skyAI.explain') }}
           </NuxtLink>
         </SkyCard>
 
         <SkyCard>
           <SectionTitle
-            title="Khả năng thấy Ngân Hà"
-            subtitle="Đánh giá nhanh dựa trên ngữ cảnh Mặt Trời/Mặt Trăng."
+            :title="t('pages.home.milkyWay.title')"
+            :subtitle="t('pages.home.milkyWay.subtitle')"
           />
           <p class="rounded-xl bg-slate-950/70 p-4 text-lg font-medium text-slate-100">
             {{ sky.snapshot.value.milkyWayVisibility }}
@@ -385,8 +390,8 @@ onMounted(async () => {
 
         <SkyCard>
           <SectionTitle
-            title="Hướng nên nhìn"
-            subtitle="Hướng gợi ý để quan sát bầu trời."
+            :title="t('pages.home.direction.title')"
+            :subtitle="t('pages.home.direction.subtitle')"
           />
           <p class="rounded-xl bg-slate-950/70 p-4 text-lg font-medium text-sky-300">
             {{ sky.snapshot.value.directionToLook }}
@@ -396,7 +401,7 @@ onMounted(async () => {
             :to="compassLink"
             class="mt-4 inline-flex rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
           >
-            Xem trên Compass
+            {{ t('pages.home.direction.viewOnCompass') }}
           </NuxtLink>
         </SkyCard>
       </template>

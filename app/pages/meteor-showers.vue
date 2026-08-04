@@ -8,8 +8,10 @@ import MeteorYearCalendar from '../components/meteor/MeteorYearCalendar.vue'
 import MeteorNotificationsStub from '../components/meteor/MeteorNotificationsStub.vue'
 import SkyAIExplainPanel from '../components/ai/SkyAIExplainPanel.vue'
 
+const { t } = useI18n()
+
 useHead({
-  title: 'Meteor Showers · What\'s Above Me?'
+  title: () => t('pages.meteorShowers.title')
 })
 
 const route = useRoute()
@@ -70,14 +72,24 @@ const isBootstrapping = computed(() => {
 
 const locationSourceLabel = computed(() => {
   if (locationSource.value === 'manual') {
-    return 'Nhập thủ công sau khi không dùng được GPS.'
+    return t('pages.home.locationManual')
   }
 
   if (locationSource.value === 'query') {
-    return 'Lấy từ tham số URL.'
+    return t('pages.moonCalendar.locationFromQuery')
   }
 
-  return 'Lấy từ GPS trình duyệt.'
+  return t('pages.home.locationFromGps')
+})
+
+const permissionFallbackTitle = computed(() => {
+  return geo.permissionDenied.value
+    ? t('errors.location.permissionDenied')
+    : t('errors.location.unavailable')
+})
+
+const permissionFallbackSubtitle = computed(() => {
+  return geo.error.value ?? t('pages.meteorShowers.permissionFallbackHint')
 })
 
 const {
@@ -157,33 +169,33 @@ watch(queryCoordinates, (next, previous) => {
   <div class="space-y-6">
     <header class="space-y-3">
       <p class="text-sm font-medium uppercase tracking-[0.2em] text-sky-400/80">
-        Sky Companion
+        {{ t('pages.home.brand') }}
       </p>
       <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-        Mưa sao băng
+        {{ t('pages.meteorShowers.heading') }}
       </h1>
       <p class="max-w-2xl text-base leading-7 text-slate-400">
-        Lịch mưa sao băng sắp tới, điểm quan sát theo vị trí và hướng dẫn xem bằng mắt thường.
+        {{ t('pages.meteorShowers.subtitle') }}
       </p>
       <div class="flex flex-wrap gap-3">
         <NuxtLink
           to="/"
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
-          ← Về trang chủ
+          ← {{ t('common.backHome') }}
         </NuxtLink>
       </div>
     </header>
 
     <LoadingLocation
       v-if="isBootstrapping"
-      message="Đang xác định vị trí của bạn..."
+      :message="t('components.loadingLocation.default')"
     />
 
     <PermissionDenied
       v-else-if="showManualFallback"
-      :title="geo.permissionDenied.value ? 'Không thể truy cập vị trí' : 'Không lấy được vị trí'"
-      :subtitle="geo.error.value ?? 'Hãy nhập vĩ độ và kinh độ thủ công để xem điểm quan sát và hướng tốt nhất. Danh sách và lịch vẫn dùng được không cần vị trí.'"
+      :title="permissionFallbackTitle"
+      :subtitle="permissionFallbackSubtitle"
       @submit="handleManualSubmit"
     />
 
@@ -199,7 +211,7 @@ watch(queryCoordinates, (next, previous) => {
           class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
           @click="refresh()"
         >
-          Làm mới
+          {{ t('common.refresh') }}
         </button>
         <button
           v-if="!hasQueryCoordinates && hasAttemptedLocation"
@@ -207,7 +219,7 @@ watch(queryCoordinates, (next, previous) => {
           class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
           @click="retryLocation"
         >
-          Lấy lại vị trí
+          {{ t('pages.home.retryLocation') }}
         </button>
       </div>
     </template>
@@ -217,7 +229,7 @@ watch(queryCoordinates, (next, previous) => {
       role="alert"
     >
       <SectionTitle
-        title="Không tính được lịch mưa sao băng"
+        :title="t('pages.meteorShowers.loadError')"
         :subtitle="error"
       />
       <button
@@ -225,7 +237,7 @@ watch(queryCoordinates, (next, previous) => {
         class="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
         @click="refresh()"
       >
-        Thử lại
+        {{ t('common.retry') }}
       </button>
     </SkyCard>
 
@@ -254,7 +266,6 @@ watch(queryCoordinates, (next, previous) => {
         object-type="meteor-shower"
         :name="selectedDetail.name"
         :context="selectedMeteorContext ?? undefined"
-        language="en"
       />
 
       <MeteorYearCalendar

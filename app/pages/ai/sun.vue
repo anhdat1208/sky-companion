@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import SkyAIExplainPanel from '../../components/ai/SkyAIExplainPanel.vue'
 
-useHead({ title: 'Sky AI · Sun' })
+const { t } = useI18n()
+
+useHead({ title: () => t('pages.ai.sun.title') })
 const route = useRoute()
 
 function parseNum(value: unknown): number | undefined {
@@ -17,10 +19,14 @@ const azimuth = computed(() => parseNum(route.query.azimuth))
 <template>
   <div class="space-y-6">
     <header class="space-y-3">
-      <p class="text-sm font-medium uppercase tracking-[0.2em] text-violet-300/80">Sky AI</p>
-      <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Sun Explanation</h1>
+      <p class="text-sm font-medium uppercase tracking-[0.2em] text-violet-300/80">
+        {{ t('pages.ai.brand') }}
+      </p>
+      <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+        {{ t('pages.ai.sun.heading') }}
+      </h1>
       <p class="max-w-2xl text-base leading-7 text-slate-400">
-        Giải thích bối cảnh quan sát Mặt Trời từ vị trí hiện tại.
+        {{ t('pages.ai.sun.subtitle') }}
       </p>
     </header>
     <SkyAIExplainPanel
@@ -28,7 +34,6 @@ const azimuth = computed(() => parseNum(route.query.azimuth))
       name="Sun"
       :altitude="altitude"
       :azimuth="azimuth"
-      language="en"
     />
   </div>
 </template>

@@ -1,12 +1,11 @@
 import type { Ref } from 'vue'
-import type { SkyAIExplainRequest, SkyAIExplainResponse, SkyAILanguage } from '../../types/ai'
+import type { SkyAIExplainRequest, SkyAIExplainResponse } from '../../types/ai'
+import { localeToSkyAILanguage } from '../../lib/i18n/aiLanguage'
 
 type SkyAIRequestContext = Omit<SkyAIExplainRequest, 'language' | 'question'>
 
-export function useSkyAI(
-  context: Ref<SkyAIRequestContext | null>,
-  language: Ref<SkyAILanguage>
-) {
+export function useSkyAI(context: Ref<SkyAIRequestContext | null>) {
+  const { t, locale } = useI18n()
   const loading = ref(false)
   const error = ref<string | null>(null)
   const response = ref<SkyAIExplainResponse | null>(null)
@@ -15,7 +14,7 @@ export function useSkyAI(
   async function explain(question?: string): Promise<void> {
     const value = context.value
     if (!value) {
-      error.value = 'Thiếu dữ liệu thiên văn để giải thích.'
+      error.value = t('errors.ai.missingAstronomyData')
       return
     }
 
@@ -28,17 +27,12 @@ export function useSkyAI(
         method: 'POST',
         body: {
           ...value,
-          language: language.value,
+          language: localeToSkyAILanguage(locale.value),
           question
         } satisfies SkyAIExplainRequest
       })
     } catch (caught) {
-      if (typeof caught === 'object' && caught !== null) {
-        const maybe = caught as { data?: { message?: string }; statusMessage?: string; message?: string }
-        error.value = maybe.data?.message ?? maybe.statusMessage ?? maybe.message ?? 'Không thể tạo phần giải thích AI.'
-      } else {
-        error.value = 'Không thể tạo phần giải thích AI.'
-      }
+      error.value = t('errors.ai.explainFailed')
     } finally {
       loading.value = false
     }

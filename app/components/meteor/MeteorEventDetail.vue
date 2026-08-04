@@ -5,17 +5,17 @@ defineProps<{
   detail: MeteorEventDetail
 }>()
 
+const { t } = useI18n()
+const { formatDateTime } = useFormatters()
+
 function formatTime(value: string): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return value
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  }).format(date)
+  return formatDateTime(date)
 }
 
 function formatHours(value: number): string {
-  return `${value.toFixed(1)} giờ`
+  return t('components.meteor.eventDetail.hours', { value: value.toFixed(1) })
 }
 
 function formatRa(hours: number): string {
@@ -28,14 +28,14 @@ function formatDec(deg: number): string {
 }
 
 function formatSpeed(kmS: number): string {
-  return `${kmS.toFixed(0)} km/s`
+  return t('components.meteor.eventDetail.speedKms', { value: kmS.toFixed(0) })
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Chi tiết"
+      :title="t('components.meteor.eventDetail.title')"
       :subtitle="detail.name"
     />
 
@@ -46,7 +46,7 @@ function formatSpeed(kmS: number): string {
     <dl class="grid grid-cols-2 gap-3 sm:grid-cols-3">
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Chòm sao gốc
+          {{ t('components.meteor.eventDetail.originConstellation') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ detail.originConstellation }}
@@ -54,7 +54,7 @@ function formatSpeed(kmS: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Radiant RA
+          {{ t('components.meteor.eventDetail.radiantRa') }}
         </dt>
         <dd class="mt-1 font-mono text-sm text-slate-100">
           {{ formatRa(detail.radiantRaHours) }}
@@ -62,7 +62,7 @@ function formatSpeed(kmS: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Radiant Dec
+          {{ t('components.meteor.eventDetail.radiantDec') }}
         </dt>
         <dd class="mt-1 font-mono text-sm text-slate-100">
           {{ formatDec(detail.radiantDecDeg) }}
@@ -70,7 +70,7 @@ function formatSpeed(kmS: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Tốc độ
+          {{ t('components.meteor.eventDetail.speed') }}
         </dt>
         <dd class="mt-1 font-mono text-sm text-slate-100">
           {{ formatSpeed(detail.expectedSpeedKmS) }}
@@ -78,7 +78,7 @@ function formatSpeed(kmS: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Sao chổi mẹ
+          {{ t('components.meteor.eventDetail.parentComet') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ detail.parentComet ?? '—' }}
@@ -86,7 +86,7 @@ function formatSpeed(kmS: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Thời lượng đỉnh
+          {{ t('components.meteor.eventDetail.peakDuration') }}
         </dt>
         <dd class="mt-1 font-mono text-sm text-slate-100">
           {{ formatHours(detail.peakDurationHours) }}
@@ -94,7 +94,7 @@ function formatSpeed(kmS: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Đỉnh
+          {{ t('components.meteor.eventDetail.peak') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(detail.peakAt) }}
@@ -102,7 +102,7 @@ function formatSpeed(kmS: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Bắt đầu hoạt động
+          {{ t('components.meteor.eventDetail.activeStart') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(detail.activeStart) }}
@@ -110,7 +110,7 @@ function formatSpeed(kmS: number): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Kết thúc hoạt động
+          {{ t('components.meteor.eventDetail.activeEnd') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(detail.activeEnd) }}
@@ -128,10 +128,10 @@ function formatSpeed(kmS: number): string {
 
     <div class="mt-3 rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-300">
       <p class="text-xs font-medium uppercase tracking-wider text-slate-500">
-        Bản đồ tầm nhìn
+        {{ t('components.meteor.eventDetail.visibilityMap') }}
       </p>
       <p class="mt-2 font-medium text-sky-300">
-        Sắp có
+        {{ t('components.meteor.eventDetail.comingSoon') }}
       </p>
       <p class="mt-1 text-slate-400">
         {{ detail.visibilityMap.message }}

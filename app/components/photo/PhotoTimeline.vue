@@ -5,11 +5,14 @@ defineProps<{
   timeline: PhotoTimeline | null
 }>()
 
+const { t } = useI18n()
+const { formatTime: formatTimeValue } = useFormatters()
+
 function formatTime(value: string | null): string {
   if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return '—'
-  return new Intl.DateTimeFormat(undefined, { timeStyle: 'short' }).format(date)
+  return formatTimeValue(date)
 }
 
 function formatMarkerTime(marker: TimelineMarker): string {
@@ -18,13 +21,17 @@ function formatMarkerTime(marker: TimelineMarker): string {
   }
   return formatTime(marker.at)
 }
+
+function markerLabel(marker: TimelineMarker): string {
+  return t(`components.photo.timelineMarkers.${marker.kind}`)
+}
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Dòng thời gian"
-      subtitle="Các mốc từ hoàng hôn đến bình minh."
+      :title="t('components.photo.photoTimeline.title')"
+      :subtitle="t('components.photo.photoTimeline.subtitle')"
     />
 
     <div
@@ -34,7 +41,7 @@ function formatMarkerTime(marker: TimelineMarker): string {
       <dl class="grid grid-cols-2 gap-3">
         <div class="rounded-xl bg-slate-950/70 p-4">
           <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-            Hoàng hôn
+            {{ t('components.photo.photoTimeline.sunset') }}
           </dt>
           <dd class="mt-1 text-sm text-slate-100">
             {{ formatTime(timeline.window.sunset) }}
@@ -42,7 +49,7 @@ function formatMarkerTime(marker: TimelineMarker): string {
         </div>
         <div class="rounded-xl bg-slate-950/70 p-4">
           <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-            Bình minh
+            {{ t('components.photo.photoTimeline.sunrise') }}
           </dt>
           <dd class="mt-1 text-sm text-slate-100">
             {{ formatTime(timeline.window.sunrise) }}
@@ -60,7 +67,7 @@ function formatMarkerTime(marker: TimelineMarker): string {
           class="rounded-xl bg-slate-950/70 px-4 py-3 sm:min-w-[10rem] sm:flex-1"
         >
           <p class="text-xs font-medium uppercase tracking-wider text-slate-500">
-            {{ marker.label }}
+            {{ markerLabel(marker) }}
           </p>
           <p class="mt-1 text-sm text-slate-100">
             {{ formatMarkerTime(marker) }}
@@ -72,7 +79,7 @@ function formatMarkerTime(marker: TimelineMarker): string {
         v-else
         class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
       >
-        Chưa có mốc trong cửa sổ đêm này.
+        {{ t('components.photo.photoTimeline.noMarkers') }}
       </p>
     </div>
 
@@ -80,7 +87,7 @@ function formatMarkerTime(marker: TimelineMarker): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí
+      {{ t('components.photo.locationRequired') }}
     </p>
   </SkyCard>
 </template>

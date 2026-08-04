@@ -1,5 +1,19 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 import { useGeolocationInput } from '../../app/composables/useGeolocationInput'
+
+const locationMessages: Record<string, string> = {
+  'errors.location.permissionDenied': 'Location permission was denied.',
+  'errors.location.unavailable': 'Unable to determine your location.',
+  'errors.location.timeout': 'Location request timed out.',
+  'errors.location.unsupported': 'Geolocation is not supported by this browser.',
+  'errors.location.unknown': 'Failed to get your location.'
+}
+
+beforeEach(() => {
+  vi.stubGlobal('useI18n', () => ({
+    t: (key: string) => locationMessages[key] ?? key
+  }))
+})
 
 afterEach(() => {
   vi.unstubAllGlobals()

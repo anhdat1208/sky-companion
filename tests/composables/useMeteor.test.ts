@@ -1,11 +1,17 @@
-import { describe, expect, it, vi, afterEach } from 'vitest'
+import { describe, expect, it, vi, afterEach, beforeEach } from 'vitest'
 import { ref } from 'vue'
 import type { Coordinates } from '../../types/location'
 import { useMeteor } from '../../app/composables/useMeteor'
 import * as peak from '../../lib/meteor/peak'
+import { composableErrorMessages, stubComposableI18n } from '../helpers/stubComposableI18n'
+
+beforeEach(() => {
+  stubComposableI18n()
+})
 
 afterEach(() => {
   vi.restoreAllMocks()
+  vi.unstubAllGlobals()
 })
 
 describe('useMeteor', () => {
@@ -101,13 +107,13 @@ describe('useMeteor', () => {
     expect(api.error.value).toBe('boom meteor')
   })
 
-  it('uses Vietnamese fallback when thrown value is not an Error', () => {
+  it('uses localized fallback when thrown value is not an Error', () => {
     const coordinates = ref<Coordinates | null>(null)
     vi.spyOn(peak, 'listUpcomingShowerEvents').mockImplementationOnce(() => {
       throw 'fail'
     })
     const api = useMeteor(coordinates, fixed)
-    expect(api.error.value).toBe('Không thể tính lịch mưa sao băng. Hãy thử làm mới.')
+    expect(api.error.value).toBe(composableErrorMessages['errors.meteor.calcFailed'])
   })
 
   it('keeps list and calendar when coordinates become null', () => {

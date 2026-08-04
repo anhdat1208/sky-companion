@@ -5,22 +5,24 @@ defineProps<{
   guide: PhotographyGuide
 }>()
 
+const { t } = useI18n()
+
 function yesNo(value: boolean): string {
-  return value ? 'Có' : 'Không'
+  return value ? t('components.moon.yes') : t('components.moon.no')
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Gợi ý chụp ảnh"
-      subtitle="Phù hợp phong cảnh, hố va chạm hay Mặt Trăng mọc — kèm tiêu cự gợi ý."
+      :title="t('components.moon.photographyGuide.title')"
+      :subtitle="t('components.moon.photographyGuide.subtitle')"
     />
 
     <dl class="grid grid-cols-1 gap-3 sm:grid-cols-3">
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Phong cảnh
+          {{ t('components.moon.photographyGuide.landscape') }}
         </dt>
         <dd class="mt-1 text-base text-slate-100">
           {{ yesNo(guide.bestForLandscape) }}
@@ -28,7 +30,7 @@ function yesNo(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Hố va chạm
+          {{ t('components.moon.photographyGuide.craters') }}
         </dt>
         <dd class="mt-1 text-base text-slate-100">
           {{ yesNo(guide.bestForCraters) }}
@@ -36,7 +38,7 @@ function yesNo(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Mặt Trăng mọc
+          {{ t('components.moon.photographyGuide.moonrise') }}
         </dt>
         <dd class="mt-1 text-base text-slate-100">
           {{ yesNo(guide.bestForMoonrise) }}
@@ -44,7 +46,7 @@ function yesNo(value: boolean): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4 sm:col-span-3">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Tiêu cự gợi ý
+          {{ t('components.moon.photographyGuide.recommendedFocalLength') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ guide.recommendedFocalLengthMm.min }}–{{ guide.recommendedFocalLengthMm.max }} mm

@@ -1,17 +1,20 @@
+<script setup lang="ts">
+const { t } = useI18n()
+</script>
+
 <template>
   <SkyCard>
     <SectionTitle
-      title="Thông báo"
-      subtitle="Nhắc lịch lượt qua ISS sẽ xuất hiện ở phiên bản sau."
+      :title="t('components.iss.notificationsStub.title')"
+      :subtitle="t('components.iss.notificationsStub.subtitle')"
     />
 
     <div class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-300">
       <p class="font-medium text-sky-300">
-        Sắp có
+        {{ t('components.iss.notificationsStub.comingSoon') }}
       </p>
       <p class="mt-2 text-slate-400">
-        Chưa hỗ trợ push notification hay service worker trong phiên bản này —
-        chỉ có stub giao diện.
+        {{ t('components.iss.notificationsStub.body') }}
       </p>
     </div>
   </SkyCard>

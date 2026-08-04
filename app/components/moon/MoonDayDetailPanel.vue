@@ -11,6 +11,16 @@ const emit = defineEmits<{
   close: []
 }>()
 
+const { t, locale } = useI18n()
+const { formatDateTime } = useFormatters()
+const { formatDistanceFromKm } = useUnits()
+
+function resolveIntlLocale(code: string): string {
+  if (code === 'vi') return 'vi-VN'
+  if (code === 'en') return 'en-US'
+  return code
+}
+
 function formatAngle(value: number): string {
   return `${value.toFixed(1)}°`
 }
@@ -20,11 +30,7 @@ function formatPercent(value: number): string {
 }
 
 function formatAge(days: number): string {
-  return `${days.toFixed(1)} ngày`
-}
-
-function formatDistance(km: number): string {
-  return `${Math.round(km).toLocaleString('vi-VN')} km`
+  return t('components.moon.fields.ageDays', { days: days.toFixed(1) })
 }
 
 function formatDiameter(deg: number): string {
@@ -35,16 +41,13 @@ function formatTime(value: string | null): string {
   if (!value) return '—'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return '—'
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  }).format(date)
+  return formatDateTime(date)
 }
 
 function formatDateLabel(dateISO: string): string {
   const date = new Date(`${dateISO}T12:00:00`)
   if (Number.isNaN(date.getTime())) return dateISO
-  return new Intl.DateTimeFormat('vi-VN', {
+  return new Intl.DateTimeFormat(resolveIntlLocale(locale.value), {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -58,7 +61,7 @@ function formatDateLabel(dateISO: string): string {
     <div class="mb-4 flex items-start justify-between gap-3">
       <SectionTitle
         class="mb-0"
-        title="Chi tiết ngày"
+        :title="t('components.moon.dayDetail.title')"
         :subtitle="formatDateLabel(detail.dateISO)"
       />
       <button
@@ -66,14 +69,14 @@ function formatDateLabel(dateISO: string): string {
         class="shrink-0 rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         @click="emit('close')"
       >
-        Đóng
+        {{ t('common.close') }}
       </button>
     </div>
 
     <dl class="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
       <div class="col-span-2 rounded-xl bg-slate-950/70 p-4 sm:col-span-3">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Pha
+          {{ t('components.moonCard.phase') }}
         </dt>
         <dd class="mt-1 text-base text-slate-100">
           {{ detail.phase }}
@@ -81,7 +84,7 @@ function formatDateLabel(dateISO: string): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Độ sáng
+          {{ t('components.moonCard.illumination') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatPercent(detail.illuminatedPercentage) }}
@@ -89,7 +92,7 @@ function formatDateLabel(dateISO: string): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Tuổi
+          {{ t('components.moon.fields.age') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatAge(detail.ageDays) }}
@@ -97,7 +100,7 @@ function formatDateLabel(dateISO: string): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Mọc
+          {{ t('components.moonCard.rise') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(detail.riseTime) }}
@@ -105,7 +108,7 @@ function formatDateLabel(dateISO: string): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Lặn
+          {{ t('components.moonCard.set') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(detail.setTime) }}
@@ -113,7 +116,7 @@ function formatDateLabel(dateISO: string): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cao độ
+          {{ t('components.skyLabels.altitude') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatAngle(detail.altitude) }}
@@ -121,7 +124,7 @@ function formatDateLabel(dateISO: string): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Phương vị
+          {{ t('components.skyLabels.azimuth') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatAngle(detail.azimuth) }}
@@ -129,15 +132,15 @@ function formatDateLabel(dateISO: string): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Khoảng cách
+          {{ t('components.moon.fields.distance') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
-          {{ formatDistance(detail.distanceKm) }}
+          {{ formatDistanceFromKm(detail.distanceKm) }}
         </dd>
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Đường kính góc
+          {{ t('components.moon.fields.angularDiameter') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatDiameter(detail.angularDiameterDeg) }}

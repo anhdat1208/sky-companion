@@ -8,19 +8,22 @@ defineProps<{
   score: MeteorVisibilityScore | null
 }>()
 
-const LABEL_VI: Record<VisibilityScoreLabel, string> = {
-  Poor: 'Kém',
-  Fair: 'Trung bình',
-  Good: 'Tốt',
-  Excellent: 'Xuất sắc'
+const { t } = useI18n()
+
+function scoreLabel(value: VisibilityScoreLabel): string {
+  return t(`components.meteor.scoreLabels.${value}`)
+}
+
+function starsAriaLabel(stars: number): string {
+  return t('components.meteor.visibilityScore.starsAriaLabel', { stars })
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Điểm quan sát"
-      subtitle="Đánh giá nhanh điều kiện xem mưa sao băng đã chọn."
+      :title="t('components.meteor.visibilityScore.title')"
+      :subtitle="t('components.meteor.visibilityScore.subtitle')"
     />
 
     <div
@@ -30,7 +33,7 @@ const LABEL_VI: Record<VisibilityScoreLabel, string> = {
       <div class="flex flex-wrap items-baseline gap-3">
         <p
           class="font-mono text-2xl tracking-widest text-amber-200"
-          :aria-label="`${score.stars} trên 5 sao`"
+          :aria-label="starsAriaLabel(score.stars)"
         >
           <span
             v-for="n in 5"
@@ -39,7 +42,7 @@ const LABEL_VI: Record<VisibilityScoreLabel, string> = {
           >★</span>
         </p>
         <p class="text-base text-slate-100">
-          {{ LABEL_VI[score.label] }}
+          {{ scoreLabel(score.label) }}
         </p>
       </div>
 
@@ -60,7 +63,7 @@ const LABEL_VI: Record<VisibilityScoreLabel, string> = {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí để chấm điểm
+      {{ t('components.meteor.visibilityScore.locationRequired') }}
     </p>
   </SkyCard>
 </template>

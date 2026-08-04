@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Direction } from '../../../types/astronomy'
 import type {
   Difficulty,
   ObjectType,
@@ -15,26 +16,23 @@ const emit = defineEmits<{
   select: [id: string]
 }>()
 
-const objectTypeLabels: Record<ObjectType, string> = {
-  moon: 'Mặt Trăng',
-  planet: 'Hành tinh',
-  galaxy: 'Thiên hà',
-  nebula: 'Tinh vân',
-  starCluster: 'Cụm sao',
-  star: 'Sao',
-  other: 'Khác'
+const { t } = useI18n()
+const { formatDateTime } = useFormatters()
+
+function objectTypeLabel(type: ObjectType): string {
+  return t(`components.telescope.objectTypes.${type}`)
 }
 
-const difficultyLabels: Record<Difficulty, string> = {
-  easy: 'Dễ',
-  moderate: 'Trung bình',
-  hard: 'Khó'
+function difficultyLabel(level: Difficulty): string {
+  return t(`components.telescope.difficulty.${level}`)
 }
 
-const instrumentLabels: Record<RecommendedInstrument, string> = {
-  eye: 'Mắt thường',
-  binocular: 'Ống nhòm',
-  telescope: 'Kính thiên văn'
+function instrumentLabel(instrument: RecommendedInstrument): string {
+  return t(`components.telescope.instrument.${instrument}`)
+}
+
+function visibilityScoreAriaLabel(score: number): string {
+  return t('components.telescope.tonightTargetsList.visibilityScoreAriaLabel', { score })
 }
 
 function formatAngle(value: number): string {
@@ -47,10 +45,11 @@ function formatTime(value: string): string {
     return value
   }
 
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  }).format(date)
+  return formatDateTime(date)
+}
+
+function formatDirection(direction: Direction): string {
+  return t(`components.telescope.directions.${direction}`)
 }
 
 function scoreDots(score: number): string {
@@ -61,8 +60,8 @@ function scoreDots(score: number): string {
 <template>
   <SkyCard>
     <SectionTitle
-      title="Mục tiêu tốt nhất đêm nay"
-      subtitle="Danh sách xếp hạng theo độ cao, độ sáng và cấu hình kính."
+      :title="t('components.telescope.tonightTargetsList.title')"
+      :subtitle="t('components.telescope.tonightTargetsList.subtitle')"
     />
 
     <ul
@@ -87,7 +86,7 @@ function scoreDots(score: number): string {
                 {{ ranked.target.name }}
               </p>
               <p class="mt-1 text-xs text-slate-400">
-                {{ objectTypeLabels[ranked.target.objectType] }}
+                {{ objectTypeLabel(ranked.target.objectType) }}
               </p>
             </div>
             <span
@@ -97,7 +96,7 @@ function scoreDots(score: number): string {
                 : ranked.visibilityScore >= 2
                   ? 'bg-sky-500/15 text-sky-300'
                   : 'bg-slate-700/50 text-slate-300'"
-              :aria-label="`Điểm nhìn thấy ${ranked.visibilityScore} trên 5`"
+              :aria-label="visibilityScoreAriaLabel(ranked.visibilityScore)"
             >
               {{ scoreDots(ranked.visibilityScore) }}
             </span>
@@ -106,7 +105,7 @@ function scoreDots(score: number): string {
           <dl class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Cao độ
+                {{ t('components.skyLabels.altitude') }}
               </dt>
               <dd class="mt-1 font-mono text-sm text-slate-200">
                 {{ formatAngle(ranked.altitude) }}
@@ -114,7 +113,7 @@ function scoreDots(score: number): string {
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Phương vị
+                {{ t('components.skyLabels.azimuth') }}
               </dt>
               <dd class="mt-1 font-mono text-sm text-slate-200">
                 {{ formatAngle(ranked.azimuth) }}
@@ -122,15 +121,15 @@ function scoreDots(score: number): string {
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Hướng
+                {{ t('components.telescope.targetDetailCard.direction') }}
               </dt>
               <dd class="mt-1 text-sm text-slate-200">
-                {{ ranked.direction }}
+                {{ formatDirection(ranked.direction) }}
               </dd>
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Thời điểm tốt
+                {{ t('components.telescope.tonightTargetsList.bestTime') }}
               </dt>
               <dd class="mt-1 text-sm text-slate-200">
                 {{ formatTime(ranked.bestObservationTime) }}
@@ -138,18 +137,18 @@ function scoreDots(score: number): string {
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Độ khó
+                {{ t('components.telescope.tonightTargetsList.difficulty') }}
               </dt>
               <dd class="mt-1 text-sm text-slate-200">
-                {{ difficultyLabels[ranked.difficulty] }}
+                {{ difficultyLabel(ranked.difficulty) }}
               </dd>
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Dụng cụ
+                {{ t('components.telescope.tonightTargetsList.instrument') }}
               </dt>
               <dd class="mt-1 text-sm text-slate-200">
-                {{ instrumentLabels[ranked.recommendedInstrument] }}
+                {{ instrumentLabel(ranked.recommendedInstrument) }}
               </dd>
             </div>
           </dl>
@@ -161,7 +160,7 @@ function scoreDots(score: number): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Chưa có mục tiêu nào cho vị trí và thời điểm hiện tại.
+      {{ t('components.telescope.tonightTargetsList.empty') }}
     </p>
   </SkyCard>
 </template>

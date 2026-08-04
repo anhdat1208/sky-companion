@@ -17,25 +17,24 @@ import { listUpcomingMoonQuarters } from '../../lib/moon/events'
 import { buildPhotographyGuide } from '../../lib/moon/photography'
 import { computeObservationScore } from '../../lib/moon/score'
 
-const CALC_ERROR = 'Không thể tính lịch Mặt Trăng. Hãy thử làm mới.'
-
 function resolveWhenSource(when?: Date | (() => Date)): () => Date {
   if (typeof when === 'function') return when
   if (when instanceof Date) return () => when
   return () => new Date()
 }
 
-function toErrorMessage(caught: unknown): string {
+function toErrorMessage(caught: unknown, t: (key: string) => string): string {
   if (caught instanceof Error && caught.message.trim().length > 0) {
     return caught.message
   }
-  return CALC_ERROR
+  return t('errors.moonCalendar.calcFailed')
 }
 
 export function useMoonCalendar(
   coordinates: Ref<Coordinates | null>,
   when?: Date | (() => Date)
 ) {
+  const { t } = useI18n()
   const whenSource = resolveWhenSource(when)
   const refreshToken = ref(0)
   const error = ref<string | null>(null)
@@ -112,7 +111,7 @@ export function useMoonCalendar(
 
       error.value = null
     } catch (caught) {
-      error.value = toErrorMessage(caught)
+      error.value = toErrorMessage(caught, t)
     }
   }
 

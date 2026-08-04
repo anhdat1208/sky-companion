@@ -5,37 +5,32 @@ defineProps<{
   position: IssPosition
 }>()
 
-function formatAltitude(km: number): string {
-  return `${km.toFixed(1)} km`
-}
-
-function formatSpeed(kph: number): string {
-  return `${Math.round(kph).toLocaleString()} km/h`
-}
+const { t } = useI18n()
+const { formatDistanceFromKm, formatSpeedFromKmh } = useUnits()
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Độ cao & tốc độ"
-      subtitle="Độ cao quỹ đạo và vận tốc mặt đất ước tính."
+      :title="t('components.iss.statsCard.title')"
+      :subtitle="t('components.iss.statsCard.subtitle')"
     />
 
     <dl class="grid grid-cols-2 gap-3">
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Độ cao
+          {{ t('components.iss.statsCard.altitude') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
-          {{ formatAltitude(position.altitudeKm) }}
+          {{ formatDistanceFromKm(position.altitudeKm) }}
         </dd>
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Tốc độ
+          {{ t('components.iss.statsCard.speed') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
-          {{ formatSpeed(position.velocityKph) }}
+          {{ formatSpeedFromKmh(position.velocityKph) }}
         </dd>
       </div>
     </dl>

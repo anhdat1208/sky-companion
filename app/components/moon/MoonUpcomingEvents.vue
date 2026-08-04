@@ -5,35 +5,32 @@ defineProps<{
   events: MoonQuarterEvent[]
 }>()
 
-const TYPE_VI: Record<MoonQuarterType, string> = {
-  new: 'Trăng mới',
-  'first-quarter': 'Bán nguyệt đầu',
-  full: 'Trăng tròn',
-  'last-quarter': 'Bán nguyệt cuối'
+const { t } = useI18n()
+const { formatDateTime } = useFormatters()
+
+function quarterTypeLabel(type: MoonQuarterType): string {
+  return t(`components.moon.quarterTypes.${type}`)
 }
 
 function formatEventTime(value: string): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return value
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'full',
-    timeStyle: 'short'
-  }).format(date)
+  return formatDateTime(date)
 }
 
 function daysRemainingLabel(days: number): string {
   const rounded = Math.max(0, Math.round(days))
-  if (rounded === 0) return 'hôm nay'
-  if (rounded === 1) return 'còn 1 ngày'
-  return `còn ${rounded} ngày`
+  if (rounded === 0) return t('components.moon.upcomingEvents.daysRemainingToday')
+  if (rounded === 1) return t('components.moon.upcomingEvents.daysRemainingOne')
+  return t('components.moon.upcomingEvents.daysRemainingMany', { count: rounded })
 }
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Pha sắp tới"
-      subtitle="Bốn mốc quý tiếp theo của chu kỳ Mặt Trăng."
+      :title="t('components.moon.upcomingEvents.title')"
+      :subtitle="t('components.moon.upcomingEvents.subtitle')"
     />
 
     <ul
@@ -47,7 +44,7 @@ function daysRemainingLabel(days: number): string {
       >
         <div class="flex flex-wrap items-baseline justify-between gap-2">
           <p class="text-base font-medium text-slate-100">
-            {{ TYPE_VI[event.type] }}
+            {{ quarterTypeLabel(event.type) }}
             <span class="ml-2 text-xs font-normal uppercase tracking-wider text-slate-500">
               {{ event.type }}
             </span>
@@ -66,7 +63,7 @@ function daysRemainingLabel(days: number): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm text-slate-400"
     >
-      Chưa có sự kiện quý sắp tới.
+      {{ t('components.moon.upcomingEvents.empty') }}
     </p>
   </SkyCard>
 </template>

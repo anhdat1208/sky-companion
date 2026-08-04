@@ -1,0 +1,651 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "retry": "Try again",
+    "close": "Close",
+    "backHome": "Back to home",
+    "unknownError": "Something went wrong.",
+    "refresh": "Refresh"
+  },
+  "nav": {
+    "home": "Home",
+    "compass": "Compass",
+    "openCompass": "Open Compass",
+    "telescope": "Telescope",
+    "iss": "ISS Now",
+    "moonCalendar": "Moon Calendar",
+    "meteorShowers": "Meteor Showers",
+    "astrophotography": "Astrophotography"
+  },
+  "settings": {
+    "language": "Language",
+    "units": "Units",
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
+  "units": {
+    "metric": "Metric",
+    "imperial": "Imperial",
+    "km": "km",
+    "mi": "mi",
+    "kmh": "km/h",
+    "mph": "mph",
+    "celsius": "°C",
+    "fahrenheit": "°F"
+  },
+  "errors": {
+    "location": {
+      "permissionDenied": "Location permission was denied.",
+      "unavailable": "Unable to determine your location.",
+      "timeout": "Location request timed out.",
+      "unsupported": "Geolocation is not supported by this browser.",
+      "unknown": "Failed to get your location."
+    },
+    "ai": {
+      "missingAstronomyData": "Missing astronomy data to explain.",
+      "explainFailed": "Unable to generate the AI explanation."
+    },
+    "telescope": {
+      "calcFailed": "Unable to calculate targets. Please try refreshing."
+    },
+    "moonCalendar": {
+      "calcFailed": "Unable to calculate the Moon calendar. Please try refreshing."
+    },
+    "meteor": {
+      "calcFailed": "Unable to calculate the meteor shower schedule. Please try refreshing."
+    },
+    "astroPhotography": {
+      "calcFailed": "Unable to calculate the photography schedule. Please try refreshing."
+    },
+    "devicePointing": {
+      "unsupported": "This browser does not support device orientation sensors.",
+      "permissionDenied": "You denied access to device orientation sensors.",
+      "enableFailed": "Unable to enable device orientation sensors."
+    }
+  },
+  "components": {
+    "loadingLocation": {
+      "default": "Determining your location..."
+    },
+    "permissionDenied": {
+      "title": "Location permission needed",
+      "body": "Allow location access or enter coordinates manually.",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "latitudePlaceholder": "Example: 10.7769",
+      "longitudePlaceholder": "Example: 106.7009",
+      "latitudeRequired": "Please enter latitude.",
+      "latitudeRange": "Latitude must be between -90 and 90.",
+      "longitudeRequired": "Please enter longitude.",
+      "longitudeRange": "Longitude must be between -180 and 180.",
+      "submit": "Use these coordinates",
+      "submitting": "Loading sky data..."
+    },
+    "currentLocation": {
+      "label": "Current location",
+      "sourceLabel": "Coordinates used for sky observation.",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "skyAI": {
+      "explain": "Explain with Sky AI",
+      "explainLoading": "Generating explanation...",
+      "analyzingTitle": "Sky AI is analyzing...",
+      "analyzingSubtitle": "Generating an explanation from the current observation context.",
+      "unavailableTitle": "AI is temporarily unavailable",
+      "unavailableHint": "Astronomy data still works normally. You can try again later.",
+      "responseSubtitle": "AI-generated content based on current astronomy data.",
+      "suggestedQuestions": "Suggested questions",
+      "suggestedQuestionsSubtitle": "Tap a question to ask the AI for a deeper explanation."
+    },
+    "skyLabels": {
+      "altitude": "Altitude",
+      "azimuth": "Azimuth"
+    },
+    "moonCard": {
+      "title": "Moon",
+      "subtitle": "Moon position and phase at the observation time.",
+      "illumination": "Illumination",
+      "phase": "Phase",
+      "rise": "Rise",
+      "set": "Set"
+    },
+    "sunCard": {
+      "title": "Sun",
+      "subtitle": "Altitude, azimuth, and rise/set times.",
+      "sunrise": "Sunrise",
+      "sunset": "Sunset"
+    },
+    "planetCard": {
+      "title": "Visible planets",
+      "subtitle": "Planets currently above the horizon at your location.",
+      "visible": "Visible",
+      "empty": "No planets are visible in the sky right now."
+    },
+    "moon": {
+      "todayCard": {
+        "title": "Moon today",
+        "subtitle": "Phase, position, and rise/set times at your observation location."
+      },
+      "monthCalendar": {
+        "title": "Monthly calendar",
+        "subtitle": "Select a day in the month to view details.",
+        "prevMonth": "Previous month",
+        "nextMonth": "Next month",
+        "dayAriaLabel": "Day {date}"
+      },
+      "dayDetail": {
+        "title": "Day detail"
+      },
+      "upcomingEvents": {
+        "title": "Upcoming phases",
+        "subtitle": "The next four quarter milestones of the lunar cycle.",
+        "empty": "No upcoming quarter events.",
+        "daysRemainingToday": "today",
+        "daysRemainingOne": "1 day left",
+        "daysRemainingMany": "{count} days left"
+      },
+      "observationScore": {
+        "title": "Observation score",
+        "subtitle": "Quick assessment of current moon-viewing conditions.",
+        "starsAriaLabel": "{stars} out of 5 stars"
+      },
+      "photographyGuide": {
+        "title": "Photography tips",
+        "subtitle": "Landscape, craters, or moonrise — with suggested focal lengths.",
+        "landscape": "Landscape",
+        "craters": "Craters",
+        "moonrise": "Moonrise",
+        "recommendedFocalLength": "Suggested focal length"
+      },
+      "phaseIllustration": {
+        "illuminatedPercent": "{percent}% illuminated"
+      },
+      "fields": {
+        "age": "Age",
+        "distance": "Distance",
+        "angularDiameter": "Angular diameter",
+        "ageDays": "{days} days"
+      },
+      "scoreLabels": {
+        "Poor": "Poor",
+        "Fair": "Fair",
+        "Good": "Good",
+        "Excellent": "Excellent"
+      },
+      "quarterTypes": {
+        "new": "New Moon",
+        "first-quarter": "First Quarter",
+        "full": "Full Moon",
+        "last-quarter": "Last Quarter"
+      },
+      "yes": "Yes",
+      "no": "No"
+    },
+    "telescope": {
+      "profilePicker": {
+        "title": "Telescope setup",
+        "subtitle": "Choose binoculars or a telescope to adjust target lock thresholds.",
+        "magnification": "Magnification",
+        "trueFov": "True FOV",
+        "empty": "No telescope profiles available.",
+        "listboxAriaLabel": "Telescope profile list"
+      },
+      "tonightTargetsList": {
+        "title": "Best targets tonight",
+        "subtitle": "Ranked by altitude, brightness, and your telescope setup.",
+        "empty": "No targets for this location and time.",
+        "visibilityScoreAriaLabel": "Visibility score {score} out of 5",
+        "bestTime": "Best time",
+        "difficulty": "Difficulty",
+        "instrument": "Instrument"
+      },
+      "targetDetailCard": {
+        "title": "Target detail",
+        "subtitleWithTarget": "Observation info for {name}.",
+        "subtitleEmpty": "Select a target from the list to view details.",
+        "empty": "No target selected.",
+        "constellation": "Constellation",
+        "magnitude": "Magnitude",
+        "distance": "Distance",
+        "direction": "Direction",
+        "rise": "Rise",
+        "set": "Set",
+        "distanceLy": "{value} ly"
+      },
+      "guidancePanel": {
+        "title": "Alignment guidance",
+        "subtitle": "Rotate your device following the instructions to lock the target in view.",
+        "targetLocked": "Target Locked",
+        "deltaAzimuth": "Δ azimuth",
+        "deltaAltitude": "Δ altitude",
+        "useSensor": "Use device sensors",
+        "useManual": "Use manual adjustment",
+        "currentSource": "Current source:",
+        "sourceSensor": "Sensor",
+        "sourceManual": "Manual",
+        "manualHint": "Adjust azimuth and altitude manually when sensors are unavailable.",
+        "azimuthLabel": "Azimuth (az)",
+        "altitudeLabel": "Altitude (alt)"
+      },
+      "starHop": {
+        "title": "Star hop",
+        "subtitle": "Star-hop navigation will arrive in a future release.",
+        "comingSoon": "Coming soon",
+        "body1": "The architecture is ready with {hopStep}, {referenceStar}, and {targetObject} contracts to build hops from bright reference stars to deep-sky targets.",
+        "body2": "The full pathfinding algorithm is not implemented in this release — only a stub and UI shell."
+      },
+      "objectTypes": {
+        "moon": "Moon",
+        "planet": "Planet",
+        "galaxy": "Galaxy",
+        "nebula": "Nebula",
+        "starCluster": "Star cluster",
+        "star": "Star",
+        "other": "Other"
+      },
+      "difficulty": {
+        "easy": "Easy",
+        "moderate": "Moderate",
+        "hard": "Hard"
+      },
+      "instrument": {
+        "eye": "Naked eye",
+        "binocular": "Binoculars",
+        "telescope": "Telescope"
+      },
+      "status": {
+        "need-target": "Select a target",
+        "below-horizon": "Below horizon",
+        "aligning": "Aligning",
+        "locked": "Locked"
+      },
+      "directions": {
+        "North": "North",
+        "North-East": "North-East",
+        "East": "East",
+        "South-East": "South-East",
+        "South": "South",
+        "South-West": "South-West",
+        "West": "West",
+        "North-West": "North-West"
+      }
+    },
+    "meteor": {
+      "upcomingList": {
+        "title": "Upcoming meteor showers",
+        "subtitle": "Select a shower to view observation score and details.",
+        "empty": "No upcoming meteor showers in the list.",
+        "notScored": "Not scored yet",
+        "peak": "Peak",
+        "estimatedZhr": "Estimated ZHR",
+        "perHour": "/hr",
+        "moonInterference": "Moon interference",
+        "difficulty": "Difficulty",
+        "bestTime": "Best time",
+        "bestDirection": "Best direction",
+        "locationRequired": "Location required",
+        "scoreAriaLabel": "{label}, {stars} out of 5"
+      },
+      "visibilityScore": {
+        "title": "Observation score",
+        "subtitle": "Quick assessment of viewing conditions for the selected meteor shower.",
+        "locationRequired": "Location required to score",
+        "starsAriaLabel": "{stars} out of 5 stars"
+      },
+      "eventDetail": {
+        "title": "Details",
+        "originConstellation": "Origin constellation",
+        "radiantRa": "Radiant RA",
+        "radiantDec": "Radiant Dec",
+        "speed": "Speed",
+        "parentComet": "Parent comet",
+        "peakDuration": "Peak duration",
+        "peak": "Peak",
+        "activeStart": "Active from",
+        "activeEnd": "Active until",
+        "visibilityMap": "Visibility map",
+        "comingSoon": "Coming soon",
+        "hours": "{value} hours",
+        "speedKms": "{value} km/s"
+      },
+      "observationGuide": {
+        "title": "Observation guide",
+        "subtitle": "Timing, dark sky, moonlight, and suggested equipment.",
+        "recommendedTime": "Recommended time",
+        "darkSky": "Dark sky",
+        "moonlightImpact": "Moonlight impact",
+        "clouds": "Clouds",
+        "recommended": "Recommended",
+        "notRequired": "Not required"
+      },
+      "yearCalendar": {
+        "title": "Year calendar",
+        "subtitle": "Eight major meteor showers for the viewed year.",
+        "prevYear": "Previous year",
+        "nextYear": "Next year",
+        "empty": "No meteor shower events for this year."
+      },
+      "notificationsStub": {
+        "title": "Notifications",
+        "subtitle": "Meteor shower reminders will appear in a future release.",
+        "comingSoon": "Coming soon",
+        "body": "Push notifications and service workers are not supported in this release — UI stub only."
+      },
+      "difficulty": {
+        "easy": "Easy",
+        "moderate": "Moderate",
+        "challenging": "Challenging"
+      },
+      "moonInterference": {
+        "none": "None",
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "severe": "Severe"
+      },
+      "equipment": {
+        "naked-eye": "Naked eye",
+        "binoculars": "Binoculars",
+        "telescope": "Telescope"
+      },
+      "scoreLabels": {
+        "Poor": "Poor",
+        "Fair": "Fair",
+        "Good": "Good",
+        "Excellent": "Excellent"
+      }
+    },
+    "photo": {
+      "locationRequired": "Location required",
+      "locationRequiredForScore": "Location required to score",
+      "morning": "Morning",
+      "evening": "Evening",
+      "scoreLabels": {
+        "Poor": "Poor",
+        "Fair": "Fair",
+        "Good": "Good",
+        "Excellent": "Excellent"
+      },
+      "milkyWayVisibility": {
+        "Excellent": "Excellent",
+        "Good": "Good",
+        "Poor": "Poor",
+        "Not Visible": "Not visible"
+      },
+      "brightness": {
+        "faint": "Faint",
+        "moderate": "Moderate",
+        "bright": "Bright",
+        "very-bright": "Very bright"
+      },
+      "timelineMarkers": {
+        "golden-hour": "Golden hour",
+        "blue-hour": "Blue hour",
+        "dark-sky": "Dark sky",
+        "moonrise": "Moonrise",
+        "moonset": "Moonset",
+        "milky-way-peak": "Milky Way peak",
+        "planet-visibility": "Planets up"
+      },
+      "moonPhotoCard": {
+        "title": "Moon",
+        "subtitle": "Rise/set, phase, brightness, and suggested lens.",
+        "moonrise": "Rise",
+        "moonset": "Set",
+        "phase": "Phase",
+        "illumination": "Illumination",
+        "bestTime": "Best time",
+        "lens": "Lens"
+      },
+      "blueHourCard": {
+        "title": "Blue hour",
+        "subtitle": "Soft blue light before sunrise and after sunset."
+      },
+      "goldenHourCard": {
+        "title": "Golden hour",
+        "subtitle": "Warm light around sunrise and sunset.",
+        "totalDuration": "Total duration",
+        "durationMinutes": "{minutes} min"
+      },
+      "twilightCard": {
+        "title": "Twilight",
+        "subtitle": "Civil, nautical, and astronomical — morning and evening.",
+        "civil": "Civil",
+        "nautical": "Nautical",
+        "astronomical": "Astronomical"
+      },
+      "milkyWayPhotoCard": {
+        "title": "Milky Way",
+        "subtitle": "Visibility, direction, best time, and suggested lens.",
+        "visibility": "Visibility",
+        "direction": "Direction",
+        "altitude": "Altitude",
+        "bestTime": "Best time",
+        "core": "Core",
+        "lens": "Lens",
+        "suggestedSettings": "Suggested settings"
+      },
+      "planetPhotoCard": {
+        "title": "Planets",
+        "subtitle": "Altitude, brightness, and suggested magnification.",
+        "altitude": "Altitude",
+        "brightness": "Brightness",
+        "magnification": "Magnification",
+        "visible": "Visible",
+        "notVisible": "Not visible",
+        "empty": "No planets in the list."
+      },
+      "photoTimeline": {
+        "title": "Timeline",
+        "subtitle": "Markers from sunset to sunrise.",
+        "sunset": "Sunset",
+        "sunrise": "Sunrise",
+        "noMarkers": "No markers in this night window."
+      },
+      "photoScoreCard": {
+        "title": "Tonight's shoot score",
+        "subtitle": "Quick assessment of night photography conditions at your location.",
+        "starsAriaLabel": "{stars} out of 5 stars"
+      },
+      "cameraSettingsCard": {
+        "title": "Camera settings",
+        "titleWithSubject": "Settings · {subject}",
+        "subtitle": "ISO, aperture, exposure, focal length, tripod, and remote.",
+        "aperture": "Aperture",
+        "exposure": "Exposure",
+        "focalLength": "Focal length",
+        "tripod": "Tripod",
+        "remote": "Remote"
+      },
+      "photoLocationPrompt": {
+        "title": "Location required",
+        "subtitle": "Enable geolocation or enter coordinates to calculate shoot scores and event schedule.",
+        "body": "Tonight's shoot score, Milky Way, golden/blue hour, and twilight depend on your observation location. Choose a location to view tonight's astrophotography schedule."
+      }
+    },
+    "iss": {
+      "positionCard": {
+        "title": "ISS position",
+        "subtitle": "Current geographic coordinates of the International Space Station.",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "timestamp": "Timestamp",
+        "north": "N",
+        "south": "S",
+        "east": "E",
+        "west": "W"
+      },
+      "statsCard": {
+        "title": "Altitude & speed",
+        "subtitle": "Orbital altitude and estimated ground speed.",
+        "altitude": "Altitude",
+        "speed": "Speed"
+      },
+      "groundTrackMap": {
+        "title": "Ground track",
+        "subtitle": "Equirectangular schematic — recent and upcoming orbital path.",
+        "ariaLabel": "ISS ground track map"
+      },
+      "nextPassCard": {
+        "title": "Next pass",
+        "subtitle": "Time, direction, and duration when the ISS may be visible.",
+        "rise": "Rise",
+        "max": "Maximum",
+        "set": "Set",
+        "duration": "Duration",
+        "maxElevation": "Max elevation",
+        "direction": "Direction",
+        "magnitude": "Magnitude (estimated)",
+        "empty": "No visible pass in the next 36 hours, or an observation location (GPS / manual) is needed for prediction.",
+        "durationSecondsOnly": "{seconds} sec",
+        "durationMinutesSeconds": "{minutes} min {seconds} sec"
+      },
+      "brightnessCard": {
+        "title": "Brightness",
+        "subtitle": "Estimated ISS brightness from your current observation location.",
+        "magnitude": "Magnitude",
+        "label": "Label",
+        "empty": "An observation location is needed to estimate brightness.",
+        "labels": {
+          "Bright": "Bright",
+          "Moderate": "Moderate",
+          "Dim": "Dim",
+          "Not Visible": "Not visible"
+        }
+      },
+      "notificationsStub": {
+        "title": "Notifications",
+        "subtitle": "ISS pass reminders will appear in a future version.",
+        "comingSoon": "Coming soon",
+        "body": "Push notifications and service workers are not supported in this version — UI stub only."
+      }
+    },
+    "compass": {
+      "moon": "Moon",
+      "planet": "Planet",
+      "ariaLabel": "Static compass. {moonLabel}{planetPart}",
+      "planetPart": ". {planetLabel}",
+      "noVisiblePlanet": "No visible planet to mark on the compass.",
+      "azimuthLabel": "{name} {degrees}°"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "What's Above Me?",
+      "subtitle": "See the Sun, Moon, and planets above your location right now.",
+      "brand": "Sky Companion",
+      "locationFromGps": "Using browser GPS.",
+      "locationManual": "Entered manually after GPS was unavailable.",
+      "loadingSky": "Loading sky data...",
+      "skyLoadError": "Could not load sky data",
+      "retryLocation": "Retry location",
+      "observationTime": {
+        "title": "Observation time",
+        "subtitle": "Server time used for sky calculations."
+      },
+      "constellation": {
+        "title": "Current constellation",
+        "subtitle": "Constellation context near the zenith."
+      },
+      "milkyWay": {
+        "title": "Milky Way visibility",
+        "subtitle": "Quick assessment based on Sun and Moon context."
+      },
+      "direction": {
+        "title": "Direction to look",
+        "subtitle": "Suggested direction for sky observation.",
+        "viewOnCompass": "View on Compass"
+      }
+    },
+    "moonCalendar": {
+      "title": "Moon Calendar · What's Above Me?",
+      "heading": "Moon Calendar",
+      "subtitle": "Today's phase, monthly calendar, observation score, and photography tips for your location.",
+      "locationFromQuery": "Taken from URL parameters.",
+      "loadError": "Could not calculate moon calendar",
+      "aiName": "Moon Calendar"
+    },
+    "telescope": {
+      "title": "Telescope Mode · What's Above Me?",
+      "heading": "Telescope Mode",
+      "subtitle": "Rank tonight's targets, pick your telescope setup, and align with live guidance.",
+      "refreshTargets": "Refresh targets",
+      "loadError": "Could not calculate targets",
+      "explainWithAi": "Explain with AI"
+    },
+    "meteorShowers": {
+      "title": "Meteor Showers · What's Above Me?",
+      "heading": "Meteor Showers",
+      "subtitle": "Upcoming meteor shower calendar, location-based observation scores, and naked-eye viewing guide.",
+      "loadError": "Could not calculate meteor shower calendar",
+      "permissionFallbackHint": "Enter latitude and longitude manually to view observation scores and best direction. List and calendar still work without location."
+    },
+    "astrophotography": {
+      "title": "Astrophotography · What's Above Me?",
+      "heading": "Astrophotography",
+      "subtitle": "Tonight's shoot score, Milky Way, golden/blue hour, twilight, Moon, planets, and a timeline from sunset to sunrise.",
+      "loadError": "Could not calculate photography schedule",
+      "permissionFallbackHint": "Enter latitude and longitude manually to view shoot scores and event schedule. Non-location sections remain available.",
+      "noNightWindowTitle": "No astronomical night",
+      "noNightWindowSubtitle": "At this location there is no sunset-to-sunrise window (e.g. polar day/night). Night photography events are temporarily unavailable.",
+      "aiName": "Astrophotography Tonight"
+    },
+    "iss": {
+      "title": "ISS Now · What's Above Me?",
+      "heading": "ISS Now",
+      "subtitle": "International Space Station position, ground track, next pass, and estimated brightness.",
+      "loadingIss": "Loading ISS data...",
+      "refreshIss": "Refresh ISS",
+      "loadError": "Could not load ISS data",
+      "fallbackTleNotice": "Using internal fallback TLE — data may be less accurate than the live source.",
+      "permissionFallbackHint": "Enter latitude and longitude manually to continue."
+    },
+    "compass": {
+      "title": "Compass · What's Above Me?",
+      "heading": "Compass",
+      "subtitle": "Static compass with N/S/E/W directions and markers for Moon azimuth and the selected planet.",
+      "noCoordinatesTitle": "No coordinates",
+      "noCoordinatesSubtitle": "Compass needs valid latitude and longitude from the query string or home page.",
+      "noCoordinatesBody": "Return to Home to get GPS location or enter coordinates manually, then open Compass again.",
+      "loadingDirections": "Loading sky directions...",
+      "loadError": "Could not load compass data",
+      "observationHeading": "Observation direction",
+      "observationSubtitle": "Markers rotate by azimuth; no DeviceOrientation sensor used.",
+      "planet": "Planet",
+      "coordinatesInUse": "Coordinates in use",
+      "dataSourceNote": "Data from {api} at the current observation time."
+    },
+    "ai": {
+      "brand": "Sky AI",
+      "moon": {
+        "title": "Sky AI · Moon",
+        "heading": "Moon Explanation",
+        "subtitle": "Contextual Moon observation explanation from current astronomy data."
+      },
+      "sun": {
+        "title": "Sky AI · Sun",
+        "heading": "Sun Explanation",
+        "subtitle": "Sun observation context explained from your current location."
+      },
+      "constellation": {
+        "title": "Sky AI · Constellation",
+        "heading": "{name} Explanation",
+        "subtitle": "Constellation explanation in the current sky context.",
+        "defaultName": "Constellation"
+      },
+      "planet": {
+        "title": "Sky AI · Planet",
+        "heading": "{name} Explanation",
+        "subtitle": "Explanation tailored to the planet you are observing.",
+        "defaultName": "Planet"
+      },
+      "deepSkyObject": {
+        "title": "Sky AI · Deep Sky Object",
+        "heading": "{name} Explanation",
+        "subtitle": "Deep sky object explanations for naked-eye, binocular, or telescope observation.",
+        "defaultName": "Deep Sky Object"
+      }
+    }
+  }
+}
