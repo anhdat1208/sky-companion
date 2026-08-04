@@ -17,4 +17,6 @@ export {
   buildMilkyWayPhotoInfo,
   isGalacticCoreVisible
 } from './milkyWay'
+export { computePhotographyScore } from './score'
+export type { PhotographyScoreInput } from './score'
 
