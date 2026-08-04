@@ -17,29 +17,29 @@ const emit = defineEmits<{
   select: [id: MeteorShowerId, year: number]
 }>()
 
+const { t } = useI18n()
+
 function peakYear(peakAt: string): number {
   return new Date(peakAt).getUTCFullYear()
 }
 
-const DIFFICULTY_VI: Record<MeteorDifficulty, string> = {
-  easy: 'Dễ',
-  moderate: 'Trung bình',
-  challenging: 'Khó'
+function difficultyLabel(value: MeteorDifficulty): string {
+  return t(`components.meteor.difficulty.${value}`)
 }
 
-const MOON_INTERFERENCE_VI: Record<MoonInterference, string> = {
-  none: 'Không',
-  low: 'Thấp',
-  moderate: 'Trung bình',
-  high: 'Cao',
-  severe: 'Rất cao'
+function moonInterferenceLabel(value: MoonInterference): string {
+  return t(`components.meteor.moonInterference.${value}`)
 }
 
-const SCORE_LABEL_VI: Record<VisibilityScoreLabel, string> = {
-  Poor: 'Kém',
-  Fair: 'Trung bình',
-  Good: 'Tốt',
-  Excellent: 'Xuất sắc'
+function scoreLabel(value: VisibilityScoreLabel): string {
+  return t(`components.meteor.scoreLabels.${value}`)
+}
+
+function scoreAriaLabel(label: VisibilityScoreLabel, stars: number): string {
+  return t('components.meteor.upcomingList.scoreAriaLabel', {
+    label: scoreLabel(label),
+    stars
+  })
 }
 
 function scoreDots(stars: number): string {
@@ -50,8 +50,8 @@ function scoreDots(stars: number): string {
 <template>
   <SkyCard>
     <SectionTitle
-      title="Mưa sao băng sắp tới"
-      subtitle="Chọn một trận mưa để xem điểm quan sát và chi tiết."
+      :title="t('components.meteor.upcomingList.title')"
+      :subtitle="t('components.meteor.upcomingList.subtitle')"
     />
 
     <ul
@@ -88,7 +88,7 @@ function scoreDots(stars: number): string {
                 : card.visibilityScore.stars >= 2
                   ? 'bg-sky-500/15 text-sky-300'
                   : 'bg-slate-700/50 text-slate-300'"
-              :aria-label="`${SCORE_LABEL_VI[card.visibilityScore.label]}, ${card.visibilityScore.stars} trên 5`"
+              :aria-label="scoreAriaLabel(card.visibilityScore.label, card.visibilityScore.stars)"
             >
               {{ scoreDots(card.visibilityScore.stars) }}
             </span>
@@ -96,14 +96,14 @@ function scoreDots(stars: number): string {
               v-else
               class="shrink-0 rounded-lg bg-slate-700/50 px-2.5 py-1 text-xs text-slate-400"
             >
-              Chưa chấm điểm
+              {{ t('components.meteor.upcomingList.notScored') }}
             </span>
           </div>
 
           <dl class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Đỉnh
+                {{ t('components.meteor.upcomingList.peak') }}
               </dt>
               <dd class="mt-1 text-sm text-slate-200">
                 {{ card.peakDateLabel }}
@@ -112,18 +112,18 @@ function scoreDots(stars: number): string {
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                ZHR ước tính
+                {{ t('components.meteor.upcomingList.estimatedZhr') }}
               </dt>
               <dd class="mt-1 font-mono text-sm text-slate-200">
-                {{ card.expectedMeteorsPerHour }}/giờ
+                {{ card.expectedMeteorsPerHour }}{{ t('components.meteor.upcomingList.perHour') }}
               </dd>
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Nhiễu trăng
+                {{ t('components.meteor.upcomingList.moonInterference') }}
               </dt>
               <dd class="mt-1 text-sm text-slate-200">
-                {{ MOON_INTERFERENCE_VI[card.moonInterference] }}
+                {{ moonInterferenceLabel(card.moonInterference) }}
                 <span class="font-mono text-slate-400">
                   ({{ card.moonIlluminationPct.toFixed(0) }}%)
                 </span>
@@ -131,15 +131,15 @@ function scoreDots(stars: number): string {
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Độ khó
+                {{ t('components.meteor.upcomingList.difficulty') }}
               </dt>
               <dd class="mt-1 text-sm text-slate-200">
-                {{ DIFFICULTY_VI[card.difficulty] }}
+                {{ difficultyLabel(card.difficulty) }}
               </dd>
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Thời điểm tốt
+                {{ t('components.meteor.upcomingList.bestTime') }}
               </dt>
               <dd class="mt-1 text-sm text-slate-200">
                 {{ card.bestObservationTimeLabel }}
@@ -147,10 +147,10 @@ function scoreDots(stars: number): string {
             </div>
             <div>
               <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-                Hướng tốt
+                {{ t('components.meteor.upcomingList.bestDirection') }}
               </dt>
               <dd class="mt-1 text-sm text-slate-200">
-                {{ card.bestDirection ?? 'Cần vị trí' }}
+                {{ card.bestDirection ?? t('components.meteor.upcomingList.locationRequired') }}
               </dd>
             </div>
           </dl>
@@ -162,7 +162,7 @@ function scoreDots(stars: number): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm text-slate-400"
     >
-      Chưa có mưa sao băng sắp tới trong danh sách.
+      {{ t('components.meteor.upcomingList.empty') }}
     </p>
   </SkyCard>
 </template>

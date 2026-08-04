@@ -253,6 +253,91 @@
         "West": "West",
         "North-West": "North-West"
       }
+    },
+    "meteor": {
+      "upcomingList": {
+        "title": "Upcoming meteor showers",
+        "subtitle": "Select a shower to view observation score and details.",
+        "empty": "No upcoming meteor showers in the list.",
+        "notScored": "Not scored yet",
+        "peak": "Peak",
+        "estimatedZhr": "Estimated ZHR",
+        "perHour": "/hr",
+        "moonInterference": "Moon interference",
+        "difficulty": "Difficulty",
+        "bestTime": "Best time",
+        "bestDirection": "Best direction",
+        "locationRequired": "Location required",
+        "scoreAriaLabel": "{label}, {stars} out of 5"
+      },
+      "visibilityScore": {
+        "title": "Observation score",
+        "subtitle": "Quick assessment of viewing conditions for the selected meteor shower.",
+        "locationRequired": "Location required to score",
+        "starsAriaLabel": "{stars} out of 5 stars"
+      },
+      "eventDetail": {
+        "title": "Details",
+        "originConstellation": "Origin constellation",
+        "radiantRa": "Radiant RA",
+        "radiantDec": "Radiant Dec",
+        "speed": "Speed",
+        "parentComet": "Parent comet",
+        "peakDuration": "Peak duration",
+        "peak": "Peak",
+        "activeStart": "Active from",
+        "activeEnd": "Active until",
+        "visibilityMap": "Visibility map",
+        "comingSoon": "Coming soon",
+        "hours": "{value} hours",
+        "speedKms": "{value} km/s"
+      },
+      "observationGuide": {
+        "title": "Observation guide",
+        "subtitle": "Timing, dark sky, moonlight, and suggested equipment.",
+        "recommendedTime": "Recommended time",
+        "darkSky": "Dark sky",
+        "moonlightImpact": "Moonlight impact",
+        "clouds": "Clouds",
+        "recommended": "Recommended",
+        "notRequired": "Not required"
+      },
+      "yearCalendar": {
+        "title": "Year calendar",
+        "subtitle": "Eight major meteor showers for the viewed year.",
+        "prevYear": "Previous year",
+        "nextYear": "Next year",
+        "empty": "No meteor shower events for this year."
+      },
+      "notificationsStub": {
+        "title": "Notifications",
+        "subtitle": "Meteor shower reminders will appear in a future release.",
+        "comingSoon": "Coming soon",
+        "body": "Push notifications and service workers are not supported in this release — UI stub only."
+      },
+      "difficulty": {
+        "easy": "Easy",
+        "moderate": "Moderate",
+        "challenging": "Challenging"
+      },
+      "moonInterference": {
+        "none": "None",
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "severe": "Severe"
+      },
+      "equipment": {
+        "naked-eye": "Naked eye",
+        "binoculars": "Binoculars",
+        "telescope": "Telescope"
+      },
+      "scoreLabels": {
+        "Poor": "Poor",
+        "Fair": "Fair",
+        "Good": "Good",
+        "Excellent": "Excellent"
+      }
     }
   },
   "pages": {
@@ -298,6 +383,13 @@
       "refreshTargets": "Refresh targets",
       "loadError": "Could not calculate targets",
       "explainWithAi": "Explain with AI"
+    },
+    "meteorShowers": {
+      "title": "Meteor Showers · What's Above Me?",
+      "heading": "Meteor Showers",
+      "subtitle": "Upcoming meteor shower calendar, location-based observation scores, and naked-eye viewing guide.",
+      "loadError": "Could not calculate meteor shower calendar",
+      "permissionFallbackHint": "Enter latitude and longitude manually to view observation scores and best direction. List and calendar still work without location."
     }
   }
 }

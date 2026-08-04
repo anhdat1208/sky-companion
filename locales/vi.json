@@ -253,6 +253,91 @@
         "West": "Tây",
         "North-West": "Tây Bắc"
       }
+    },
+    "meteor": {
+      "upcomingList": {
+        "title": "Mưa sao băng sắp tới",
+        "subtitle": "Chọn một trận mưa để xem điểm quan sát và chi tiết.",
+        "empty": "Chưa có mưa sao băng sắp tới trong danh sách.",
+        "notScored": "Chưa chấm điểm",
+        "peak": "Đỉnh",
+        "estimatedZhr": "ZHR ước tính",
+        "perHour": "/giờ",
+        "moonInterference": "Nhiễu trăng",
+        "difficulty": "Độ khó",
+        "bestTime": "Thời điểm tốt",
+        "bestDirection": "Hướng tốt",
+        "locationRequired": "Cần vị trí",
+        "scoreAriaLabel": "{label}, {stars} trên 5"
+      },
+      "visibilityScore": {
+        "title": "Điểm quan sát",
+        "subtitle": "Đánh giá nhanh điều kiện xem mưa sao băng đã chọn.",
+        "locationRequired": "Cần vị trí để chấm điểm",
+        "starsAriaLabel": "{stars} trên 5 sao"
+      },
+      "eventDetail": {
+        "title": "Chi tiết",
+        "originConstellation": "Chòm sao gốc",
+        "radiantRa": "Radiant RA",
+        "radiantDec": "Radiant Dec",
+        "speed": "Tốc độ",
+        "parentComet": "Sao chổi mẹ",
+        "peakDuration": "Thời lượng đỉnh",
+        "peak": "Đỉnh",
+        "activeStart": "Bắt đầu hoạt động",
+        "activeEnd": "Kết thúc hoạt động",
+        "visibilityMap": "Bản đồ tầm nhìn",
+        "comingSoon": "Sắp có",
+        "hours": "{value} giờ",
+        "speedKms": "{value} km/s"
+      },
+      "observationGuide": {
+        "title": "Hướng dẫn quan sát",
+        "subtitle": "Thời điểm, bầu trời tối, ánh trăng và dụng cụ gợi ý.",
+        "recommendedTime": "Thời điểm khuyên",
+        "darkSky": "Bầu trời tối",
+        "moonlightImpact": "Ảnh hưởng ánh trăng",
+        "clouds": "Mây",
+        "recommended": "Khuyên dùng",
+        "notRequired": "Không cần"
+      },
+      "yearCalendar": {
+        "title": "Lịch trong năm",
+        "subtitle": "Tám trận mưa sao băng chính theo năm đang xem.",
+        "prevYear": "Năm trước",
+        "nextYear": "Năm sau",
+        "empty": "Chưa có sự kiện mưa sao băng cho năm này."
+      },
+      "notificationsStub": {
+        "title": "Thông báo",
+        "subtitle": "Nhắc lịch mưa sao băng sẽ xuất hiện ở phiên bản sau.",
+        "comingSoon": "Sắp có",
+        "body": "Chưa hỗ trợ push notification hay service worker trong phiên bản này — chỉ có stub giao diện."
+      },
+      "difficulty": {
+        "easy": "Dễ",
+        "moderate": "Trung bình",
+        "challenging": "Khó"
+      },
+      "moonInterference": {
+        "none": "Không",
+        "low": "Thấp",
+        "moderate": "Trung bình",
+        "high": "Cao",
+        "severe": "Rất cao"
+      },
+      "equipment": {
+        "naked-eye": "Mắt thường",
+        "binoculars": "Ống nhòm",
+        "telescope": "Kính thiên văn"
+      },
+      "scoreLabels": {
+        "Poor": "Kém",
+        "Fair": "Trung bình",
+        "Good": "Tốt",
+        "Excellent": "Xuất sắc"
+      }
     }
   },
   "pages": {
@@ -298,6 +383,13 @@
       "refreshTargets": "Làm mới mục tiêu",
       "loadError": "Không tính được mục tiêu",
       "explainWithAi": "Giải thích bằng AI"
+    },
+    "meteorShowers": {
+      "title": "Mưa sao băng · Bầu trời trên bạn?",
+      "heading": "Mưa sao băng",
+      "subtitle": "Lịch mưa sao băng sắp tới, điểm quan sát theo vị trí và hướng dẫn xem bằng mắt thường.",
+      "loadError": "Không tính được lịch mưa sao băng",
+      "permissionFallbackHint": "Hãy nhập vĩ độ và kinh độ thủ công để xem điểm quan sát và hướng tốt nhất. Danh sách và lịch vẫn dùng được không cần vị trí."
     }
   }
 }
