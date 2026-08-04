@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "retry": "Thử lại",
+    "close": "Đóng",
+    "backHome": "Về trang chủ",
+    "unknownError": "Đã xảy ra lỗi.",
+    "refresh": "Làm mới"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "compass": "La bàn",
+    "telescope": "Kính thiên văn",
+    "iss": "ISS ngay",
+    "moonCalendar": "Lịch Mặt Trăng",
+    "meteorShowers": "Mưa sao băng",
+    "astrophotography": "Chụp ảnh bầu trời"
+  },
+  "settings": {
+    "language": "Ngôn ngữ",
+    "units": "Đơn vị",
+    "english": "English",
+    "vietnamese": "Tiếng Việt"
+  },
+  "units": {
+    "metric": "Mét",
+    "imperial": "Anh",
+    "km": "km",
+    "mi": "mi",
+    "kmh": "km/h",
+    "mph": "mph",
+    "celsius": "°C",
+    "fahrenheit": "°F"
+  },
+  "errors": {
+    "location": {
+      "permissionDenied": "Quyền vị trí đã bị từ chối.",
+      "unavailable": "Không xác định được vị trí của bạn.",
+      "timeout": "Yêu cầu vị trí đã hết thời gian."
+    },
+    "ai": {
+      "missingAstronomyData": "Thiếu dữ liệu thiên văn để giải thích.",
+      "explainFailed": "Không thể tạo phần giải thích AI."
+    }
+  },
+  "components": {
+    "loadingLocation": {
+      "default": "Đang xác định vị trí của bạn..."
+    },
+    "permissionDenied": {
+      "title": "Cần quyền vị trí",
+      "body": "Cho phép truy cập vị trí hoặc nhập tọa độ thủ công."
+    },
+    "skyAI": {
+      "explain": "Giải thích với Sky AI",
+      "analyzingTitle": "Sky AI đang phân tích...",
+      "analyzingSubtitle": "Đang tạo nội dung giải thích theo ngữ cảnh quan sát hiện tại.",
+      "unavailableTitle": "AI tạm thời không khả dụng",
+      "unavailableHint": "Dữ liệu thiên văn vẫn hoạt động bình thường. Bạn có thể thử lại sau.",
+      "suggestedQuestions": "Câu hỏi gợi ý"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Bầu trời trên bạn?",
+      "subtitle": "Xem Mặt Trời, Mặt Trăng và các hành tinh trên vị trí của bạn ngay bây giờ."
+    }
+  }
+}

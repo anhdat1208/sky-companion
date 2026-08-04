@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "retry": "Try again",
+    "close": "Close",
+    "backHome": "Back to home",
+    "unknownError": "Something went wrong.",
+    "refresh": "Refresh"
+  },
+  "nav": {
+    "home": "Home",
+    "compass": "Compass",
+    "telescope": "Telescope",
+    "iss": "ISS Now",
+    "moonCalendar": "Moon Calendar",
+    "meteorShowers": "Meteor Showers",
+    "astrophotography": "Astrophotography"
+  },
+  "settings": {
+    "language": "Language",
+    "units": "Units",
+    "english": "English",
+    "vietnamese": "Vietnamese"
+  },
+  "units": {
+    "metric": "Metric",
+    "imperial": "Imperial",
+    "km": "km",
+    "mi": "mi",
+    "kmh": "km/h",
+    "mph": "mph",
+    "celsius": "°C",
+    "fahrenheit": "°F"
+  },
+  "errors": {
+    "location": {
+      "permissionDenied": "Location permission was denied.",
+      "unavailable": "Unable to determine your location.",
+      "timeout": "Location request timed out."
+    },
+    "ai": {
+      "missingAstronomyData": "Missing astronomy data to explain.",
+      "explainFailed": "Unable to generate the AI explanation."
+    }
+  },
+  "components": {
+    "loadingLocation": {
+      "default": "Determining your location..."
+    },
+    "permissionDenied": {
+      "title": "Location permission needed",
+      "body": "Allow location access or enter coordinates manually."
+    },
+    "skyAI": {
+      "explain": "Explain with Sky AI",
+      "analyzingTitle": "Sky AI is analyzing...",
+      "analyzingSubtitle": "Generating an explanation from the current observation context.",
+      "unavailableTitle": "AI is temporarily unavailable",
+      "unavailableHint": "Astronomy data still works normally. You can try again later.",
+      "suggestedQuestions": "Suggested questions"
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "What's Above Me?",
+      "subtitle": "See the Sun, Moon, and planets above your location right now."
+    }
+  }
+}
