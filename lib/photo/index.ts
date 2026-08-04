@@ -10,4 +10,11 @@ export {
   getBlueHourInfo,
   getTwilightInfo
 } from './sunEvents'
+export {
+  GC_RA_HOURS,
+  GC_DEC_DEG,
+  getGalacticCenterHorizontal,
+  buildMilkyWayPhotoInfo,
+  isGalacticCoreVisible
+} from './milkyWay'
 
