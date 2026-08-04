@@ -19,4 +19,5 @@ export {
 } from './milkyWay'
 export { computePhotographyScore } from './score'
 export type { PhotographyScoreInput } from './score'
+export { buildMoonPhotoInfo } from './moonPhoto'
 
