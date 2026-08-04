@@ -6,6 +6,7 @@ import MeteorEventDetail from '../components/meteor/MeteorEventDetail.vue'
 import MeteorObservationGuide from '../components/meteor/MeteorObservationGuide.vue'
 import MeteorYearCalendar from '../components/meteor/MeteorYearCalendar.vue'
 import MeteorNotificationsStub from '../components/meteor/MeteorNotificationsStub.vue'
+import SkyAIExplainPanel from '../components/ai/SkyAIExplainPanel.vue'
 
 useHead({
   title: 'Meteor Showers · What\'s Above Me?'
@@ -94,6 +95,19 @@ const {
   selectShower,
   refresh
 } = useMeteor(coordinates)
+
+const selectedMeteorContext = computed(() => {
+  if (!selectedDetail.value) {
+    return null
+  }
+
+  return {
+    zhr: selectedDetail.value.zhr,
+    originConstellation: selectedDetail.value.originConstellation,
+    parentComet: selectedDetail.value.parentComet,
+    peakAt: selectedDetail.value.peakAt
+  } as Record<string, string | number | boolean | null>
+})
 
 function handleManualSubmit(lat: number, lng: number): void {
   geo.setManualCoordinates(lat, lng)
@@ -233,6 +247,14 @@ watch(queryCoordinates, (next, previous) => {
       <MeteorObservationGuide
         v-if="selectedGuide"
         :guide="selectedGuide"
+      />
+
+      <SkyAIExplainPanel
+        v-if="selectedDetail"
+        object-type="meteor-shower"
+        :name="selectedDetail.name"
+        :context="selectedMeteorContext ?? undefined"
+        language="en"
       />
 
       <MeteorYearCalendar

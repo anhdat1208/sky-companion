@@ -1,9 +1,19 @@
 <script setup lang="ts">
 import type { Coordinates } from '../../types/location'
-import type { DevicePointing } from '../../types/telescope'
+import PhotoLocationPrompt from '../components/photo/PhotoLocationPrompt.vue'
+import PhotoScoreCard from '../components/photo/PhotoScoreCard.vue'
+import MilkyWayPhotoCard from '../components/photo/MilkyWayPhotoCard.vue'
+import GoldenHourCard from '../components/photo/GoldenHourCard.vue'
+import BlueHourCard from '../components/photo/BlueHourCard.vue'
+import TwilightCard from '../components/photo/TwilightCard.vue'
+import MoonPhotoCard from '../components/photo/MoonPhotoCard.vue'
+import PlanetPhotoCard from '../components/photo/PlanetPhotoCard.vue'
+import CameraSettingsCard from '../components/photo/CameraSettingsCard.vue'
+import PhotoTimeline from '../components/photo/PhotoTimeline.vue'
+import SkyAIExplainPanel from '../components/ai/SkyAIExplainPanel.vue'
 
 useHead({
-  title: 'Telescope Mode · What\'s Above Me?'
+  title: 'Astrophotography · What\'s Above Me?'
 })
 
 const route = useRoute()
@@ -45,13 +55,12 @@ const coordinates = computed<Coordinates | null>(() => {
 })
 
 const hasQueryCoordinates = computed(() => queryCoordinates.value !== null)
-const hasCoordinates = computed(() => coordinates.value !== null)
 
 const showManualFallback = computed(() => {
   return !hasQueryCoordinates.value
     && hasAttemptedLocation.value
     && !geo.loading.value
-    && !hasCoordinates.value
+    && coordinates.value === null
     && (geo.permissionDenied.value || geo.error.value !== null)
 })
 
@@ -76,50 +85,21 @@ const locationSourceLabel = computed(() => {
 })
 
 const {
-  profiles,
-  selectedProfileId,
-  selectProfile,
-  rankedTargets,
-  selectedTargetId,
-  selectedDetail,
-  selectTarget,
-  guidance,
-  pointing,
-  sensorError,
-  setManualPointing,
-  enableSensor,
-  switchToManualPointing,
+  snapshot,
+  needsLocation,
   error,
+  loading,
   refresh
-} = useTelescope(coordinates)
+} = useAstroPhotography(coordinates)
 
-const compassLink = computed(() => {
-  if (!coordinates.value) {
-    return null
-  }
-
-  return {
-    path: '/compass',
-    query: {
-      lat: String(coordinates.value.lat),
-      lng: String(coordinates.value.lng)
-    }
-  }
-})
-
-const deepSkyAiLink = computed(() => {
-  const detail = selectedDetail.value
-  if (!detail) return null
-  const isDeepSky = ['galaxy', 'nebula', 'starCluster'].includes(detail.target.objectType)
-  if (!isDeepSky) return null
-  return {
-    path: '/ai/deep-sky-object',
-    query: {
-      name: detail.target.name,
-      altitude: String(detail.altitude),
-      azimuth: String(detail.azimuth)
-    }
-  }
+/** Polar day/night or no sunset→sunrise: coords exist but events unavailable. */
+const showNoNightWindowBanner = computed(() => {
+  return (
+    coordinates.value !== null
+    && !loading.value
+    && !error.value
+    && snapshot.value.nightWindow === null
+  )
 })
 
 function handleManualSubmit(lat: number, lng: number): void {
@@ -132,13 +112,6 @@ async function retryLocation(): Promise<void> {
   if (coords) {
     locationSource.value = 'gps'
   }
-}
-
-function onPointingUpdate(next: DevicePointing): void {
-  setManualPointing({
-    azimuth: next.azimuth,
-    altitude: next.altitude
-  })
 }
 
 onMounted(async () => {
@@ -180,10 +153,10 @@ watch(queryCoordinates, (next, previous) => {
         Sky Companion
       </p>
       <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-        Telescope Mode
+        Astrophotography
       </h1>
       <p class="max-w-2xl text-base leading-7 text-slate-400">
-        Xếp hạng mục tiêu đêm nay, chọn cấu hình kính và căn chỉnh theo hướng dẫn trực tiếp.
+        Điểm chụp đêm nay, Ngân Hà, giờ vàng/xanh, chạng vạng, Mặt Trăng, hành tinh và dòng thời gian từ hoàng hôn đến bình minh.
       </p>
       <div class="flex flex-wrap gap-3">
         <NuxtLink
@@ -191,13 +164,6 @@ watch(queryCoordinates, (next, previous) => {
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
           ← Về trang chủ
-        </NuxtLink>
-        <NuxtLink
-          v-if="compassLink"
-          :to="compassLink"
-          class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-        >
-          Mở Compass
         </NuxtLink>
       </div>
     </header>
@@ -210,7 +176,7 @@ watch(queryCoordinates, (next, previous) => {
     <PermissionDenied
       v-else-if="showManualFallback"
       :title="geo.permissionDenied.value ? 'Không thể truy cập vị trí' : 'Không lấy được vị trí'"
-      :subtitle="geo.error.value ?? 'Hãy nhập vĩ độ và kinh độ thủ công để tiếp tục.'"
+      :subtitle="geo.error.value ?? 'Hãy nhập vĩ độ và kinh độ thủ công để tính điểm chụp và lịch sự kiện. Các mục không phụ thuộc vị trí vẫn xem được.'"
       @submit="handleManualSubmit"
     />
 
@@ -226,10 +192,10 @@ watch(queryCoordinates, (next, previous) => {
           class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
           @click="refresh()"
         >
-          Làm mới mục tiêu
+          Làm mới
         </button>
         <button
-          v-if="!hasQueryCoordinates"
+          v-if="!hasQueryCoordinates && hasAttemptedLocation"
           type="button"
           class="rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:border-slate-500 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
           @click="retryLocation"
@@ -237,58 +203,57 @@ watch(queryCoordinates, (next, previous) => {
           Lấy lại vị trí
         </button>
       </div>
+    </template>
 
-      <SkyCard
-        v-if="error"
-        role="alert"
+    <PhotoLocationPrompt v-else-if="needsLocation && !isBootstrapping" />
+
+    <SkyCard
+      v-if="error"
+      role="alert"
+    >
+      <SectionTitle
+        title="Không tính được lịch chụp ảnh"
+        :subtitle="error"
+      />
+      <button
+        type="button"
+        class="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+        @click="refresh()"
       >
-        <SectionTitle
-          title="Không tính được mục tiêu"
-          :subtitle="error"
-        />
-        <button
-          type="button"
-          class="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
-          @click="refresh()"
-        >
-          Làm mới mục tiêu
-        </button>
-      </SkyCard>
+        Thử lại
+      </button>
+    </SkyCard>
 
-      <template v-else>
-        <TelescopeProfilePicker
-          v-if="selectedProfileId"
-          :profiles="profiles"
-          :model-value="selectedProfileId"
-          @update:model-value="selectProfile"
-        />
+    <SkyCard
+      v-else-if="showNoNightWindowBanner"
+      role="status"
+    >
+      <SectionTitle
+        title="Không có đêm thiên văn"
+        subtitle="Tại vị trí này không có khoảng hoàng hôn → bình minh (ví dụ ngày/đêm cực). Các sự kiện chụp đêm tạm thời không khả dụng."
+      />
+    </SkyCard>
 
-        <TelescopeTonightTargetsList
-          :targets="rankedTargets"
-          :selected-id="selectedTargetId"
-          @select="selectTarget"
-        />
-
-        <TelescopeTargetDetailCard :detail="selectedDetail" />
-        <NuxtLink
-          v-if="deepSkyAiLink"
-          :to="deepSkyAiLink"
-          class="inline-flex w-fit rounded-xl border border-violet-400/40 bg-violet-500/15 px-4 py-2.5 text-sm font-semibold text-violet-100 transition hover:border-violet-300/60 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-400/40"
-        >
-          ✨ Explain with AI
-        </NuxtLink>
-
-        <TelescopeGuidancePanel
-          :guidance="guidance"
-          :pointing="pointing"
-          :sensor-error="sensorError"
-          @enable-sensor="enableSensor"
-          @disable-sensor="switchToManualPointing"
-          @update:pointing="onPointingUpdate"
-        />
-
-        <TelescopeStarHopPlaceholder />
-      </template>
+    <template v-else>
+      <SkyAIExplainPanel
+        object-type="astrophotography"
+        name="Astrophotography Tonight"
+        :context="{
+          score: snapshot.score?.label ?? null,
+          milkyWayVisibility: snapshot.milkyWay?.visibility ?? null,
+          moonPhase: snapshot.moon?.phase ?? null
+        }"
+        language="en"
+      />
+      <PhotoScoreCard :score="snapshot.score" />
+      <MilkyWayPhotoCard :info="snapshot.milkyWay" />
+      <GoldenHourCard :info="snapshot.goldenHour" />
+      <BlueHourCard :info="snapshot.blueHour" />
+      <TwilightCard :info="snapshot.twilight" />
+      <MoonPhotoCard :info="snapshot.moon" />
+      <PlanetPhotoCard :planets="snapshot.planets" />
+      <CameraSettingsCard :settings="snapshot.suggestedSettings" />
+      <PhotoTimeline :timeline="snapshot.timeline" />
     </template>
   </div>
 </template>

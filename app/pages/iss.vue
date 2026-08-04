@@ -6,6 +6,7 @@ import IssNextPassCard from '../components/iss/IssNextPassCard.vue'
 import IssNotificationsStub from '../components/iss/IssNotificationsStub.vue'
 import IssPositionCard from '../components/iss/IssPositionCard.vue'
 import IssStatsCard from '../components/iss/IssStatsCard.vue'
+import SkyAIExplainPanel from '../components/ai/SkyAIExplainPanel.vue'
 
 useHead({
   title: 'ISS Now · What\'s Above Me?'
@@ -239,6 +240,18 @@ watch(coordinates, (next, previous) => {
       </p>
 
       <IssPositionCard :position="snapshot.position" />
+      <SkyAIExplainPanel
+        object-type="iss"
+        name="International Space Station"
+        :distance-km="snapshot.position.altitudeKm"
+        :context="{
+          latitude: snapshot.position.latitude,
+          longitude: snapshot.position.longitude,
+          velocityKph: snapshot.position.velocityKph,
+          source: snapshot.source
+        }"
+        language="en"
+      />
       <IssStatsCard :position="snapshot.position" />
       <IssGroundTrackMap
         :ground-track="snapshot.groundTrack"
