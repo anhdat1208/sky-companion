@@ -446,6 +446,71 @@
         "subtitle": "Enable geolocation or enter coordinates to calculate shoot scores and event schedule.",
         "body": "Tonight's shoot score, Milky Way, golden/blue hour, and twilight depend on your observation location. Choose a location to view tonight's astrophotography schedule."
       }
+    },
+    "iss": {
+      "positionCard": {
+        "title": "ISS position",
+        "subtitle": "Current geographic coordinates of the International Space Station.",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "timestamp": "Timestamp",
+        "north": "N",
+        "south": "S",
+        "east": "E",
+        "west": "W"
+      },
+      "statsCard": {
+        "title": "Altitude & speed",
+        "subtitle": "Orbital altitude and estimated ground speed.",
+        "altitude": "Altitude",
+        "speed": "Speed"
+      },
+      "groundTrackMap": {
+        "title": "Ground track",
+        "subtitle": "Equirectangular schematic — recent and upcoming orbital path.",
+        "ariaLabel": "ISS ground track map"
+      },
+      "nextPassCard": {
+        "title": "Next pass",
+        "subtitle": "Time, direction, and duration when the ISS may be visible.",
+        "rise": "Rise",
+        "max": "Maximum",
+        "set": "Set",
+        "duration": "Duration",
+        "maxElevation": "Max elevation",
+        "direction": "Direction",
+        "magnitude": "Magnitude (estimated)",
+        "empty": "No visible pass in the next 36 hours, or an observation location (GPS / manual) is needed for prediction.",
+        "durationSecondsOnly": "{seconds} sec",
+        "durationMinutesSeconds": "{minutes} min {seconds} sec"
+      },
+      "brightnessCard": {
+        "title": "Brightness",
+        "subtitle": "Estimated ISS brightness from your current observation location.",
+        "magnitude": "Magnitude",
+        "label": "Label",
+        "empty": "An observation location is needed to estimate brightness.",
+        "labels": {
+          "Bright": "Bright",
+          "Moderate": "Moderate",
+          "Dim": "Dim",
+          "Not Visible": "Not visible"
+        }
+      },
+      "notificationsStub": {
+        "title": "Notifications",
+        "subtitle": "ISS pass reminders will appear in a future version.",
+        "comingSoon": "Coming soon",
+        "body": "Push notifications and service workers are not supported in this version — UI stub only."
+      }
+    },
+    "compass": {
+      "moon": "Moon",
+      "planet": "Planet",
+      "ariaLabel": "Static compass. {moonLabel}{planetPart}",
+      "planetPart": ". {planetLabel}",
+      "noVisiblePlanet": "No visible planet to mark on the compass.",
+      "azimuthLabel": "{name} {degrees}°"
     }
   },
   "pages": {
@@ -508,6 +573,62 @@
       "noNightWindowTitle": "No astronomical night",
       "noNightWindowSubtitle": "At this location there is no sunset-to-sunrise window (e.g. polar day/night). Night photography events are temporarily unavailable.",
       "aiName": "Astrophotography Tonight"
+    },
+    "iss": {
+      "title": "ISS Now · What's Above Me?",
+      "heading": "ISS Now",
+      "subtitle": "International Space Station position, ground track, next pass, and estimated brightness.",
+      "loadingIss": "Loading ISS data...",
+      "refreshIss": "Refresh ISS",
+      "loadError": "Could not load ISS data",
+      "fallbackTleNotice": "Using internal fallback TLE — data may be less accurate than the live source.",
+      "permissionFallbackHint": "Enter latitude and longitude manually to continue."
+    },
+    "compass": {
+      "title": "Compass · What's Above Me?",
+      "heading": "Compass",
+      "subtitle": "Static compass with N/S/E/W directions and markers for Moon azimuth and the selected planet.",
+      "noCoordinatesTitle": "No coordinates",
+      "noCoordinatesSubtitle": "Compass needs valid latitude and longitude from the query string or home page.",
+      "noCoordinatesBody": "Return to Home to get GPS location or enter coordinates manually, then open Compass again.",
+      "loadingDirections": "Loading sky directions...",
+      "loadError": "Could not load compass data",
+      "observationHeading": "Observation direction",
+      "observationSubtitle": "Markers rotate by azimuth; no DeviceOrientation sensor used.",
+      "planet": "Planet",
+      "coordinatesInUse": "Coordinates in use",
+      "dataSourceNote": "Data from {api} at the current observation time."
+    },
+    "ai": {
+      "brand": "Sky AI",
+      "moon": {
+        "title": "Sky AI · Moon",
+        "heading": "Moon Explanation",
+        "subtitle": "Contextual Moon observation explanation from current astronomy data."
+      },
+      "sun": {
+        "title": "Sky AI · Sun",
+        "heading": "Sun Explanation",
+        "subtitle": "Sun observation context explained from your current location."
+      },
+      "constellation": {
+        "title": "Sky AI · Constellation",
+        "heading": "{name} Explanation",
+        "subtitle": "Constellation explanation in the current sky context.",
+        "defaultName": "Constellation"
+      },
+      "planet": {
+        "title": "Sky AI · Planet",
+        "heading": "{name} Explanation",
+        "subtitle": "Explanation tailored to the planet you are observing.",
+        "defaultName": "Planet"
+      },
+      "deepSkyObject": {
+        "title": "Sky AI · Deep Sky Object",
+        "heading": "{name} Explanation",
+        "subtitle": "Deep sky object explanations for naked-eye, binocular, or telescope observation.",
+        "defaultName": "Deep Sky Object"
+      }
     }
   }
 }

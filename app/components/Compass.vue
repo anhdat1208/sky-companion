@@ -5,6 +5,8 @@ const props = defineProps<{
   planetName?: string | null
 }>()
 
+const { t } = useI18n()
+
 function normalizeAzimuth(azimuth: number): number {
   const normalized = azimuth % 360
   return normalized < 0 ? normalized + 360 : normalized
@@ -16,14 +18,29 @@ function markerStyle(azimuth: number): Record<string, string> {
   }
 }
 
-const moonLabel = computed(() => `Moon ${normalizeAzimuth(props.moonAzimuth).toFixed(1)}°`)
+function azimuthLabel(name: string, azimuth: number): string {
+  return t('components.compass.azimuthLabel', {
+    name,
+    degrees: normalizeAzimuth(azimuth).toFixed(1)
+  })
+}
+
+const moonLabel = computed(() => azimuthLabel(t('components.compass.moon'), props.moonAzimuth))
+
 const planetLabel = computed(() => {
   if (props.planetAzimuth === null) {
     return null
   }
 
-  const name = props.planetName?.trim() || 'Planet'
-  return `${name} ${normalizeAzimuth(props.planetAzimuth).toFixed(1)}°`
+  const name = props.planetName?.trim() || t('components.compass.planet')
+  return azimuthLabel(name, props.planetAzimuth)
+})
+
+const ariaLabel = computed(() => {
+  const planetPart = planetLabel.value
+    ? t('components.compass.planetPart', { planetLabel: planetLabel.value })
+    : ''
+  return t('components.compass.ariaLabel', { moonLabel: moonLabel.value, planetPart })
 })
 </script>
 
@@ -32,7 +49,7 @@ const planetLabel = computed(() => {
     <div
       class="relative mx-auto aspect-square w-full max-w-sm"
       role="img"
-      :aria-label="`Static compass. ${moonLabel}${planetLabel ? `. ${planetLabel}` : ''}`"
+      :aria-label="ariaLabel"
     >
       <div class="absolute inset-0 rounded-full border border-slate-700 bg-gradient-to-b from-slate-900 to-slate-950 shadow-inner shadow-slate-950/80" />
       <div class="absolute inset-[12%] rounded-full border border-dashed border-slate-700/80" />
@@ -58,7 +75,7 @@ const planetLabel = computed(() => {
         <div class="mt-8 flex flex-col items-center">
           <span class="h-3 w-3 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(252,211,77,0.7)]" />
           <span class="mt-1 rounded bg-slate-950/80 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-amber-200">
-            Moon
+            {{ t('components.compass.moon') }}
           </span>
         </div>
       </div>
@@ -71,7 +88,7 @@ const planetLabel = computed(() => {
         <div class="mt-8 flex flex-col items-center">
           <span class="h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.7)]" />
           <span class="mt-1 max-w-[4.5rem] truncate rounded bg-slate-950/80 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-emerald-200">
-            {{ planetName || 'Planet' }}
+            {{ planetName || t('components.compass.planet') }}
           </span>
         </div>
       </div>
@@ -95,7 +112,7 @@ const planetLabel = computed(() => {
         v-else
         class="text-slate-500"
       >
-        Không có hành tinh nhìn thấy để đánh dấu trên la bàn.
+        {{ t('components.compass.noVisiblePlanet') }}
       </li>
     </ul>
   </div>

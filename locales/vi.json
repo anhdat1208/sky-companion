@@ -446,6 +446,71 @@
         "subtitle": "Bật định vị hoặc nhập tọa độ để tính điểm chụp và lịch sự kiện.",
         "body": "Điểm chụp đêm, Ngân Hà, giờ vàng/xanh và chạng vạng phụ thuộc vị trí quan sát. Chọn vị trí để xem lịch chụp ảnh thiên văn cho đêm nay."
       }
+    },
+    "iss": {
+      "positionCard": {
+        "title": "Vị trí ISS",
+        "subtitle": "Tọa độ địa lý hiện tại của Trạm Vũ trụ Quốc tế.",
+        "latitude": "Vĩ độ",
+        "longitude": "Kinh độ",
+        "timestamp": "Thời điểm",
+        "north": "B",
+        "south": "N",
+        "east": "Đ",
+        "west": "T"
+      },
+      "statsCard": {
+        "title": "Độ cao & tốc độ",
+        "subtitle": "Độ cao quỹ đạo và vận tốc mặt đất ước tính.",
+        "altitude": "Độ cao",
+        "speed": "Tốc độ"
+      },
+      "groundTrackMap": {
+        "title": "Quỹ đạo mặt đất",
+        "subtitle": "Sơ đồ equirectangular — đường quỹ đạo gần đây và sắp tới.",
+        "ariaLabel": "Bản đồ quỹ đạo mặt đất của ISS"
+      },
+      "nextPassCard": {
+        "title": "Lượt qua kế tiếp",
+        "subtitle": "Thời gian, hướng và thời lượng khi ISS có thể nhìn thấy.",
+        "rise": "Mọc",
+        "max": "Cao nhất",
+        "set": "Lặn",
+        "duration": "Thời lượng",
+        "maxElevation": "Cao độ tối đa",
+        "direction": "Hướng",
+        "magnitude": "Cấp sao (ước tính)",
+        "empty": "Chưa có lượt qua nhìn thấy trong 36 giờ tới, hoặc cần vị trí quan sát (GPS / nhập tay) để dự đoán.",
+        "durationSecondsOnly": "{seconds} giây",
+        "durationMinutesSeconds": "{minutes} phút {seconds} giây"
+      },
+      "brightnessCard": {
+        "title": "Độ sáng",
+        "subtitle": "Ước tính độ sáng ISS từ vị trí quan sát hiện tại.",
+        "magnitude": "Cấp sao",
+        "label": "Nhãn",
+        "empty": "Cần vị trí quan sát để ước tính độ sáng.",
+        "labels": {
+          "Bright": "Sáng",
+          "Moderate": "Trung bình",
+          "Dim": "Mờ",
+          "Not Visible": "Không nhìn thấy"
+        }
+      },
+      "notificationsStub": {
+        "title": "Thông báo",
+        "subtitle": "Nhắc lịch lượt qua ISS sẽ xuất hiện ở phiên bản sau.",
+        "comingSoon": "Sắp có",
+        "body": "Chưa hỗ trợ push notification hay service worker trong phiên bản này — chỉ có stub giao diện."
+      }
+    },
+    "compass": {
+      "moon": "Mặt Trăng",
+      "planet": "Hành tinh",
+      "ariaLabel": "La bàn tĩnh. {moonLabel}{planetPart}",
+      "planetPart": ". {planetLabel}",
+      "noVisiblePlanet": "Không có hành tinh nhìn thấy để đánh dấu trên la bàn.",
+      "azimuthLabel": "{name} {degrees}°"
     }
   },
   "pages": {
@@ -508,6 +573,62 @@
       "noNightWindowTitle": "Không có đêm thiên văn",
       "noNightWindowSubtitle": "Tại vị trí này không có khoảng hoàng hôn → bình minh (ví dụ ngày/đêm cực). Các sự kiện chụp đêm tạm thời không khả dụng.",
       "aiName": "Chụp ảnh đêm nay"
+    },
+    "iss": {
+      "title": "ISS ngay · Bầu trời trên bạn?",
+      "heading": "ISS ngay",
+      "subtitle": "Vị trí Trạm Vũ trụ Quốc tế, quỹ đạo mặt đất, lượt qua tiếp theo và độ sáng ước tính.",
+      "loadingIss": "Đang tải dữ liệu ISS...",
+      "refreshIss": "Làm mới ISS",
+      "loadError": "Không tải được dữ liệu ISS",
+      "fallbackTleNotice": "Đang dùng TLE dự phòng nội bộ — dữ liệu có thể kém chính xác hơn nguồn trực tiếp.",
+      "permissionFallbackHint": "Hãy nhập vĩ độ và kinh độ thủ công để tiếp tục."
+    },
+    "compass": {
+      "title": "La bàn · Bầu trời trên bạn?",
+      "heading": "La bàn",
+      "subtitle": "La bàn tĩnh với hướng N/S/E/W và marker theo phương vị Mặt Trăng cùng hành tinh đang chọn.",
+      "noCoordinatesTitle": "Chưa có tọa độ",
+      "noCoordinatesSubtitle": "Trang Compass cần vĩ độ và kinh độ hợp lệ từ query hoặc từ trang chủ.",
+      "noCoordinatesBody": "Hãy quay lại Home để lấy vị trí GPS hoặc nhập tọa độ thủ công, rồi mở lại Compass.",
+      "loadingDirections": "Đang tải hướng bầu trời...",
+      "loadError": "Không tải được dữ liệu la bàn",
+      "observationHeading": "Hướng quan sát",
+      "observationSubtitle": "Marker xoay theo azimuth; không dùng cảm biến DeviceOrientation.",
+      "planet": "Hành tinh",
+      "coordinatesInUse": "Tọa độ đang dùng",
+      "dataSourceNote": "Dữ liệu lấy từ {api} tại thời điểm quan sát hiện tại."
+    },
+    "ai": {
+      "brand": "Sky AI",
+      "moon": {
+        "title": "Sky AI · Mặt Trăng",
+        "heading": "Giải thích Mặt Trăng",
+        "subtitle": "Giải thích theo ngữ cảnh quan sát Mặt Trăng từ dữ liệu thiên văn hiện tại."
+      },
+      "sun": {
+        "title": "Sky AI · Mặt Trời",
+        "heading": "Giải thích Mặt Trời",
+        "subtitle": "Giải thích bối cảnh quan sát Mặt Trời từ vị trí hiện tại."
+      },
+      "constellation": {
+        "title": "Sky AI · Chòm sao",
+        "heading": "Giải thích {name}",
+        "subtitle": "Giải thích chòm sao theo ngữ cảnh bầu trời hiện tại.",
+        "defaultName": "Chòm sao"
+      },
+      "planet": {
+        "title": "Sky AI · Hành tinh",
+        "heading": "Giải thích {name}",
+        "subtitle": "Giải thích dành riêng cho hành tinh bạn đang quan sát.",
+        "defaultName": "Hành tinh"
+      },
+      "deepSkyObject": {
+        "title": "Sky AI · Deep sky",
+        "heading": "Giải thích {name}",
+        "subtitle": "Giải thích các đối tượng deep sky phục vụ quan sát bằng mắt, ống nhòm hoặc kính thiên văn.",
+        "defaultName": "Deep sky"
+      }
     }
   }
 }

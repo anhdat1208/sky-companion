@@ -14,6 +14,8 @@ const props = defineProps<{
   position: IssPosition
 }>()
 
+const { t } = useI18n()
+
 const WIDTH = 360
 const HEIGHT = 180
 const MARKER_TWEEN_MS = 1500
@@ -112,8 +114,8 @@ const lonLines = [-120, -60, 0, 60, 120]
 <template>
   <SkyCard>
     <SectionTitle
-      title="Quỹ đạo mặt đất"
-      subtitle="Sơ đồ equirectangular — đường quỹ đạo gần đây và sắp tới."
+      :title="t('components.iss.groundTrackMap.title')"
+      :subtitle="t('components.iss.groundTrackMap.subtitle')"
     />
 
     <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-950/70">
@@ -121,7 +123,7 @@ const lonLines = [-120, -60, 0, 60, 120]
         class="h-auto w-full"
         :viewBox="`0 0 ${WIDTH} ${HEIGHT}`"
         role="img"
-        aria-label="Bản đồ quỹ đạo mặt đất của ISS"
+        :aria-label="t('components.iss.groundTrackMap.ariaLabel')"
       >
         <rect
           x="0"

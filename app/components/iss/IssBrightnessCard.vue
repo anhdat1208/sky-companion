@@ -5,12 +5,7 @@ defineProps<{
   brightness: IssBrightness | null
 }>()
 
-const LABEL_VI: Record<BrightnessLabel, string> = {
-  Bright: 'Sáng',
-  Moderate: 'Trung bình',
-  Dim: 'Mờ',
-  'Not Visible': 'Không nhìn thấy'
-}
+const { t } = useI18n()
 
 function formatMagnitude(value: number | null): string {
   if (value === null) {
@@ -18,13 +13,17 @@ function formatMagnitude(value: number | null): string {
   }
   return value.toFixed(1)
 }
+
+function brightnessLabel(label: BrightnessLabel): string {
+  return t(`components.iss.brightnessCard.labels.${label}`)
+}
 </script>
 
 <template>
   <SkyCard>
     <SectionTitle
-      title="Độ sáng"
-      subtitle="Ước tính độ sáng ISS từ vị trí quan sát hiện tại."
+      :title="t('components.iss.brightnessCard.title')"
+      :subtitle="t('components.iss.brightnessCard.subtitle')"
     />
 
     <dl
@@ -33,7 +32,7 @@ function formatMagnitude(value: number | null): string {
     >
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cấp sao
+          {{ t('components.iss.brightnessCard.magnitude') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatMagnitude(brightness.magnitude) }}
@@ -41,10 +40,10 @@ function formatMagnitude(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Nhãn
+          {{ t('components.iss.brightnessCard.label') }}
         </dt>
         <dd class="mt-1 text-base text-slate-100">
-          {{ LABEL_VI[brightness.label] }}
+          {{ brightnessLabel(brightness.label) }}
         </dd>
       </div>
     </dl>
@@ -53,7 +52,7 @@ function formatMagnitude(value: number | null): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Cần vị trí quan sát để ước tính độ sáng.
+      {{ t('components.iss.brightnessCard.empty') }}
     </p>
   </SkyCard>
 </template>

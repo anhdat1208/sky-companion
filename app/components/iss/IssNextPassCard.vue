@@ -5,25 +5,28 @@ defineProps<{
   nextPass: IssPassPrediction | null
 }>()
 
+const { t } = useI18n()
+const { formatDateTime } = useFormatters()
+
 function formatTime(value: string): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) {
     return '—'
   }
 
-  return new Intl.DateTimeFormat(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  }).format(date)
+  return formatDateTime(date)
 }
 
 function formatDuration(seconds: number): string {
   const mins = Math.floor(seconds / 60)
   const secs = Math.round(seconds % 60)
   if (mins <= 0) {
-    return `${secs} giây`
+    return t('components.iss.nextPassCard.durationSecondsOnly', { seconds: secs })
   }
-  return `${mins} phút ${secs.toString().padStart(2, '0')} giây`
+  return t('components.iss.nextPassCard.durationMinutesSeconds', {
+    minutes: mins,
+    seconds: secs.toString().padStart(2, '0')
+  })
 }
 
 function formatElevation(deg: number): string {
@@ -41,8 +44,8 @@ function formatMagnitude(value: number | null): string {
 <template>
   <SkyCard>
     <SectionTitle
-      title="Lượt qua kế tiếp"
-      subtitle="Thời gian, hướng và thời lượng khi ISS có thể nhìn thấy."
+      :title="t('components.iss.nextPassCard.title')"
+      :subtitle="t('components.iss.nextPassCard.subtitle')"
     />
 
     <dl
@@ -51,7 +54,7 @@ function formatMagnitude(value: number | null): string {
     >
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Mọc
+          {{ t('components.iss.nextPassCard.rise') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(nextPass.riseTime) }}
@@ -59,7 +62,7 @@ function formatMagnitude(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cao nhất
+          {{ t('components.iss.nextPassCard.max') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(nextPass.maxTime) }}
@@ -67,7 +70,7 @@ function formatMagnitude(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Lặn
+          {{ t('components.iss.nextPassCard.set') }}
         </dt>
         <dd class="mt-1 text-sm text-slate-100">
           {{ formatTime(nextPass.setTime) }}
@@ -75,7 +78,7 @@ function formatMagnitude(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Thời lượng
+          {{ t('components.iss.nextPassCard.duration') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatDuration(nextPass.durationSeconds) }}
@@ -83,7 +86,7 @@ function formatMagnitude(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cao độ tối đa
+          {{ t('components.iss.nextPassCard.maxElevation') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatElevation(nextPass.maxElevationDeg) }}
@@ -91,7 +94,7 @@ function formatMagnitude(value: number | null): string {
       </div>
       <div class="rounded-xl bg-slate-950/70 p-4">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Hướng
+          {{ t('components.iss.nextPassCard.direction') }}
         </dt>
         <dd class="mt-1 text-base text-slate-100">
           {{ nextPass.direction }}
@@ -99,7 +102,7 @@ function formatMagnitude(value: number | null): string {
       </div>
       <div class="col-span-2 rounded-xl bg-slate-950/70 p-4 sm:col-span-3">
         <dt class="text-xs font-medium uppercase tracking-wider text-slate-500">
-          Cấp sao (ước tính)
+          {{ t('components.iss.nextPassCard.magnitude') }}
         </dt>
         <dd class="mt-1 font-mono text-base text-slate-100">
           {{ formatMagnitude(nextPass.magnitude) }}
@@ -111,8 +114,7 @@ function formatMagnitude(value: number | null): string {
       v-else
       class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-400"
     >
-      Chưa có lượt qua nhìn thấy trong 36 giờ tới, hoặc cần vị trí quan sát
-      (GPS / nhập tay) để dự đoán.
+      {{ t('components.iss.nextPassCard.empty') }}
     </p>
   </SkyCard>
 </template>

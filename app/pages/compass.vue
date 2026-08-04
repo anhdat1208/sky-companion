@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { Coordinates } from '../../types/location'
 
+const { t } = useI18n()
+
 useHead({
-  title: 'Compass · What\'s Above Me?'
+  title: () => t('pages.compass.title')
 })
 
 const route = useRoute()
@@ -126,51 +128,51 @@ watch(coordinates, (next, previous) => {
   <div class="space-y-6">
     <header class="space-y-3">
       <p class="text-sm font-medium uppercase tracking-[0.2em] text-sky-400/80">
-        Sky Companion
+        {{ t('pages.home.brand') }}
       </p>
       <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-        Compass
+        {{ t('pages.compass.heading') }}
       </h1>
       <p class="max-w-2xl text-base leading-7 text-slate-400">
-        La bàn tĩnh với hướng N/S/E/W và marker theo phương vị Mặt Trăng cùng hành tinh đang chọn.
+        {{ t('pages.compass.subtitle') }}
       </p>
       <div class="flex flex-wrap items-center gap-3">
         <NuxtLink
           to="/"
           class="inline-flex text-sm font-medium text-sky-400 transition hover:text-sky-300"
         >
-          ← Về trang chủ
+          ← {{ t('common.backHome') }}
         </NuxtLink>
         <NuxtLink
           v-if="telescopeLink"
           :to="telescopeLink"
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
-          Telescope Mode
+          {{ t('nav.telescope') }}
         </NuxtLink>
       </div>
     </header>
 
     <SkyCard v-if="!hasValidCoordinates">
       <SectionTitle
-        title="Chưa có tọa độ"
-        subtitle="Trang Compass cần vĩ độ và kinh độ hợp lệ từ query hoặc từ trang chủ."
+        :title="t('pages.compass.noCoordinatesTitle')"
+        :subtitle="t('pages.compass.noCoordinatesSubtitle')"
       />
       <p class="rounded-xl bg-slate-950/70 p-4 text-sm leading-6 text-slate-300">
-        Hãy quay lại Home để lấy vị trí GPS hoặc nhập tọa độ thủ công, rồi mở lại Compass.
+        {{ t('pages.compass.noCoordinatesBody') }}
       </p>
       <NuxtLink
         to="/"
         class="mt-4 inline-flex rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
       >
-        Về trang chủ
+        {{ t('common.backHome') }}
       </NuxtLink>
     </SkyCard>
 
     <template v-else>
       <LoadingLocation
         v-if="sky.loading.value"
-        message="Đang tải hướng bầu trời..."
+        :message="t('pages.compass.loadingDirections')"
       />
 
       <SkyCard
@@ -178,7 +180,7 @@ watch(coordinates, (next, previous) => {
         role="alert"
       >
         <SectionTitle
-          title="Không tải được dữ liệu la bàn"
+          :title="t('pages.compass.loadError')"
           :subtitle="sky.error.value"
         />
         <button
@@ -186,15 +188,15 @@ watch(coordinates, (next, previous) => {
           class="rounded-xl bg-sky-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900"
           @click="loadCompassData"
         >
-          Thử lại
+          {{ t('common.retry') }}
         </button>
       </SkyCard>
 
       <template v-else-if="sky.snapshot.value">
         <SkyCard>
           <SectionTitle
-            title="Hướng quan sát"
-            subtitle="Marker xoay theo azimuth; không dùng cảm biến DeviceOrientation."
+            :title="t('pages.compass.observationHeading')"
+            :subtitle="t('pages.compass.observationSubtitle')"
           />
 
           <div
@@ -205,7 +207,7 @@ watch(coordinates, (next, previous) => {
               for="planet-select"
               class="mb-2 block text-xs font-medium uppercase tracking-wider text-slate-500"
             >
-              Hành tinh
+              {{ t('pages.compass.planet') }}
             </label>
             <select
               id="planet-select"
@@ -232,13 +234,11 @@ watch(coordinates, (next, previous) => {
 
         <SkyCard>
           <SectionTitle
-            title="Tọa độ đang dùng"
+            :title="t('pages.compass.coordinatesInUse')"
             :subtitle="`${coordinates?.lat.toFixed(5)}, ${coordinates?.lng.toFixed(5)}`"
           />
           <p class="text-sm leading-6 text-slate-400">
-            Dữ liệu lấy từ
-            <code class="rounded bg-slate-950 px-1.5 py-0.5 text-slate-300">/api/sky</code>
-            tại thời điểm quan sát hiện tại.
+            {{ t('pages.compass.dataSourceNote', { api: '/api/sky' }) }}
           </p>
         </SkyCard>
       </template>
