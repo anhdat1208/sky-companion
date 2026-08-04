@@ -36,7 +36,9 @@
     "location": {
       "permissionDenied": "Location permission was denied.",
       "unavailable": "Unable to determine your location.",
-      "timeout": "Location request timed out."
+      "timeout": "Location request timed out.",
+      "unsupported": "Geolocation is not supported by this browser.",
+      "unknown": "Failed to get your location."
     },
     "ai": {
       "missingAstronomyData": "Missing astronomy data to explain.",
@@ -49,7 +51,23 @@
     },
     "permissionDenied": {
       "title": "Location permission needed",
-      "body": "Allow location access or enter coordinates manually."
+      "body": "Allow location access or enter coordinates manually.",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "latitudePlaceholder": "Example: 10.7769",
+      "longitudePlaceholder": "Example: 106.7009",
+      "latitudeRequired": "Please enter latitude.",
+      "latitudeRange": "Latitude must be between -90 and 90.",
+      "longitudeRequired": "Please enter longitude.",
+      "longitudeRange": "Longitude must be between -180 and 180.",
+      "submit": "Use these coordinates",
+      "submitting": "Loading sky data..."
+    },
+    "currentLocation": {
+      "label": "Current location",
+      "sourceLabel": "Coordinates used for sky observation.",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
     },
     "skyAI": {
       "explain": "Explain with Sky AI",

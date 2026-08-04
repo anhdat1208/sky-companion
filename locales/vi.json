@@ -36,7 +36,9 @@
     "location": {
       "permissionDenied": "Quyền vị trí đã bị từ chối.",
       "unavailable": "Không xác định được vị trí của bạn.",
-      "timeout": "Yêu cầu vị trí đã hết thời gian."
+      "timeout": "Yêu cầu vị trí đã hết thời gian.",
+      "unsupported": "Trình duyệt này không hỗ trợ định vị.",
+      "unknown": "Không lấy được vị trí của bạn."
     },
     "ai": {
       "missingAstronomyData": "Thiếu dữ liệu thiên văn để giải thích.",
@@ -49,7 +51,23 @@
     },
     "permissionDenied": {
       "title": "Cần quyền vị trí",
-      "body": "Cho phép truy cập vị trí hoặc nhập tọa độ thủ công."
+      "body": "Cho phép truy cập vị trí hoặc nhập tọa độ thủ công.",
+      "latitude": "Vĩ độ",
+      "longitude": "Kinh độ",
+      "latitudePlaceholder": "Ví dụ: 10.7769",
+      "longitudePlaceholder": "Ví dụ: 106.7009",
+      "latitudeRequired": "Vui lòng nhập vĩ độ.",
+      "latitudeRange": "Vĩ độ phải nằm trong khoảng -90 đến 90.",
+      "longitudeRequired": "Vui lòng nhập kinh độ.",
+      "longitudeRange": "Kinh độ phải nằm trong khoảng -180 đến 180.",
+      "submit": "Dùng tọa độ này",
+      "submitting": "Đang tải dữ liệu bầu trời..."
+    },
+    "currentLocation": {
+      "label": "Vị trí hiện tại",
+      "sourceLabel": "Tọa độ được dùng để quan sát bầu trời.",
+      "latitude": "Vĩ độ",
+      "longitude": "Kinh độ"
     },
     "skyAI": {
       "explain": "Giải thích với Sky AI",

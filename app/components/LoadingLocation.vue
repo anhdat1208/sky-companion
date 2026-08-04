@@ -1,11 +1,13 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 interface LoadingLocationProps {
   message?: string
 }
 
-withDefaults(defineProps<LoadingLocationProps>(), {
-  message: 'Đang xác định vị trí của bạn...'
-})
+const props = defineProps<LoadingLocationProps>()
+
+const text = computed(() => props.message ?? t('components.loadingLocation.default'))
 </script>
 
 <template>
@@ -20,7 +22,7 @@ withDefaults(defineProps<LoadingLocationProps>(), {
       />
       <div class="min-w-0 flex-1">
         <p class="font-medium text-slate-200">
-          {{ message }}
+          {{ text }}
         </p>
         <div
           class="mt-3 h-2.5 w-2/3 animate-pulse rounded-full bg-slate-800"

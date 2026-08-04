@@ -1,12 +1,10 @@
 import { ref } from 'vue'
 import type { Coordinates } from '../../types/location'
 
-const GEOLOCATION_UNSUPPORTED = 'Geolocation is not supported by this browser.'
-const GEOLOCATION_UNAVAILABLE = 'Unable to determine your location.'
-const GEOLOCATION_TIMEOUT = 'Location request timed out.'
-const GEOLOCATION_UNKNOWN = 'Failed to get your location.'
-
-function mapGeolocationError(error: GeolocationPositionError): {
+function mapGeolocationError(
+  error: GeolocationPositionError,
+  t: (key: string) => string
+): {
   permissionDenied: boolean
   message: string
 } {
@@ -14,27 +12,28 @@ function mapGeolocationError(error: GeolocationPositionError): {
     case error.PERMISSION_DENIED:
       return {
         permissionDenied: true,
-        message: 'Location permission was denied.'
+        message: t('errors.location.permissionDenied')
       }
     case error.POSITION_UNAVAILABLE:
       return {
         permissionDenied: false,
-        message: GEOLOCATION_UNAVAILABLE
+        message: t('errors.location.unavailable')
       }
     case error.TIMEOUT:
       return {
         permissionDenied: false,
-        message: GEOLOCATION_TIMEOUT
+        message: t('errors.location.timeout')
       }
     default:
       return {
         permissionDenied: false,
-        message: GEOLOCATION_UNKNOWN
+        message: t('errors.location.unknown')
       }
   }
 }
 
 export function useGeolocationInput() {
+  const { t } = useI18n()
   const coordinates = ref<Coordinates | null>(null)
   const loading = ref(false)
   const permissionDenied = ref(false)
@@ -47,7 +46,7 @@ export function useGeolocationInput() {
 
     if (typeof navigator === 'undefined' || !navigator.geolocation) {
       loading.value = false
-      error.value = GEOLOCATION_UNSUPPORTED
+      error.value = t('errors.location.unsupported')
       return null
     }
 
@@ -69,11 +68,11 @@ export function useGeolocationInput() {
       return next
     } catch (caught) {
       if (isGeolocationPositionError(caught)) {
-        const mapped = mapGeolocationError(caught)
+        const mapped = mapGeolocationError(caught, t)
         permissionDenied.value = mapped.permissionDenied
         error.value = mapped.message
       } else {
-        error.value = GEOLOCATION_UNKNOWN
+        error.value = t('errors.location.unknown')
       }
 
       return null
