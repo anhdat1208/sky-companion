@@ -21,4 +21,6 @@ export { computePhotographyScore } from './score'
 export type { PhotographyScoreInput } from './score'
 export { buildMoonPhotoInfo } from './moonPhoto'
 export { listPlanetPhotoInfos } from './planets'
+export { buildPhotoTimeline } from './timeline'
+export type { BuildPhotoTimelineArgs } from './timeline'
 
