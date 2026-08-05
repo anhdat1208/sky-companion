@@ -25,10 +25,10 @@ export const BODY_COLORS: Partial<Record<CelestialBodyId, number>> = {
 }
 
 export const TEXTURE_PATHS: Partial<Record<CelestialBodyId, string>> = {
-  sun: '/universe/textures/sun.jpg',
-  earth: '/universe/textures/earth.jpg',
-  moon: '/universe/textures/moon.jpg',
-  mars: '/universe/textures/mars.jpg',
-  jupiter: '/universe/textures/jupiter.jpg',
-  saturn: '/universe/textures/saturn.jpg'
+  sun: '/textures/universe/sun.jpg',
+  earth: '/textures/universe/earth.jpg',
+  moon: '/textures/universe/moon.jpg',
+  mars: '/textures/universe/mars.jpg',
+  jupiter: '/textures/universe/jupiter.jpg',
+  saturn: '/textures/universe/saturn.jpg'
 }

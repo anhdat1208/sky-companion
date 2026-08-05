@@ -15,4 +15,4 @@ Recommended public-domain / NASA sources:
 - [Solar System Scope media (check license)](https://www.solarsystemscope.com/textures/)
 - [NASA Visible Earth](https://visibleearth.nasa.gov/)
 
-If a file is missing, the explorer uses solid educational colors. Ship attribution for any third-party textures you add here.
+If a file is missing, the explorer uses solid educational colors (HEAD-checked; no noisy 404s). Ship attribution for any third-party textures you add here.

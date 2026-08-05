@@ -655,7 +655,7 @@
       "needLocation": "Add your location to personalize Level 1 (You).",
       "levelLocked": "Level 1 needs your coordinates.",
       "season": "Season (Northern)",
-      "texturesNote": "Textures optional — see public/universe/textures/ATTRIBUTION.md"
+      "texturesNote": "Textures optional — see public/textures/universe/ATTRIBUTION.md"
     }
   },
   "universe": {

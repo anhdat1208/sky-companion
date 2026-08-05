@@ -655,7 +655,7 @@
       "needLocation": "Thêm vị trí để cá nhân hóa Level 1 (Bạn).",
       "levelLocked": "Level 1 cần tọa độ của bạn.",
       "season": "Mùa (Bắc bán cầu)",
-      "texturesNote": "Texture tùy chọn — xem public/universe/textures/ATTRIBUTION.md"
+      "texturesNote": "Texture tùy chọn — xem public/textures/universe/ATTRIBUTION.md"
     }
   },
   "universe": {

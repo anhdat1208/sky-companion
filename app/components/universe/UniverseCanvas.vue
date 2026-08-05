@@ -82,12 +82,17 @@ watch(
 )
 
 onMounted(async () => {
+  // Wait one frame so absolute canvas inherits the container's real box size.
+  await new Promise<void>((resolve) => {
+    requestAnimationFrame(() => resolve())
+  })
   await mountRenderer()
   if (containerRef.value && typeof ResizeObserver !== 'undefined') {
     resizeObserver = new ResizeObserver((entries) => {
       const entry = entries[0]
       if (!entry || !renderer) return
       const { width, height } = entry.contentRect
+      if (width < 2 || height < 2) return
       renderer.resize(width, height)
     })
     resizeObserver.observe(containerRef.value)
@@ -105,21 +110,21 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="containerRef"
-    class="relative h-full min-h-[60vh] w-full overflow-hidden rounded-2xl bg-slate-950"
+    class="relative h-[min(70vh,720px)] min-h-[480px] w-full overflow-hidden rounded-2xl bg-slate-950"
   >
     <canvas
       ref="canvasRef"
-      class="block h-full w-full touch-none"
+      class="absolute inset-0 block h-full w-full touch-none"
     />
     <div
       v-if="loading"
-      class="pointer-events-none absolute inset-0 flex items-center justify-center bg-slate-950/70 text-sm text-slate-300"
+      class="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-slate-950/70 text-sm text-slate-300"
     >
       {{ $t('common.loading') }}
     </div>
     <div
       v-if="error"
-      class="absolute inset-x-0 bottom-0 bg-rose-950/80 px-4 py-2 text-sm text-rose-100"
+      class="absolute inset-x-0 bottom-0 z-10 bg-rose-950/80 px-4 py-2 text-sm text-rose-100"
       role="alert"
     >
       {{ error }}

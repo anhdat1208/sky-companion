@@ -83,8 +83,11 @@ export async function createUniverseRenderer(): Promise<UniverseRenderer> {
         alpha: false,
         powerPreference: 'high-performance'
       })
+      const parent = canvas.parentElement
+      const width = Math.max(parent?.clientWidth || canvas.clientWidth || 800, 2)
+      const height = Math.max(parent?.clientHeight || canvas.clientHeight || 600, 2)
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
-      renderer.setSize(canvas.clientWidth || 800, canvas.clientHeight || 600, false)
+      renderer.setSize(width, height, false)
       renderer.outputColorSpace = THREE.SRGBColorSpace
 
       scene = new THREE.Scene()
@@ -100,15 +103,10 @@ export async function createUniverseRenderer(): Promise<UniverseRenderer> {
       starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
       scene.add(new THREE.Points(
         starGeo,
-        new THREE.PointsMaterial({ color: 0xffffff, size: 0.7, sizeAttenuation: true })
+        new THREE.PointsMaterial({ color: 0xffffff, size: 1.2, sizeAttenuation: true })
       ))
 
-      camera = new THREE.PerspectiveCamera(
-        50,
-        (canvas.clientWidth || 800) / (canvas.clientHeight || 600),
-        0.1,
-        5000
-      )
+      camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 5000)
       camera.position.set(0, 80, 180)
 
       controls = new OrbitControls(camera, canvas)
@@ -124,8 +122,8 @@ export async function createUniverseRenderer(): Promise<UniverseRenderer> {
       levelController = new LevelController(ctx, scene)
       overlays = new OverlaySystem(THREE, scene)
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.25))
-      const sunLight = new THREE.PointLight(0xfff2cc, 2.2, 0, 0)
+      scene.add(new THREE.AmbientLight(0xffffff, 0.65))
+      const sunLight = new THREE.PointLight(0xfff2cc, 3.0, 0, 0)
       sunLight.position.set(0, 0, 0)
       scene.add(sunLight)
 
