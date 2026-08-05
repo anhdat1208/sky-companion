@@ -15,7 +15,8 @@
     "iss": "ISS Now",
     "moonCalendar": "Moon Calendar",
     "meteorShowers": "Meteor Showers",
-    "astrophotography": "Astrophotography"
+    "astrophotography": "Astrophotography",
+    "universe": "Universe Explorer"
   },
   "settings": {
     "language": "Language",
@@ -645,6 +646,153 @@
         "heading": "{name} Explanation",
         "subtitle": "Deep sky object explanations for naked-eye, binocular, or telescope observation.",
         "defaultName": "Deep Sky Object"
+      },
+      "universe": {
+        "title": "Universe Explorer · Sky Companion",
+        "heading": "Universe Explorer",
+        "subtitle": "Zoom from where you stand to the edge of the observable universe.",
+        "needLocation": "Add your location to personalize Level 1 (You).",
+        "levelLocked": "Level 1 needs your coordinates.",
+        "season": "Season (Northern)",
+        "texturesNote": "Textures optional — see public/universe/textures/ATTRIBUTION.md"
+      }
+    }
+  },
+  "universe": {
+    "levels": {
+      "1": "You",
+      "2": "Earth",
+      "3": "Earth–Moon",
+      "4": "Solar System",
+      "5": "Nearby Stars",
+      "6": "Milky Way",
+      "7": "Local Group",
+      "8": "Virgo Supercluster",
+      "9": "Observable Universe"
+    },
+    "timeline": {
+      "play": "Play",
+      "pause": "Pause",
+      "resetNow": "Now",
+      "jump": "Jump to date",
+      "warp": "Time warp"
+    },
+    "camera": {
+      "reset": "Reset camera",
+      "follow": "Follow",
+      "focus": "Focus"
+    },
+    "overlays": {
+      "labels": "Labels",
+      "orbits": "Orbits",
+      "distances": "Distances"
+    },
+    "detail": {
+      "title": "Object details",
+      "learnMore": "Learn More",
+      "radius": "Radius",
+      "mass": "Mass",
+      "gravity": "Gravity",
+      "distanceSun": "Distance from Sun",
+      "orbitalPeriod": "Orbital period",
+      "rotationPeriod": "Rotation period",
+      "position": "Current position",
+      "close": "Close",
+      "facts": "Interesting facts"
+    },
+    "season": {
+      "spring": "Spring",
+      "summer": "Summer",
+      "autumn": "Autumn",
+      "winter": "Winter"
+    },
+    "schematic": {
+      "5": "Approximate relative positions of bright nearby stars.",
+      "6": "Our Solar System sits in the Orion Arm of the Milky Way.",
+      "7": "The Local Group contains the Milky Way, Andromeda, and satellite galaxies.",
+      "8": "The Virgo Supercluster is a vast gathering of galaxy groups.",
+      "9": "The observable universe is limited by the age of light that can reach us."
+    },
+    "bodies": {
+      "sun": {
+        "name": "Sun",
+        "summary": "The star at the center of our Solar System.",
+        "facts": [
+          "Contains about 99.8% of the Solar System's mass.",
+          "Light takes about 8 minutes to reach Earth."
+        ]
+      },
+      "mercury": {
+        "name": "Mercury",
+        "summary": "The innermost planet — small, rocky, and extreme in temperature.",
+        "facts": [
+          "A year on Mercury lasts about 88 Earth days.",
+          "It has almost no atmosphere to trap heat."
+        ]
+      },
+      "venus": {
+        "name": "Venus",
+        "summary": "Earth's cloudy twin with a runaway greenhouse climate.",
+        "facts": [
+          "Rotates backwards compared with most planets.",
+          "Surface pressure is about 90 times Earth's."
+        ]
+      },
+      "earth": {
+        "name": "Earth",
+        "summary": "Our home planet — the only known world with life.",
+        "facts": [
+          "About 71% of the surface is covered by water.",
+          "The axial tilt drives the seasons."
+        ]
+      },
+      "moon": {
+        "name": "Moon",
+        "summary": "Earth's natural satellite that shapes tides and night light.",
+        "facts": [
+          "Always shows nearly the same face to Earth (tidal locking).",
+          "Average distance is about 384,000 km."
+        ]
+      },
+      "mars": {
+        "name": "Mars",
+        "summary": "The Red Planet — a cold desert world with polar ice.",
+        "facts": [
+          "Has the tallest volcano in the Solar System, Olympus Mons.",
+          "A Martian day (sol) is about 24.6 hours."
+        ]
+      },
+      "jupiter": {
+        "name": "Jupiter",
+        "summary": "The largest planet — a gas giant with a fierce storm system.",
+        "facts": [
+          "The Great Red Spot is a centuries-old storm.",
+          "Has a strong magnetic field and dozens of moons."
+        ]
+      },
+      "saturn": {
+        "name": "Saturn",
+        "summary": "Famous for its bright icy ring system.",
+        "facts": [
+          "Density is low enough that it would float in a giant bathtub.",
+          "Rings are made mostly of ice and rock particles."
+        ]
+      },
+      "uranus": {
+        "name": "Uranus",
+        "summary": "An ice giant tilted on its side.",
+        "facts": [
+          "Rotates with an extreme axial tilt of about 98°.",
+          "Appears blue-green from methane in its atmosphere."
+        ]
+      },
+      "neptune": {
+        "name": "Neptune",
+        "summary": "The farthest known major planet — windy and deep blue.",
+        "facts": [
+          "Has the fastest winds measured in the Solar System.",
+          "Takes about 165 Earth years to orbit the Sun."
+        ]
       }
     }
   }

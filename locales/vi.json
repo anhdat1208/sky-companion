@@ -15,7 +15,8 @@
     "iss": "ISS ngay",
     "moonCalendar": "Lịch Mặt Trăng",
     "meteorShowers": "Mưa sao băng",
-    "astrophotography": "Chụp ảnh bầu trời"
+    "astrophotography": "Chụp ảnh bầu trời",
+    "universe": "Khám phá Vũ trụ"
   },
   "settings": {
     "language": "Ngôn ngữ",
@@ -645,6 +646,153 @@
         "heading": "Giải thích {name}",
         "subtitle": "Giải thích các đối tượng deep sky phục vụ quan sát bằng mắt, ống nhòm hoặc kính thiên văn.",
         "defaultName": "Deep sky"
+      },
+      "universe": {
+        "title": "Khám phá Vũ trụ · Sky Companion",
+        "heading": "Khám phá Vũ trụ",
+        "subtitle": "Phóng to từ vị trí của bạn tới biên của vũ trụ quan sát được.",
+        "needLocation": "Thêm vị trí để cá nhân hóa Level 1 (Bạn).",
+        "levelLocked": "Level 1 cần tọa độ của bạn.",
+        "season": "Mùa (Bắc bán cầu)",
+        "texturesNote": "Texture tùy chọn — xem public/universe/textures/ATTRIBUTION.md"
+      }
+    }
+  },
+  "universe": {
+    "levels": {
+      "1": "Bạn",
+      "2": "Trái Đất",
+      "3": "Trái Đất–Mặt Trăng",
+      "4": "Hệ Mặt Trời",
+      "5": "Các sao gần",
+      "6": "Ngân Hà",
+      "7": "Nhóm Địa phương",
+      "8": "Siêu đám Xử Nữ",
+      "9": "Vũ trụ quan sát được"
+    },
+    "timeline": {
+      "play": "Chạy",
+      "pause": "Tạm dừng",
+      "resetNow": "Hiện tại",
+      "jump": "Nhảy tới ngày",
+      "warp": "Tua thời gian"
+    },
+    "camera": {
+      "reset": "Đặt lại camera",
+      "follow": "Theo dõi",
+      "focus": "Lấy nét"
+    },
+    "overlays": {
+      "labels": "Nhãn",
+      "orbits": "Quỹ đạo",
+      "distances": "Khoảng cách"
+    },
+    "detail": {
+      "title": "Chi tiết đối tượng",
+      "learnMore": "Tìm hiểu thêm",
+      "radius": "Bán kính",
+      "mass": "Khối lượng",
+      "gravity": "Trọng lực",
+      "distanceSun": "Khoảng cách tới Mặt Trời",
+      "orbitalPeriod": "Chu kỳ quỹ đạo",
+      "rotationPeriod": "Chu kỳ tự quay",
+      "position": "Vị trí hiện tại",
+      "close": "Đóng",
+      "facts": "Sự thật thú vị"
+    },
+    "season": {
+      "spring": "Xuân",
+      "summer": "Hạ",
+      "autumn": "Thu",
+      "winter": "Đông"
+    },
+    "schematic": {
+      "5": "Vị trí tương đối gần đúng của các sao sáng gần.",
+      "6": "Hệ Mặt Trời nằm trên nhánh Orion của Ngân Hà.",
+      "7": "Nhóm Địa phương gồm Ngân Hà, Andromeda và các thiên hà vệ tinh.",
+      "8": "Siêu đám Xử Nữ là tập hợp khổng lồ các nhóm thiên hà.",
+      "9": "Vũ trụ quan sát được bị giới hạn bởi tuổi của ánh sáng có thể tới chúng ta."
+    },
+    "bodies": {
+      "sun": {
+        "name": "Mặt Trời",
+        "summary": "Ngôi sao ở trung tâm Hệ Mặt Trời.",
+        "facts": [
+          "Chiếm khoảng 99,8% khối lượng Hệ Mặt Trời.",
+          "Ánh sáng mất khoảng 8 phút để tới Trái Đất."
+        ]
+      },
+      "mercury": {
+        "name": "Sao Thủy",
+        "summary": "Hành tinh trong cùng — nhỏ, đá, và nhiệt độ khắc nghiệt.",
+        "facts": [
+          "Một năm trên Sao Thủy dài khoảng 88 ngày Trái Đất.",
+          "Hầu như không có khí quyển để giữ nhiệt."
+        ]
+      },
+      "venus": {
+        "name": "Sao Kim",
+        "summary": "Người anh em mây mù của Trái Đất với hiệu ứng nhà kính cực đoan.",
+        "facts": [
+          "Tự quay ngược chiều so với hầu hết hành tinh.",
+          "Áp suất bề mặt gấp khoảng 90 lần Trái Đất."
+        ]
+      },
+      "earth": {
+        "name": "Trái Đất",
+        "summary": "Hành tinh nhà — thế giới duy nhất biết có sự sống.",
+        "facts": [
+          "Khoảng 71% bề mặt phủ bởi nước.",
+          "Độ nghiêng trục tạo nên các mùa."
+        ]
+      },
+      "moon": {
+        "name": "Mặt Trăng",
+        "summary": "Vệ tinh tự nhiên của Trái Đất, tạo thủy triều và ánh sáng ban đêm.",
+        "facts": [
+          "Hầu như luôn hướng một mặt về Trái Đất (khóa thủy triều).",
+          "Khoảng cách trung bình khoảng 384.000 km."
+        ]
+      },
+      "mars": {
+        "name": "Sao Hỏa",
+        "summary": "Hành tinh Đỏ — thế giới sa mạc lạnh với băng ở cực.",
+        "facts": [
+          "Có núi lửa cao nhất Hệ Mặt Trời, Olympus Mons.",
+          "Một ngày Sao Hỏa (sol) dài khoảng 24,6 giờ."
+        ]
+      },
+      "jupiter": {
+        "name": "Sao Mộc",
+        "summary": "Hành tinh lớn nhất — khí khổng với hệ bão mạnh.",
+        "facts": [
+          "Đốm Đỏ Lớn là cơn bão đã tồn tại hàng thế kỷ.",
+          "Có từ trường mạnh và hàng chục vệ tinh."
+        ]
+      },
+      "saturn": {
+        "name": "Sao Thổ",
+        "summary": "Nổi tiếng với hệ vành đai băng sáng.",
+        "facts": [
+          "Mật độ thấp đến mức có thể nổi trong bồn nước khổng lồ.",
+          "Vành đai chủ yếu là các hạt băng và đá."
+        ]
+      },
+      "uranus": {
+        "name": "Sao Thiên Vương",
+        "summary": "Khổng lồ băng nghiêng nằm ngang.",
+        "facts": [
+          "Độ nghiêng trục cực đoan khoảng 98°.",
+          "Màu xanh lục do methane trong khí quyển."
+        ]
+      },
+      "neptune": {
+        "name": "Sao Hải Vương",
+        "summary": "Hành tinh lớn xa nhất đã biết — gió mạnh và xanh đậm.",
+        "facts": [
+          "Có gió nhanh nhất được đo trong Hệ Mặt Trời.",
+          "Mất khoảng 165 năm Trái Đất để quay quanh Mặt Trời."
+        ]
       }
     }
   }
