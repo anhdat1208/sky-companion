@@ -123,6 +123,20 @@ const astrophotographyLink = computed(() => {
   }
 })
 
+const universeLink = computed(() => {
+  if (!coordinates.value) {
+    return null
+  }
+
+  return {
+    path: '/universe',
+    query: {
+      lat: String(coordinates.value.lat),
+      lng: String(coordinates.value.lng)
+    }
+  }
+})
+
 const moonAiLink = computed(() => {
   if (!sky.snapshot.value) return null
   return {
@@ -269,6 +283,13 @@ onMounted(async () => {
           class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
         >
           {{ t('nav.astrophotography') }}
+        </NuxtLink>
+        <NuxtLink
+          v-if="universeLink"
+          :to="universeLink"
+          class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+        >
+          {{ t('nav.universe') }}
         </NuxtLink>
       </div>
     </header>
