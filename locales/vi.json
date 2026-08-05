@@ -646,16 +646,16 @@
         "heading": "Giải thích {name}",
         "subtitle": "Giải thích các đối tượng deep sky phục vụ quan sát bằng mắt, ống nhòm hoặc kính thiên văn.",
         "defaultName": "Deep sky"
-      },
-      "universe": {
-        "title": "Khám phá Vũ trụ · Sky Companion",
-        "heading": "Khám phá Vũ trụ",
-        "subtitle": "Phóng to từ vị trí của bạn tới biên của vũ trụ quan sát được.",
-        "needLocation": "Thêm vị trí để cá nhân hóa Level 1 (Bạn).",
-        "levelLocked": "Level 1 cần tọa độ của bạn.",
-        "season": "Mùa (Bắc bán cầu)",
-        "texturesNote": "Texture tùy chọn — xem public/universe/textures/ATTRIBUTION.md"
       }
+    },
+    "universe": {
+      "title": "Khám phá Vũ trụ · Sky Companion",
+      "heading": "Khám phá Vũ trụ",
+      "subtitle": "Phóng to từ vị trí của bạn tới biên của vũ trụ quan sát được.",
+      "needLocation": "Thêm vị trí để cá nhân hóa Level 1 (Bạn).",
+      "levelLocked": "Level 1 cần tọa độ của bạn.",
+      "season": "Mùa (Bắc bán cầu)",
+      "texturesNote": "Texture tùy chọn — xem public/universe/textures/ATTRIBUTION.md"
     }
   },
   "universe": {
