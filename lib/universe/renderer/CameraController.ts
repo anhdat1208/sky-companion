@@ -1,4 +1,5 @@
-import type { CameraMode, CelestialBodyId, UniverseLevel } from '../../../types/universe'
+import type { CameraMode, CelestialBodyId, UniverseLevel, Vec3 } from '../../../types/universe'
+import type { CameraEasing, CameraKeyframe, FocusTarget } from '../../../types/journey'
 
 type ThreeModule = typeof import('three')
 type OrbitControls = InstanceType<
@@ -17,6 +18,19 @@ const LEVEL_CAMERA: Record<UniverseLevel, { target: [number, number, number], po
   9: { target: [0, 0, 0], position: [0, 70, 200] }
 }
 
+interface ActiveAnim {
+  fromPos: Vec3
+  toPos: Vec3
+  fromTarget: Vec3
+  toTarget: Vec3
+  fromFov: number
+  toFov: number
+  durationSec: number
+  elapsed: number
+  easing: CameraEasing
+  onComplete?: () => void
+}
+
 export class CameraController {
   private readonly THREE: ThreeModule
   private readonly camera: InstanceType<ThreeModule['PerspectiveCamera']>
@@ -24,11 +38,8 @@ export class CameraController {
   private mode: CameraMode = 'free'
   private followId: CelestialBodyId | null = null
   private getBodyPosition: ((id: CelestialBodyId) => { x: number, y: number, z: number } | null) | null = null
-  private transition = 0
-  private fromPos = { x: 0, y: 0, z: 0 }
-  private toPos = { x: 0, y: 0, z: 0 }
-  private fromTarget = { x: 0, y: 0, z: 0 }
-  private toTarget = { x: 0, y: 0, z: 0 }
+  private anim: ActiveAnim | null = null
+  private idleHandlers = new Set<() => void>()
 
   constructor(
     THREE: ThreeModule,
@@ -40,10 +51,25 @@ export class CameraController {
     this.controls = controls
   }
 
+  get isAnimating(): boolean {
+    return this.anim !== null
+  }
+
   setBodyPositionGetter(
     getter: (id: CelestialBodyId) => { x: number, y: number, z: number } | null
   ): void {
     this.getBodyPosition = getter
+  }
+
+  setControlsEnabled(enabled: boolean): void {
+    this.controls.enabled = enabled
+  }
+
+  onIdle(handler: () => void): () => void {
+    this.idleHandlers.add(handler)
+    return () => {
+      this.idleHandlers.delete(handler)
+    }
   }
 
   setMode(mode: CameraMode, bodyId?: CelestialBodyId | null): void {
@@ -67,36 +93,74 @@ export class CameraController {
 
   beginLevelTransition(level: UniverseLevel): void {
     const cfg = LEVEL_CAMERA[level]
-    this.fromPos = {
-      x: this.camera.position.x,
-      y: this.camera.position.y,
-      z: this.camera.position.z
+    this.animateTo({
+      position: { x: cfg.position[0], y: cfg.position[1], z: cfg.position[2] },
+      target: { x: cfg.target[0], y: cfg.target[1], z: cfg.target[2] },
+      durationMs: 1000,
+      easing: 'easeOut'
+    })
+  }
+
+  cancelAnimation(): void {
+    this.anim = null
+  }
+
+  /**
+   * Smoothly animate camera to a keyframe. Never teleports.
+   */
+  animateTo(keyframe: CameraKeyframe, onComplete?: () => void): void {
+    const resolved = this.resolveKeyframe(keyframe)
+    const durationMs = Math.max(16, keyframe.durationMs)
+    this.anim = {
+      fromPos: {
+        x: this.camera.position.x,
+        y: this.camera.position.y,
+        z: this.camera.position.z
+      },
+      toPos: resolved.position,
+      fromTarget: {
+        x: this.controls.target.x,
+        y: this.controls.target.y,
+        z: this.controls.target.z
+      },
+      toTarget: resolved.target,
+      fromFov: this.camera.fov,
+      toFov: resolved.fov,
+      durationSec: durationMs / 1000,
+      elapsed: 0,
+      easing: keyframe.easing,
+      onComplete
     }
-    this.fromTarget = {
-      x: this.controls.target.x,
-      y: this.controls.target.y,
-      z: this.controls.target.z
-    }
-    this.toPos = { x: cfg.position[0], y: cfg.position[1], z: cfg.position[2] }
-    this.toTarget = { x: cfg.target[0], y: cfg.target[1], z: cfg.target[2] }
-    this.transition = 0.001
   }
 
   update(dt: number): void {
-    if (this.transition > 0 && this.transition < 1) {
-      this.transition = Math.min(1, this.transition + dt / 1.0)
-      const t = 1 - (1 - this.transition) ** 3
+    if (this.anim) {
+      this.anim.elapsed += dt
+      const tRaw = Math.min(1, this.anim.elapsed / this.anim.durationSec)
+      const t = applyEasing(tRaw, this.anim.easing)
       this.camera.position.set(
-        lerp(this.fromPos.x, this.toPos.x, t),
-        lerp(this.fromPos.y, this.toPos.y, t),
-        lerp(this.fromPos.z, this.toPos.z, t)
+        lerp(this.anim.fromPos.x, this.anim.toPos.x, t),
+        lerp(this.anim.fromPos.y, this.anim.toPos.y, t),
+        lerp(this.anim.fromPos.z, this.anim.toPos.z, t)
       )
       this.controls.target.set(
-        lerp(this.fromTarget.x, this.toTarget.x, t),
-        lerp(this.fromTarget.y, this.toTarget.y, t),
-        lerp(this.fromTarget.z, this.toTarget.z, t)
+        lerp(this.anim.fromTarget.x, this.anim.toTarget.x, t),
+        lerp(this.anim.fromTarget.y, this.anim.toTarget.y, t),
+        lerp(this.anim.fromTarget.z, this.anim.toTarget.z, t)
       )
+      if (this.anim.fromFov !== this.anim.toFov) {
+        this.camera.fov = lerp(this.anim.fromFov, this.anim.toFov, t)
+        this.camera.updateProjectionMatrix()
+      }
       this.controls.update()
+      if (tRaw >= 1) {
+        const done = this.anim.onComplete
+        this.anim = null
+        done?.()
+        for (const handler of this.idleHandlers) {
+          handler()
+        }
+      }
       return
     }
 
@@ -110,8 +174,64 @@ export class CameraController {
       }
     }
   }
+
+  private resolveKeyframe(keyframe: CameraKeyframe): { position: Vec3, target: Vec3, fov: number } {
+    const fov = keyframe.fov ?? this.camera.fov
+    let target: Vec3 = keyframe.target ?? {
+      x: this.controls.target.x,
+      y: this.controls.target.y,
+      z: this.controls.target.z
+    }
+    let position: Vec3 = keyframe.position ?? {
+      x: this.camera.position.x,
+      y: this.camera.position.y,
+      z: this.camera.position.z
+    }
+
+    if (keyframe.relativeTo) {
+      const focus = this.resolveFocus(keyframe.relativeTo)
+      if (focus) {
+        target = focus
+        const distance = keyframe.distance ?? 8
+        if (!keyframe.position) {
+          position = {
+            x: focus.x + distance * 0.6,
+            y: focus.y + distance * 0.35,
+            z: focus.z + distance * 0.7
+          }
+        }
+      }
+    }
+
+    return { position, target, fov }
+  }
+
+  private resolveFocus(focus: FocusTarget): Vec3 | null {
+    if (focus.kind === 'level-default') {
+      return { x: 0, y: 0, z: 0 }
+    }
+    if (focus.kind === 'marker') {
+      return { x: 0, y: 0.15, z: 0 }
+    }
+    if (focus.kind === 'body' && focus.id && this.getBodyPosition) {
+      return this.getBodyPosition(focus.id)
+    }
+    return null
+  }
 }
 
 function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t
+}
+
+function applyEasing(t: number, easing: CameraEasing): number {
+  switch (easing) {
+    case 'linear':
+      return t
+    case 'easeOut':
+      return 1 - (1 - t) ** 3
+    case 'easeInOut':
+    default:
+      return t < 0.5 ? 4 * t * t * t : 1 - ((-2 * t + 2) ** 3) / 2
+  }
 }

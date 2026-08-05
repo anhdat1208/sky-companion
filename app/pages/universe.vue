@@ -161,6 +161,14 @@ onBeforeUnmount(() => {
       <p class="max-w-3xl text-sm text-slate-400">
         {{ t('pages.universe.subtitle') }}
       </p>
+      <p class="pt-1">
+        <NuxtLink
+          to="/universe/journey"
+          class="text-sm text-sky-300 hover:text-sky-200"
+        >
+          {{ t('pages.universe.journeyLink') }}
+        </NuxtLink>
+      </p>
       <p
         v-if="seasonLabel && level <= 2"
         class="text-xs text-slate-400"
