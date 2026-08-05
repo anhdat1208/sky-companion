@@ -102,18 +102,29 @@ onMounted(() => {
   window.addEventListener('keydown', onKeydown)
 })
 
-onBeforeUnmount(() => {
-  window.removeEventListener('keydown', onKeydown)
-})
-
 const journeyTitle = computed(() => {
   if (!journeyApi.journey.value) return ''
   return t(journeyApi.journey.value.titleKey)
 })
+
+/** Hide sticky layout header during cinematic playback (avoids stacked chrome). */
+const showLayoutChrome = useState('journey-layout-chrome', () => true)
+watch(
+  () => journeyApi.view.value,
+  (view) => {
+    showLayoutChrome.value = view === 'selection'
+  },
+  { immediate: true }
+)
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeydown)
+  showLayoutChrome.value = true
+})
 </script>
 
 <template>
-  <div class="min-h-[100dvh] bg-[#030712] text-slate-100">
+  <div class="bg-[#030712] text-slate-100">
     <JourneySelection
       v-if="journeyApi.view.value === 'selection'"
       :journeys="journeys"
@@ -122,7 +133,7 @@ const journeyTitle = computed(() => {
 
     <div
       v-else
-      class="relative min-h-[100dvh] w-full"
+      class="relative h-[100dvh] w-full overflow-hidden"
     >
       <UniverseCanvas
         ref="canvasRef"

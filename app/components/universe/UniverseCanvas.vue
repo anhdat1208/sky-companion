@@ -133,7 +133,7 @@ defineExpose({
   <div
     ref="containerRef"
     :class="variant === 'journey'
-      ? 'relative h-full min-h-[100dvh] w-full overflow-hidden bg-slate-950'
+      ? 'relative h-full w-full overflow-hidden bg-slate-950'
       : 'relative aspect-[16/10] w-full min-h-[420px] overflow-hidden rounded-2xl bg-slate-950 sm:min-h-[520px] lg:min-h-[640px]'"
   >
     <canvas

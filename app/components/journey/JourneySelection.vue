@@ -12,8 +12,8 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <section class="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
-    <header class="mb-10 max-w-2xl sm:mb-14">
+  <section class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+    <header class="mb-8 max-w-2xl sm:mb-12">
       <p class="text-sm uppercase tracking-[0.25em] text-slate-500">
         {{ $t('journey.eyebrow') }}
       </p>
