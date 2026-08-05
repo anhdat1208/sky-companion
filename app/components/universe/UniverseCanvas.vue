@@ -110,7 +110,7 @@ onBeforeUnmount(() => {
 <template>
   <div
     ref="containerRef"
-    class="relative h-[min(70vh,720px)] min-h-[480px] w-full overflow-hidden rounded-2xl bg-slate-950"
+    class="relative aspect-[16/10] w-full min-h-[420px] overflow-hidden rounded-2xl bg-slate-950 sm:min-h-[520px] lg:min-h-[640px]"
   >
     <canvas
       ref="canvasRef"

@@ -15,4 +15,7 @@ Recommended public-domain / NASA sources:
 - [Solar System Scope media (check license)](https://www.solarsystemscope.com/textures/)
 - [NASA Visible Earth](https://visibleearth.nasa.gov/)
 
-If a file is missing, the explorer uses solid educational colors (HEAD-checked; no noisy 404s). Ship attribution for any third-party textures you add here.
+If a file is missing, leave `TEXTURE_PATHS` empty in
+`lib/universe/renderer/materials.ts` (default) so the explorer uses solid
+colors without console 404s. When you add maps here, uncomment the matching
+entries in `TEXTURE_PATHS`.

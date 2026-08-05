@@ -25,10 +25,12 @@ export const BODY_COLORS: Partial<Record<CelestialBodyId, number>> = {
 }
 
 export const TEXTURE_PATHS: Partial<Record<CelestialBodyId, string>> = {
-  sun: '/textures/universe/sun.jpg',
-  earth: '/textures/universe/earth.jpg',
-  moon: '/textures/universe/moon.jpg',
-  mars: '/textures/universe/mars.jpg',
-  jupiter: '/textures/universe/jupiter.jpg',
-  saturn: '/textures/universe/saturn.jpg'
+  // Optional maps under /public/textures/universe/*.jpg
+  // Left empty until files are added — avoids console 404 noise.
+  // sun: '/textures/universe/sun.jpg',
+  // earth: '/textures/universe/earth.jpg',
+  // moon: '/textures/universe/moon.jpg',
+  // mars: '/textures/universe/mars.jpg',
+  // jupiter: '/textures/universe/jupiter.jpg',
+  // saturn: '/textures/universe/saturn.jpg'
 }

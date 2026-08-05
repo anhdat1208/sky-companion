@@ -9,6 +9,10 @@ import UniverseLocationPrompt from '../components/universe/UniverseLocationPromp
 import UniverseOverlayToggles from '../components/universe/UniverseOverlayToggles.vue'
 import UniverseTimelineControls from '../components/universe/UniverseTimelineControls.vue'
 
+definePageMeta({
+  layout: 'universe'
+})
+
 const { t } = useI18n()
 
 useHead({
@@ -150,23 +154,13 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="space-y-4">
-    <header class="space-y-2">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 class="text-2xl font-semibold text-white sm:text-3xl">
-            {{ t('pages.universe.heading') }}
-          </h1>
-          <p class="mt-1 max-w-2xl text-sm text-slate-400">
-            {{ t('pages.universe.subtitle') }}
-          </p>
-        </div>
-        <NuxtLink
-          to="/"
-          class="text-sm text-sky-300 hover:text-sky-200"
-        >
-          {{ t('common.backHome') }}
-        </NuxtLink>
-      </div>
+    <header class="space-y-1">
+      <h1 class="text-2xl font-semibold text-white sm:text-3xl">
+        {{ t('pages.universe.heading') }}
+      </h1>
+      <p class="max-w-3xl text-sm text-slate-400">
+        {{ t('pages.universe.subtitle') }}
+      </p>
       <p
         v-if="seasonLabel && level <= 2"
         class="text-xs text-slate-400"
@@ -182,14 +176,15 @@ onBeforeUnmount(() => {
     />
 
     <ClientOnly>
-      <div class="grid gap-4 lg:grid-cols-[220px_minmax(0,1fr)_minmax(240px,300px)]">
+      <div class="flex flex-col gap-4 xl:grid xl:grid-cols-[200px_minmax(0,1fr)] xl:items-start">
         <UniverseLevelRail
+          class="xl:sticky xl:top-20"
           :level="level"
           :can-use-level1="hasCoordinates"
           @update:level="onLevelUpdate"
         />
 
-        <div class="space-y-3">
+        <div class="min-w-0 space-y-3">
           <UniverseTimelineControls
             :playing="playing"
             :warp="warp"
@@ -200,26 +195,47 @@ onBeforeUnmount(() => {
             @jump="jumpToDate($event)"
             @reset-now="resetToNow()"
           />
-          <UniverseCameraControls
-            :camera-mode="cameraMode"
-            :selected-body-id="selectedBodyId"
-            :level="level"
-            @reset="onResetCamera"
-            @follow="onFollow"
-            @focus="onFocus"
-          />
-          <UniverseOverlayToggles
-            :overlays="overlays"
-            @update:overlays="onOverlaysUpdate"
-          />
-          <UniverseCanvas
-            :level="level"
-            :snapshot="snapshot"
-            :overlays="overlays"
-            :camera-mode="cameraMode"
-            :follow-body-id="selectedBodyId"
-            @select-body="onSelectBody"
-          />
+
+          <div class="relative min-w-0">
+            <div class="mb-3 flex flex-wrap gap-3">
+              <UniverseCameraControls
+                :camera-mode="cameraMode"
+                :selected-body-id="selectedBodyId"
+                :level="level"
+                @reset="onResetCamera"
+                @follow="onFollow"
+                @focus="onFocus"
+              />
+              <UniverseOverlayToggles
+                :overlays="overlays"
+                @update:overlays="onOverlaysUpdate"
+              />
+            </div>
+
+            <UniverseCanvas
+              :level="level"
+              :snapshot="snapshot"
+              :overlays="overlays"
+              :camera-mode="cameraMode"
+              :follow-body-id="selectedBodyId"
+              @select-body="onSelectBody"
+            />
+
+            <div
+              v-if="selectedContent"
+              class="pointer-events-none absolute inset-y-3 right-3 z-20 flex max-w-sm items-start"
+            >
+              <div class="pointer-events-auto w-full">
+                <UniverseDetailCard
+                  :content="selectedContent"
+                  :body-state="selectedBodyState"
+                  :moon="snapshot.moon ?? null"
+                  @close="selectBody(null)"
+                />
+              </div>
+            </div>
+          </div>
+
           <p
             v-if="schematicCaption"
             class="rounded-xl border border-slate-800 bg-slate-950/60 px-3 py-2 text-sm text-slate-300"
@@ -227,13 +243,6 @@ onBeforeUnmount(() => {
             {{ schematicCaption }}
           </p>
         </div>
-
-        <UniverseDetailCard
-          :content="selectedContent"
-          :body-state="selectedBodyState"
-          :moon="snapshot.moon ?? null"
-          @close="selectBody(null)"
-        />
       </div>
       <template #fallback>
         <p class="text-sm text-slate-400">
