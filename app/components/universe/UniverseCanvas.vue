@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { UniverseRenderer } from '../../../lib/universe/renderer'
+import type { CameraKeyframe } from '../../../types/journey'
 import type {
   CameraMode,
   CelestialBodyId,
@@ -8,16 +9,24 @@ import type {
   UniverseSnapshot
 } from '../../../types/universe'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   level: UniverseLevel
   snapshot: UniverseSnapshot
   overlays: OverlayFlags
   cameraMode: CameraMode
   followBodyId: CelestialBodyId | null
-}>()
+  /** Full-bleed cinematic shell for Journey Mode */
+  variant?: 'explorer' | 'journey'
+  /** When false, setLevel will not auto-animate camera (journey drives keyframes) */
+  autoAnimateLevel?: boolean
+}>(), {
+  variant: 'explorer',
+  autoAnimateLevel: true
+})
 
 const emit = defineEmits<{
   selectBody: [id: CelestialBodyId | null]
+  ready: []
 }>()
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
@@ -37,13 +46,14 @@ async function mountRenderer(): Promise<void> {
     renderer = await createUniverseRenderer()
     await renderer.mount(canvasRef.value)
     renderer.onSelectBody((id) => emit('selectBody', id))
-    renderer.setLevel(props.level)
+    renderer.setLevel(props.level, { animateCamera: props.autoAnimateLevel })
     renderer.setSnapshot(props.snapshot)
     renderer.setOverlays(props.overlays)
     renderer.setCameraMode(props.cameraMode, props.followBodyId)
     if (containerRef.value) {
       renderer.resize(containerRef.value.clientWidth, containerRef.value.clientHeight)
     }
+    emit('ready')
   } catch (caught) {
     error.value = caught instanceof Error ? caught.message : 'Failed to start renderer'
   } finally {
@@ -54,7 +64,7 @@ async function mountRenderer(): Promise<void> {
 watch(
   () => props.level,
   (level) => {
-    renderer?.setLevel(level)
+    renderer?.setLevel(level, { animateCamera: props.autoAnimateLevel })
   }
 )
 
@@ -105,12 +115,26 @@ onBeforeUnmount(() => {
   renderer?.dispose()
   renderer = null
 })
+
+defineExpose({
+  animateCamera(keyframe: CameraKeyframe) {
+    return renderer?.animateCamera(keyframe) ?? Promise.resolve()
+  },
+  cancelCameraAnimation() {
+    renderer?.cancelCameraAnimation()
+  },
+  setControlsEnabled(enabled: boolean) {
+    renderer?.setControlsEnabled(enabled)
+  }
+})
 </script>
 
 <template>
   <div
     ref="containerRef"
-    class="relative aspect-[16/10] w-full min-h-[420px] overflow-hidden rounded-2xl bg-slate-950 sm:min-h-[520px] lg:min-h-[640px]"
+    :class="variant === 'journey'
+      ? 'relative h-full min-h-[100dvh] w-full overflow-hidden bg-slate-950'
+      : 'relative aspect-[16/10] w-full min-h-[420px] overflow-hidden rounded-2xl bg-slate-950 sm:min-h-[520px] lg:min-h-[640px]'"
   >
     <canvas
       ref="canvasRef"

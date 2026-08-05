@@ -16,7 +16,8 @@
     "moonCalendar": "Lịch Mặt Trăng",
     "meteorShowers": "Mưa sao băng",
     "astrophotography": "Chụp ảnh bầu trời",
-    "universe": "Khám phá Vũ trụ"
+    "universe": "Khám phá Vũ trụ",
+    "journey": "Hành trình vũ trụ"
   },
   "settings": {
     "language": "Ngôn ngữ",
@@ -655,7 +656,11 @@
       "needLocation": "Thêm vị trí để cá nhân hóa Level 1 (Bạn).",
       "levelLocked": "Level 1 cần tọa độ của bạn.",
       "season": "Mùa (Bắc bán cầu)",
-      "texturesNote": "Texture tùy chọn — xem public/textures/universe/ATTRIBUTION.md"
+      "texturesNote": "Texture tùy chọn — xem public/textures/universe/ATTRIBUTION.md",
+      "journeyLink": "Vào Journey Mode →"
+    },
+    "journey": {
+      "title": "Journey Mode · Sky Companion"
     }
   },
   "universe": {
@@ -793,6 +798,437 @@
           "Có gió nhanh nhất được đo trong Hệ Mặt Trời.",
           "Mất khoảng 165 năm Trái Đất để quay quanh Mặt Trời."
         ]
+      }
+    }
+  },
+  "journey": {
+    "eyebrow": "Journey Mode",
+    "heading": "Hành trình dẫn lối qua các thang đo",
+    "subtitle": "Đi từ chỗ bạn đứng tới rìa vũ trụ quan sát được — rồi tìm đường về nhà.",
+    "comingSoon": "Sắp ra mắt",
+    "begin": "Bắt đầu",
+    "back": "Tất cả hành trình",
+    "completed": "Hành trình hoàn tất.",
+    "openExplorer": "Mở Universe Explorer",
+    "timeline": {
+      "label": "Tiến trình hành trình"
+    },
+    "controls": {
+      "label": "Điều khiển phát",
+      "play": "Phát",
+      "pause": "Tạm dừng",
+      "restart": "Phát lại",
+      "skip": "Bỏ qua",
+      "previous": "Trước",
+      "next": "Sau",
+      "speed": "Tốc độ phát"
+    },
+    "subtitles": {
+      "on": "Phụ đề bật",
+      "off": "Phụ đề tắt"
+    },
+    "card": {
+      "expand": "Chi tiết",
+      "collapse": "Thu gọn",
+      "scale": "Thang đo",
+      "distance": "Khoảng cách",
+      "size": "Kích thước"
+    },
+    "whereAmI": {
+      "title": "Tôi đang ở đâu?",
+      "description": "Phóng xa từ bạn tới vũ trụ quan sát được — hành trình kiểu Powers of Ten.",
+      "steps": {
+        "you": {
+          "narration": {
+            "title": "Bạn",
+            "body": "Đây là vị trí của bạn trên Trái Đất lúc này.",
+            "subtitle": "Bạn đang ở đây."
+          },
+          "card": {
+            "title": "You",
+            "description": "A single human vantage point on a living world.",
+            "facts": [
+              "Your coordinates anchor Level 1 of Universe Explorer.",
+              "Every cosmic journey begins with a local perspective."
+            ],
+            "scale": "Human scale",
+            "distance": "Standing on Earth",
+            "sizeComparison": "Tiny against a planet",
+            "learnMore": "You are the starting point of perspective."
+          }
+        },
+        "city": {
+          "narration": {
+            "title": "Thành phố của bạn",
+            "body": "Around you stretches a city — millions of lives sharing one sky.",
+            "subtitle": "Your city under one sky."
+          },
+          "card": {
+            "title": "Your city",
+            "description": "A human community woven into the landscape.",
+            "facts": [
+              "Cities concentrate people, light, and culture.",
+              "From orbit, city lights trace our presence at night."
+            ],
+            "scale": "Tens of kilometers",
+            "distance": "Local region",
+            "sizeComparison": "Still a speck on Earth",
+            "learnMore": "Generic label — your real city name can arrive later."
+          }
+        },
+        "country": {
+          "narration": {
+            "title": "Quốc gia của bạn",
+            "body": "Zoom out and borders appear — stories of people, land, and shared history.",
+            "subtitle": "A nation on a blue world."
+          },
+          "card": {
+            "title": "Your country",
+            "description": "A region of Earth defined by people and geography.",
+            "facts": [
+              "Countries are human maps drawn on a spherical planet.",
+              "From space, political borders disappear."
+            ],
+            "scale": "Hundreds to thousands of km",
+            "distance": "Continental scale",
+            "sizeComparison": "A patch on Earth",
+            "learnMore": "Generic label for MVP."
+          }
+        },
+        "earth": {
+          "narration": {
+            "title": "Trái Đất",
+            "body": "Thế giới duy nhất được biết là có sự sống.",
+            "subtitle": "Hành tinh sống của chúng ta."
+          },
+          "card": {
+            "title": "Earth",
+            "description": "A water-rich rocky planet in the habitable zone.",
+            "facts": [
+              "About 71% of the surface is covered by water.",
+              "The axial tilt drives the seasons."
+            ],
+            "scale": "Planet",
+            "distance": "1 AU from the Sun",
+            "sizeComparison": "One of eight planets",
+            "learnMore": "Home to every story we know."
+          }
+        },
+        "earthMoon": {
+          "narration": {
+            "title": "Trái Đất–Mặt Trăng",
+            "body": "Earth and Moon dance together in gravity.",
+            "subtitle": "A double world."
+          },
+          "card": {
+            "title": "Earth-Moon system",
+            "description": "Our planet and its natural satellite.",
+            "facts": [
+              "Average Earth-Moon distance is about 384,000 km.",
+              "The Moon stabilizes Earth tilt and shapes tides."
+            ],
+            "scale": "Hundreds of thousands of km",
+            "distance": "~1.3 light-seconds",
+            "sizeComparison": "Moon is ~1/4 Earth diameter",
+            "learnMore": "Our nearest cosmic neighbor."
+          }
+        },
+        "solarSystem": {
+          "narration": {
+            "title": "Hệ Mặt Trời",
+            "body": "Hệ nhà của chúng ta có tám hành tinh quanh một ngôi sao.",
+            "subtitle": "Một sao, nhiều thế giới."
+          },
+          "card": {
+            "title": "Solar System",
+            "description": "The Sun and everything bound to it by gravity.",
+            "facts": [
+              "It formed about 4.6 billion years ago.",
+              "Most mass sits in the Sun."
+            ],
+            "scale": "Billions of km",
+            "distance": "Light takes hours to cross the outer system",
+            "sizeComparison": "Vast compared with Earth",
+            "learnMore": "Our local cosmic neighborhood."
+          }
+        },
+        "orionArm": {
+          "narration": {
+            "title": "Nhánh Orion",
+            "body": "Our Solar System lives inside one spiral arm of the Milky Way.",
+            "subtitle": "A quiet suburb of the Galaxy."
+          },
+          "card": {
+            "title": "Orion Arm",
+            "description": "A minor spiral feature of the Milky Way.",
+            "facts": [
+              "We are ~27,000 light-years from the galactic center.",
+              "Nearby bright stars sketch this local region."
+            ],
+            "scale": "Thousands of light-years",
+            "distance": "Inside the Milky Way",
+            "sizeComparison": "Still within one galaxy",
+            "learnMore": "A schematic stop for orientation."
+          }
+        },
+        "milkyWay": {
+          "narration": {
+            "title": "Ngân Hà",
+            "body": "Hệ Mặt Trời nằm trong một nhánh xoắn của Ngân Hà.",
+            "subtitle": "Hàng trăm tỷ mặt trời."
+          },
+          "card": {
+            "title": "Milky Way",
+            "description": "A barred spiral galaxy containing our Solar System.",
+            "facts": [
+              "Roughly 100,000 light-years across.",
+              "It is one of countless galaxies."
+            ],
+            "scale": "Galaxy",
+            "distance": "Tens of thousands of light-years across our view",
+            "sizeComparison": "Dwarfs the Solar System completely",
+            "learnMore": "We live in one of its quieter arms."
+          }
+        },
+        "localGroup": {
+          "narration": {
+            "title": "Nhóm Địa phương",
+            "body": "The Milky Way belongs to a small family of galaxies.",
+            "subtitle": "Neighbors in the dark."
+          },
+          "card": {
+            "title": "Local Group",
+            "description": "A gravitational gathering including Milky Way and Andromeda.",
+            "facts": [
+              "Andromeda is on a long path toward a far-future encounter.",
+              "Most members are dwarf galaxies."
+            ],
+            "scale": "Millions of light-years",
+            "distance": "Across intergalactic space",
+            "sizeComparison": "Galaxies as points of light",
+            "learnMore": "Our galactic neighborhood."
+          }
+        },
+        "virgo": {
+          "narration": {
+            "title": "Siêu đám Virgo",
+            "body": "Galaxy groups gather into a still larger structure.",
+            "subtitle": "A continent of galaxies."
+          },
+          "card": {
+            "title": "Virgo Supercluster",
+            "description": "A vast assembly of galaxy groups and clusters.",
+            "facts": [
+              "Named for the Virgo Cluster near its heart.",
+              "Gravity weaves structure across hundreds of millions of light-years."
+            ],
+            "scale": "Hundreds of millions of light-years",
+            "distance": "Deep sky",
+            "sizeComparison": "Supercluster scale",
+            "learnMore": "We are not at the center — just residents."
+          }
+        },
+        "laniakea": {
+          "narration": {
+            "title": "Laniakea",
+            "body": "An immense basin of galaxies flowing toward a gravitational attractor.",
+            "subtitle": "Our home supercluster complex."
+          },
+          "card": {
+            "title": "Laniakea",
+            "description": "A proposed local supercluster structure — immeasurable heaven.",
+            "facts": [
+              "Includes the Virgo Supercluster as a part.",
+              "Shown here as an educational stop on existing schematic scales."
+            ],
+            "scale": "Hundreds of millions of light-years",
+            "distance": "Cosmic web scale",
+            "sizeComparison": "Dwarfs a single galaxy cluster",
+            "learnMore": "A modern map of our cosmic address."
+          }
+        },
+        "observableUniverse": {
+          "narration": {
+            "title": "Vũ trụ quan sát được",
+            "body": "Đây là vùng lớn nhất của Vũ trụ ta có thể quan sát hiện nay.",
+            "subtitle": "Chân trời của ánh sáng."
+          },
+          "card": {
+            "title": "Observable Universe",
+            "description": "Everything from which light has had time to reach us.",
+            "facts": [
+              "Limited by the age of the Universe and the speed of light.",
+              "Beyond this horizon may lie more — unseen for now."
+            ],
+            "scale": "About 93 billion light-years across (comoving)",
+            "distance": "Cosmic horizon",
+            "sizeComparison": "The widest stage we can show",
+            "learnMore": "Perspective: we are a brief spark in a vast cosmos."
+          }
+        }
+      }
+    },
+    "returnHome": {
+      "title": "Về nhà",
+      "description": "Đi ngược từ chân trời vũ trụ về chỗ bạn đứng.",
+      "steps": {
+        "observableUniverse": {
+          "narration": {
+            "title": "Quay lưng lại",
+            "body": "Từ rìa những gì ta thấy, hành trình dài về nhà bắt đầu.",
+            "subtitle": "Về nhà."
+          }
+        },
+        "laniakea": {
+          "narration": {
+            "title": "Qua Laniakea",
+            "body": "Ta trôi ngược qua lưu vực thiên hà về những bờ quen.",
+            "subtitle": "Gần hơn."
+          }
+        },
+        "milkyWay": {
+          "narration": {
+            "title": "Ngân Hà trở lại",
+            "body": "Ngân Hà sáng lên — một xoắn ốc cuối cùng gọi là nhà.",
+            "subtitle": "Nhà thiên hà."
+          }
+        },
+        "solarSystem": {
+          "narration": {
+            "title": "Một ngôi sao vàng",
+            "body": "Giữa vô số mặt trời, một hệ sao đang chờ.",
+            "subtitle": "Sắp tới."
+          }
+        },
+        "earth": {
+          "narration": {
+            "title": "Viên bi xanh",
+            "body": "Trái Đất hiện ra — đại dương, mây, và bầu trời duy nhất ta từng biết.",
+            "subtitle": "Hành tinh nhà."
+          }
+        },
+        "city": {
+          "narration": {
+            "title": "Đèn thành phố",
+            "body": "Phố xá trở lại. Vũ trụ lại thành phông nền.",
+            "subtitle": "Gần nhà."
+          }
+        },
+        "you": {
+          "narration": {
+            "title": "Bạn",
+            "body": "Về đúng nơi bắt đầu — mang theo một bầu trời rộng hơn trong lòng.",
+            "subtitle": "Bạn đang ở đây."
+          }
+        }
+      }
+    },
+    "toTheSun": {
+      "title": "Hành trình tới Mặt Trời",
+      "description": "Rời Trái Đất và tiến gần ngôi sao nuôi sống thế giới chúng ta.",
+      "steps": {
+        "earth": {
+          "narration": {
+            "title": "Earth",
+            "body": "We begin on the sunlit face of our world.",
+            "subtitle": "Departing Earth."
+          },
+          "card": {
+            "title": "Earth",
+            "description": "A starting platform for a solar voyage.",
+            "facts": [
+              "Sunlight takes about 8 minutes to reach us.",
+              "Earth orbits at 1 astronomical unit."
+            ],
+            "scale": "Planet",
+            "distance": "1 AU",
+            "sizeComparison": "Tiny next to the Sun",
+            "learnMore": "Our launch point."
+          }
+        },
+        "earthMoon": {
+          "narration": {
+            "title": "Leaving the Moon",
+            "body": "Past the Moon, sunlight dominates the void.",
+            "subtitle": "Outbound."
+          },
+          "card": {
+            "title": "Earth-Moon",
+            "description": "The first stepping stone outward.",
+            "facts": [
+              "The Moon reflects sunlight to our nights.",
+              "Beyond it, we enter heliocentric space."
+            ],
+            "scale": "Lunar distance",
+            "distance": "~384,000 km",
+            "sizeComparison": "Still near Earth",
+            "learnMore": "A brief farewell."
+          }
+        },
+        "solarSystem": {
+          "narration": {
+            "title": "Inner Solar System",
+            "body": "Planets circle a brilliant center of gravity and light.",
+            "subtitle": "Toward the Sun."
+          },
+          "card": {
+            "title": "Solar System",
+            "description": "The arena of our short journey.",
+            "facts": [
+              "Inner planets are rocky worlds.",
+              "The Sun holds the system together."
+            ],
+            "scale": "AU scale",
+            "distance": "Hours of light-travel",
+            "sizeComparison": "Sun rules the mass budget",
+            "learnMore": "Navigate by the star."
+          }
+        },
+        "sun": {
+          "narration": {
+            "title": "Mặt Trời",
+            "body": "Một quả cầu plasma rực sáng — động cơ của ban ngày, thời tiết và năng lượng sự sống.",
+            "subtitle": "Ngôi sao của chúng ta."
+          },
+          "card": {
+            "title": "Sun",
+            "description": "A G-type main-sequence star.",
+            "facts": [
+              "Contains about 99.8% of the Solar System mass.",
+              "Core fusion converts hydrogen into helium."
+            ],
+            "scale": "Star",
+            "distance": "0 AU (center)",
+            "sizeComparison": "About 109 Earth diameters across",
+            "learnMore": "Never look at the real Sun without proper filters — this is a safe simulation."
+          }
+        }
+      }
+    },
+    "stubs": {
+      "solarSystem": {
+        "title": "Du hành Hệ Mặt Trời",
+        "description": "Tour đầy đủ các hành tinh — sắp ra mắt."
+      },
+      "milkyWay": {
+        "title": "Hành trình tới Ngân Hà",
+        "description": "Kể chuyện thiên hà sâu hơn — sắp ra mắt."
+      },
+      "edgeOfUniverse": {
+        "title": "Tới rìa Vũ trụ",
+        "description": "Hành trình chân trời riêng — sắp ra mắt."
+      },
+      "voyager": {
+        "title": "Hành trình Voyager",
+        "description": "Theo dấu sứ giả xa nhất của nhân loại — sắp ra mắt."
+      },
+      "iss": {
+        "title": "Hành trình ISS",
+        "description": "Đồng hành cùng Trạm Vũ trụ Quốc tế — sắp ra mắt."
+      },
+      "galaxyTour": {
+        "title": "Tour thiên hà",
+        "description": "Thăm các thiên hà lân cận — sắp ra mắt."
       }
     }
   }

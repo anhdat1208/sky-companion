@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { Coordinates } from '../../types/location'
-import type { CelestialBodyId, OverlayFlags, TimeWarpFactor, UniverseLevel } from '../../types/universe'
-import UniverseCameraControls from '../components/universe/UniverseCameraControls.vue'
-import UniverseCanvas from '../components/universe/UniverseCanvas.vue'
-import UniverseDetailCard from '../components/universe/UniverseDetailCard.vue'
-import UniverseLevelRail from '../components/universe/UniverseLevelRail.vue'
-import UniverseLocationPrompt from '../components/universe/UniverseLocationPrompt.vue'
-import UniverseOverlayToggles from '../components/universe/UniverseOverlayToggles.vue'
-import UniverseTimelineControls from '../components/universe/UniverseTimelineControls.vue'
+import type { Coordinates } from '../../../types/location'
+import type { CelestialBodyId, OverlayFlags, TimeWarpFactor, UniverseLevel } from '../../../types/universe'
+import UniverseCameraControls from '../../components/universe/UniverseCameraControls.vue'
+import UniverseCanvas from '../../components/universe/UniverseCanvas.vue'
+import UniverseDetailCard from '../../components/universe/UniverseDetailCard.vue'
+import UniverseLevelRail from '../../components/universe/UniverseLevelRail.vue'
+import UniverseLocationPrompt from '../../components/universe/UniverseLocationPrompt.vue'
+import UniverseOverlayToggles from '../../components/universe/UniverseOverlayToggles.vue'
+import UniverseTimelineControls from '../../components/universe/UniverseTimelineControls.vue'
 
 definePageMeta({
   layout: 'universe'
@@ -160,6 +160,14 @@ onBeforeUnmount(() => {
       </h1>
       <p class="max-w-3xl text-sm text-slate-400">
         {{ t('pages.universe.subtitle') }}
+      </p>
+      <p class="pt-1">
+        <NuxtLink
+          to="/universe/journey"
+          class="text-sm text-sky-300 hover:text-sky-200"
+        >
+          {{ t('pages.universe.journeyLink') }}
+        </NuxtLink>
       </p>
       <p
         v-if="seasonLabel && level <= 2"

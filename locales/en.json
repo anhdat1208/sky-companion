@@ -16,7 +16,8 @@
     "moonCalendar": "Moon Calendar",
     "meteorShowers": "Meteor Showers",
     "astrophotography": "Astrophotography",
-    "universe": "Universe Explorer"
+    "universe": "Universe Explorer",
+    "journey": "Journey Mode"
   },
   "settings": {
     "language": "Language",
@@ -655,7 +656,11 @@
       "needLocation": "Add your location to personalize Level 1 (You).",
       "levelLocked": "Level 1 needs your coordinates.",
       "season": "Season (Northern)",
-      "texturesNote": "Textures optional — see public/textures/universe/ATTRIBUTION.md"
+      "texturesNote": "Textures optional — see public/textures/universe/ATTRIBUTION.md",
+      "journeyLink": "Enter Journey Mode →"
+    },
+    "journey": {
+      "title": "Journey Mode · Sky Companion"
     }
   },
   "universe": {
@@ -793,6 +798,437 @@
           "Has the fastest winds measured in the Solar System.",
           "Takes about 165 Earth years to orbit the Sun."
         ]
+      }
+    }
+  },
+  "journey": {
+    "eyebrow": "Journey Mode",
+    "heading": "A guided voyage through scale",
+    "subtitle": "Travel from where you stand to the edge of the observable Universe — and find your way home.",
+    "comingSoon": "Coming soon",
+    "begin": "Begin journey",
+    "back": "All journeys",
+    "completed": "Journey complete.",
+    "openExplorer": "Open Universe Explorer",
+    "timeline": {
+      "label": "Journey progress"
+    },
+    "controls": {
+      "label": "Playback controls",
+      "play": "Play",
+      "pause": "Pause",
+      "restart": "Restart",
+      "skip": "Skip",
+      "previous": "Previous",
+      "next": "Next",
+      "speed": "Playback speed"
+    },
+    "subtitles": {
+      "on": "Subtitles on",
+      "off": "Subtitles off"
+    },
+    "card": {
+      "expand": "Details",
+      "collapse": "Hide",
+      "scale": "Scale",
+      "distance": "Distance",
+      "size": "Size"
+    },
+    "whereAmI": {
+      "title": "Where Am I?",
+      "description": "Zoom outward from you to the observable Universe — a Powers of Ten style voyage.",
+      "steps": {
+        "you": {
+          "narration": {
+            "title": "You",
+            "body": "This is your place on Earth right now.",
+            "subtitle": "You are here."
+          },
+          "card": {
+            "title": "You",
+            "description": "A single human vantage point on a living world.",
+            "facts": [
+              "Your coordinates anchor Level 1 of Universe Explorer.",
+              "Every cosmic journey begins with a local perspective."
+            ],
+            "scale": "Human scale",
+            "distance": "Standing on Earth",
+            "sizeComparison": "Tiny against a planet",
+            "learnMore": "You are the starting point of perspective."
+          }
+        },
+        "city": {
+          "narration": {
+            "title": "Your city",
+            "body": "Around you stretches a city — millions of lives sharing one sky.",
+            "subtitle": "Your city under one sky."
+          },
+          "card": {
+            "title": "Your city",
+            "description": "A human community woven into the landscape.",
+            "facts": [
+              "Cities concentrate people, light, and culture.",
+              "From orbit, city lights trace our presence at night."
+            ],
+            "scale": "Tens of kilometers",
+            "distance": "Local region",
+            "sizeComparison": "Still a speck on Earth",
+            "learnMore": "Generic label — your real city name can arrive later."
+          }
+        },
+        "country": {
+          "narration": {
+            "title": "Your country",
+            "body": "Zoom out and borders appear — stories of people, land, and shared history.",
+            "subtitle": "A nation on a blue world."
+          },
+          "card": {
+            "title": "Your country",
+            "description": "A region of Earth defined by people and geography.",
+            "facts": [
+              "Countries are human maps drawn on a spherical planet.",
+              "From space, political borders disappear."
+            ],
+            "scale": "Hundreds to thousands of km",
+            "distance": "Continental scale",
+            "sizeComparison": "A patch on Earth",
+            "learnMore": "Generic label for MVP."
+          }
+        },
+        "earth": {
+          "narration": {
+            "title": "Earth",
+            "body": "The only known world that supports life.",
+            "subtitle": "Our living planet."
+          },
+          "card": {
+            "title": "Earth",
+            "description": "A water-rich rocky planet in the habitable zone.",
+            "facts": [
+              "About 71% of the surface is covered by water.",
+              "The axial tilt drives the seasons."
+            ],
+            "scale": "Planet",
+            "distance": "1 AU from the Sun",
+            "sizeComparison": "One of eight planets",
+            "learnMore": "Home to every story we know."
+          }
+        },
+        "earthMoon": {
+          "narration": {
+            "title": "Earth-Moon",
+            "body": "Earth and Moon dance together in gravity.",
+            "subtitle": "A double world."
+          },
+          "card": {
+            "title": "Earth-Moon system",
+            "description": "Our planet and its natural satellite.",
+            "facts": [
+              "Average Earth-Moon distance is about 384,000 km.",
+              "The Moon stabilizes Earth tilt and shapes tides."
+            ],
+            "scale": "Hundreds of thousands of km",
+            "distance": "~1.3 light-seconds",
+            "sizeComparison": "Moon is ~1/4 Earth diameter",
+            "learnMore": "Our nearest cosmic neighbor."
+          }
+        },
+        "solarSystem": {
+          "narration": {
+            "title": "Solar System",
+            "body": "Our home system contains eight planets orbiting one star.",
+            "subtitle": "One star, many worlds."
+          },
+          "card": {
+            "title": "Solar System",
+            "description": "The Sun and everything bound to it by gravity.",
+            "facts": [
+              "It formed about 4.6 billion years ago.",
+              "Most mass sits in the Sun."
+            ],
+            "scale": "Billions of km",
+            "distance": "Light takes hours to cross the outer system",
+            "sizeComparison": "Vast compared with Earth",
+            "learnMore": "Our local cosmic neighborhood."
+          }
+        },
+        "orionArm": {
+          "narration": {
+            "title": "Orion Arm",
+            "body": "Our Solar System lives inside one spiral arm of the Milky Way.",
+            "subtitle": "A quiet suburb of the Galaxy."
+          },
+          "card": {
+            "title": "Orion Arm",
+            "description": "A minor spiral feature of the Milky Way.",
+            "facts": [
+              "We are ~27,000 light-years from the galactic center.",
+              "Nearby bright stars sketch this local region."
+            ],
+            "scale": "Thousands of light-years",
+            "distance": "Inside the Milky Way",
+            "sizeComparison": "Still within one galaxy",
+            "learnMore": "A schematic stop for orientation."
+          }
+        },
+        "milkyWay": {
+          "narration": {
+            "title": "Milky Way",
+            "body": "A vast spiral of stars, gas, and dark matter — our galactic home.",
+            "subtitle": "Hundreds of billions of suns."
+          },
+          "card": {
+            "title": "Milky Way",
+            "description": "A barred spiral galaxy containing our Solar System.",
+            "facts": [
+              "Roughly 100,000 light-years across.",
+              "It is one of countless galaxies."
+            ],
+            "scale": "Galaxy",
+            "distance": "Tens of thousands of light-years across our view",
+            "sizeComparison": "Dwarfs the Solar System completely",
+            "learnMore": "We live in one of its quieter arms."
+          }
+        },
+        "localGroup": {
+          "narration": {
+            "title": "Local Group",
+            "body": "The Milky Way belongs to a small family of galaxies.",
+            "subtitle": "Neighbors in the dark."
+          },
+          "card": {
+            "title": "Local Group",
+            "description": "A gravitational gathering including Milky Way and Andromeda.",
+            "facts": [
+              "Andromeda is on a long path toward a far-future encounter.",
+              "Most members are dwarf galaxies."
+            ],
+            "scale": "Millions of light-years",
+            "distance": "Across intergalactic space",
+            "sizeComparison": "Galaxies as points of light",
+            "learnMore": "Our galactic neighborhood."
+          }
+        },
+        "virgo": {
+          "narration": {
+            "title": "Virgo Supercluster",
+            "body": "Galaxy groups gather into a still larger structure.",
+            "subtitle": "A continent of galaxies."
+          },
+          "card": {
+            "title": "Virgo Supercluster",
+            "description": "A vast assembly of galaxy groups and clusters.",
+            "facts": [
+              "Named for the Virgo Cluster near its heart.",
+              "Gravity weaves structure across hundreds of millions of light-years."
+            ],
+            "scale": "Hundreds of millions of light-years",
+            "distance": "Deep sky",
+            "sizeComparison": "Supercluster scale",
+            "learnMore": "We are not at the center — just residents."
+          }
+        },
+        "laniakea": {
+          "narration": {
+            "title": "Laniakea",
+            "body": "An immense basin of galaxies flowing toward a gravitational attractor.",
+            "subtitle": "Our home supercluster complex."
+          },
+          "card": {
+            "title": "Laniakea",
+            "description": "A proposed local supercluster structure — immeasurable heaven.",
+            "facts": [
+              "Includes the Virgo Supercluster as a part.",
+              "Shown here as an educational stop on existing schematic scales."
+            ],
+            "scale": "Hundreds of millions of light-years",
+            "distance": "Cosmic web scale",
+            "sizeComparison": "Dwarfs a single galaxy cluster",
+            "learnMore": "A modern map of our cosmic address."
+          }
+        },
+        "observableUniverse": {
+          "narration": {
+            "title": "Observable Universe",
+            "body": "This is the largest region of the Universe we can currently observe.",
+            "subtitle": "The horizon of light."
+          },
+          "card": {
+            "title": "Observable Universe",
+            "description": "Everything from which light has had time to reach us.",
+            "facts": [
+              "Limited by the age of the Universe and the speed of light.",
+              "Beyond this horizon may lie more — unseen for now."
+            ],
+            "scale": "About 93 billion light-years across (comoving)",
+            "distance": "Cosmic horizon",
+            "sizeComparison": "The widest stage we can show",
+            "learnMore": "Perspective: we are a brief spark in a vast cosmos."
+          }
+        }
+      }
+    },
+    "returnHome": {
+      "title": "Return Home",
+      "description": "Travel back from the cosmic horizon to the place you stand.",
+      "steps": {
+        "observableUniverse": {
+          "narration": {
+            "title": "Turning back",
+            "body": "From the edge of what we can see, we begin the long journey home.",
+            "subtitle": "Homeward."
+          }
+        },
+        "laniakea": {
+          "narration": {
+            "title": "Through Laniakea",
+            "body": "We fall back through the great basin of galaxies toward familiar shores.",
+            "subtitle": "Closer."
+          }
+        },
+        "milkyWay": {
+          "narration": {
+            "title": "Our Galaxy again",
+            "body": "The Milky Way brightens — a spiral we can finally call home.",
+            "subtitle": "Galactic home."
+          }
+        },
+        "solarSystem": {
+          "narration": {
+            "title": "One yellow star",
+            "body": "Among countless suns, one star system waits for us.",
+            "subtitle": "Almost there."
+          }
+        },
+        "earth": {
+          "narration": {
+            "title": "Blue marble",
+            "body": "Earth rises — oceans, clouds, and the only sky we have ever known.",
+            "subtitle": "Home world."
+          }
+        },
+        "city": {
+          "narration": {
+            "title": "Your city lights",
+            "body": "Streets and roofs return. The cosmos becomes a backdrop again.",
+            "subtitle": "Nearly home."
+          }
+        },
+        "you": {
+          "narration": {
+            "title": "You",
+            "body": "Back where you began — carrying a wider sky inside you.",
+            "subtitle": "You are here."
+          }
+        }
+      }
+    },
+    "toTheSun": {
+      "title": "Journey to the Sun",
+      "description": "Leave Earth behind and approach the star that powers our world.",
+      "steps": {
+        "earth": {
+          "narration": {
+            "title": "Earth",
+            "body": "We begin on the sunlit face of our world.",
+            "subtitle": "Departing Earth."
+          },
+          "card": {
+            "title": "Earth",
+            "description": "A starting platform for a solar voyage.",
+            "facts": [
+              "Sunlight takes about 8 minutes to reach us.",
+              "Earth orbits at 1 astronomical unit."
+            ],
+            "scale": "Planet",
+            "distance": "1 AU",
+            "sizeComparison": "Tiny next to the Sun",
+            "learnMore": "Our launch point."
+          }
+        },
+        "earthMoon": {
+          "narration": {
+            "title": "Leaving the Moon",
+            "body": "Past the Moon, sunlight dominates the void.",
+            "subtitle": "Outbound."
+          },
+          "card": {
+            "title": "Earth-Moon",
+            "description": "The first stepping stone outward.",
+            "facts": [
+              "The Moon reflects sunlight to our nights.",
+              "Beyond it, we enter heliocentric space."
+            ],
+            "scale": "Lunar distance",
+            "distance": "~384,000 km",
+            "sizeComparison": "Still near Earth",
+            "learnMore": "A brief farewell."
+          }
+        },
+        "solarSystem": {
+          "narration": {
+            "title": "Inner Solar System",
+            "body": "Planets circle a brilliant center of gravity and light.",
+            "subtitle": "Toward the Sun."
+          },
+          "card": {
+            "title": "Solar System",
+            "description": "The arena of our short journey.",
+            "facts": [
+              "Inner planets are rocky worlds.",
+              "The Sun holds the system together."
+            ],
+            "scale": "AU scale",
+            "distance": "Hours of light-travel",
+            "sizeComparison": "Sun rules the mass budget",
+            "learnMore": "Navigate by the star."
+          }
+        },
+        "sun": {
+          "narration": {
+            "title": "The Sun",
+            "body": "A glowing sphere of plasma — the engine of daylight, weather, and life energy.",
+            "subtitle": "Our star."
+          },
+          "card": {
+            "title": "Sun",
+            "description": "A G-type main-sequence star.",
+            "facts": [
+              "Contains about 99.8% of the Solar System mass.",
+              "Core fusion converts hydrogen into helium."
+            ],
+            "scale": "Star",
+            "distance": "0 AU (center)",
+            "sizeComparison": "About 109 Earth diameters across",
+            "learnMore": "Never look at the real Sun without proper filters — this is a safe simulation."
+          }
+        }
+      }
+    },
+    "stubs": {
+      "solarSystem": {
+        "title": "Journey through the Solar System",
+        "description": "A fuller tour of the planets — coming soon."
+      },
+      "milkyWay": {
+        "title": "Journey to the Milky Way",
+        "description": "Deeper galactic storytelling — coming soon."
+      },
+      "edgeOfUniverse": {
+        "title": "Journey to the Edge of the Universe",
+        "description": "A dedicated horizon voyage — coming soon."
+      },
+      "voyager": {
+        "title": "Voyager Journey",
+        "description": "Follow humanity farthest emissaries — coming soon."
+      },
+      "iss": {
+        "title": "ISS Journey",
+        "description": "Ride along with the International Space Station — coming soon."
+      },
+      "galaxyTour": {
+        "title": "Galaxy Tour",
+        "description": "Visit neighboring galaxies — coming soon."
       }
     }
   }

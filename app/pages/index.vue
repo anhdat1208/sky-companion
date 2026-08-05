@@ -291,6 +291,12 @@ onMounted(async () => {
         >
           {{ t('nav.universe') }}
         </NuxtLink>
+        <NuxtLink
+          to="/universe/journey"
+          class="inline-flex rounded-xl border border-slate-700 bg-slate-900/80 px-4 py-2.5 text-sm font-medium text-sky-300 transition hover:border-sky-500/50 hover:bg-slate-900 hover:text-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
+        >
+          {{ t('nav.journey') }}
+        </NuxtLink>
       </div>
     </header>
 

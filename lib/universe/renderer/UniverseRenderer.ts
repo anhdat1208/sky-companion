@@ -1,3 +1,4 @@
+import type { CameraKeyframe } from '../../../types/journey'
 import type {
   CameraMode,
   CelestialBodyId,
@@ -138,10 +139,12 @@ export async function createUniverseRenderer(): Promise<UniverseRenderer> {
       raf = requestAnimationFrame(frame)
     },
 
-    setLevel(level: UniverseLevel) {
+    setLevel(level: UniverseLevel, options?: { animateCamera?: boolean }) {
       if (!levelController || !cameraController || !overlays) return
       levelController.setLevel(level, snapshot)
-      cameraController.beginLevelTransition(level)
+      if (options?.animateCamera !== false) {
+        cameraController.beginLevelTransition(level)
+      }
       overlays.setTracked(levelController.current?.getTrackedForOverlays() ?? [])
     },
 
@@ -162,6 +165,31 @@ export async function createUniverseRenderer(): Promise<UniverseRenderer> {
 
     setCameraMode(mode: CameraMode, bodyId?: CelestialBodyId | null) {
       cameraController?.setMode(mode, bodyId)
+    },
+
+    animateCamera(keyframe: CameraKeyframe) {
+      return new Promise<void>((resolve) => {
+        if (!cameraController) {
+          resolve()
+          return
+        }
+        cameraController.animateTo(keyframe, () => resolve())
+      })
+    },
+
+    cancelCameraAnimation() {
+      cameraController?.cancelAnimation()
+    },
+
+    setControlsEnabled(enabled: boolean) {
+      cameraController?.setControlsEnabled(enabled)
+    },
+
+    onCameraIdle(handler: () => void) {
+      if (!cameraController) {
+        return () => {}
+      }
+      return cameraController.onIdle(handler)
     },
 
     onSelectBody(handler: (id: CelestialBodyId | null) => void) {
